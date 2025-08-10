@@ -28,7 +28,7 @@ export default function Home() {
 
         <nav style={{ marginTop: '3rem' }}>
           <p>
-            <Link href="/writing">Writing</Link> • <Link href="/about">About</Link> • <a href="https://www.linkedin.com/in/blakeyoder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <Link href="/writing">Writing</Link> • <Link href="/bookmarks">Bookmarks</Link> • <Link href="/about">About</Link> • <a href="https://www.linkedin.com/in/blakeyoder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </p>
         </nav>
       </main>
