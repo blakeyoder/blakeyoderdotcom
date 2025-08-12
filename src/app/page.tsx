@@ -18,7 +18,7 @@ export default function Home() {
         </p>
 
         <p>
-          <em>"AI is shipping more of our code. But who actually understands the system now?"</em>
+          <em>&ldquo;AI is shipping more of our code. But who actually understands the system now?&rdquo;</em>
         </p>
 
         <p>
@@ -28,7 +28,7 @@ export default function Home() {
 
         <nav style={{ marginTop: '3rem' }}>
           <p>
-            <Link href="/writing">Writing</Link> • <Link href="/bookmarks">Bookmarks</Link> • <Link href="/about">About</Link> • <a href="https://www.linkedin.com/in/blakeyoder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <Link href="/writing">Writing</Link> • <Link href="/bookmarks">Bookmarks</Link> • <Link href="/about">About</Link> • <Link href="/vim">Vim</Link> • <a href="https://www.linkedin.com/in/blakeyoder/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </p>
         </nav>
       </main>

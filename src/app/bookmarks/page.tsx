@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 const bookmarkCategories = {
   "Engineering Leadership": [
@@ -488,6 +491,13 @@ const bookmarkCategories = {
 };
 
 export default function Bookmarks() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const categories = Object.keys(bookmarkCategories);
+  
+  const filteredCategories = selectedCategory
+    ? { [selectedCategory]: bookmarkCategories[selectedCategory as keyof typeof bookmarkCategories] }
+    : bookmarkCategories;
+
   return (
     <div className="container">
       <header>
@@ -498,14 +508,101 @@ export default function Bookmarks() {
       </header>
 
       <main>
-        <p style={{ marginBottom: '3rem' }}>
-          A collection of articles, tools, and resources I've found valuable over the years. 
-          These cover engineering leadership, technical practices, career development, and the occasional recipe.
+        <p style={{ marginBottom: '2rem' }}>
+For nearly six years, I’ve kept a Firefox bookmark folder called “Reading List”—a running collection of interesting articles I’ve found online. Most I’ve read, some I still haven’t. A few years ago, a report who was leaving asked if they could take the list with them. (Some folks on the team knew I had a pretty extensive stash of saved resources.) I exported the folder and shared it with them.
+<br/>
+<br/>
+I’m sharing it with you now in the same spirit. I hope you find something useful in here. It’s a little snapshot of me—spanning everything from scaling systems to no-knead focaccia bread recipes.
         </p>
 
+        <div style={{ marginBottom: '3rem' }}>
+          <div 
+            role="group" 
+            aria-label="Filter bookmarks by category"
+            style={{ 
+              display: 'flex', 
+              flexWrap: 'wrap', 
+              gap: '0.5rem',
+              marginBottom: '0.5rem' 
+            }}
+          >
+            <button
+              onClick={() => setSelectedCategory(null)}
+              aria-pressed={selectedCategory === null}
+              aria-label={`Show all categories (${Object.values(bookmarkCategories).flat().length} links)`}
+              style={{
+                padding: '0.5rem 1rem',
+                border: selectedCategory === null ? '1px solid var(--text-primary)' : '1px solid var(--border-color)',
+                backgroundColor: selectedCategory === null ? 'var(--text-primary)' : 'transparent',
+                color: selectedCategory === null ? 'var(--background)' : 'var(--text-secondary)',
+                borderRadius: '4px',
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                fontFamily: 'inherit'
+              }}
+              onMouseEnter={(e) => {
+                if (selectedCategory !== null) {
+                  (e.target as HTMLElement).style.borderColor = 'var(--text-secondary)';
+                  (e.target as HTMLElement).style.color = 'var(--text-primary)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (selectedCategory !== null) {
+                  (e.target as HTMLElement).style.borderColor = 'var(--border-color)';
+                  (e.target as HTMLElement).style.color = 'var(--text-secondary)';
+                }
+              }}
+            >
+              All ({Object.values(bookmarkCategories).flat().length})
+            </button>
+            
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                aria-pressed={selectedCategory === category}
+                aria-label={`Filter by ${category} (${bookmarkCategories[category as keyof typeof bookmarkCategories].length} links)`}
+                style={{
+                  padding: '0.5rem 1rem',
+                  border: selectedCategory === category ? '1px solid var(--text-primary)' : '1px solid var(--border-color)',
+                  backgroundColor: selectedCategory === category ? 'var(--text-primary)' : 'transparent',
+                  color: selectedCategory === category ? 'var(--background)' : 'var(--text-secondary)',
+                  borderRadius: '4px',
+                  fontSize: '0.875rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'inherit'
+                }}
+                onMouseEnter={(e) => {
+                  if (selectedCategory !== category) {
+                    (e.target as HTMLElement).style.borderColor = 'var(--text-secondary)';
+                    (e.target as HTMLElement).style.color = 'var(--text-primary)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (selectedCategory !== category) {
+                    (e.target as HTMLElement).style.borderColor = 'var(--border-color)';
+                    (e.target as HTMLElement).style.color = 'var(--text-secondary)';
+                  }
+                }}
+              >
+                {category} ({bookmarkCategories[category as keyof typeof bookmarkCategories].length})
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-          {Object.entries(bookmarkCategories).map(([category, links]) => (
-            <div key={category}>
+          {Object.entries(filteredCategories).map(([category, links]) => (
+            <div 
+              key={category}
+              style={{
+                opacity: 1,
+                transform: 'translateY(0)',
+                transition: 'opacity 0.3s ease, transform 0.3s ease'
+              }}
+            >
               <h2 style={{ 
                 fontSize: '1.25rem', 
                 marginBottom: '1.5rem',
@@ -532,8 +629,8 @@ export default function Bookmarks() {
                         display: 'block',
                         transition: 'color 0.2s ease'
                       }}
-                      onMouseEnter={(e) => e.target.style.color = 'var(--text-secondary)'}
-                      onMouseLeave={(e) => e.target.style.color = 'var(--text-primary)'}
+                      onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'var(--text-secondary)'}
+                      onMouseLeave={(e) => (e.target as HTMLElement).style.color = 'var(--text-primary)'}
                     >
                       {bookmark.title}
                     </a>

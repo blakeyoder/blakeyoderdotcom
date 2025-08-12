@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Crimson_Text } from "next/font/google";
 import "./globals.css";
+import VimStatusBar from "../components/VimStatusBar";
 
 const crimsonText = Crimson_Text({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={crimsonText.variable}>
         {children}
+        <VimStatusBar />
       </body>
     </html>
   );

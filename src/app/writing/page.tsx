@@ -18,14 +18,14 @@ export default function Writing() {
         <div style={{ marginTop: '3rem' }}>
           <h2>Coming Soon</h2>
           <p style={{ color: 'var(--text-secondary)' }}>
-            I'm working on my first essays about scaling engineering teams, 
+            I&apos;m working on my first essays about scaling engineering teams, 
             the intersection of AI and human decision-making, and lessons learned 
             from nearly seven years in digital healthcare.
           </p>
         </div>
 
         <div style={{ marginTop: '3rem' }}>
-          <h3>What I'm thinking about:</h3>
+          <h3>What I&apos;m thinking about:</h3>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             <li style={{ marginBottom: '1rem' }}>
               • How do we maintain system understanding when AI writes more of our code?

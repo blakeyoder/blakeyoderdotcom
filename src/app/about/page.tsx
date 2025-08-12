@@ -12,14 +12,14 @@ export default function About() {
 
       <main>
         <p>
-          I'm Head of Engineering at Berry Street, where I lead teams building technology 
+          I&apos;m Head of Engineering at Berry Street, where I lead teams building technology 
           that helps people access mental healthcare. Nearly seven years in digital healthcare 
           has taught me that the most interesting—and most important—problems live at the 
           intersection of human systems and technical systems.
         </p>
 
         <p>
-          Before Berry Street, I've helped scale teams and technology through hyper-growth, 
+          Before Berry Street, I&apos;ve helped scale teams and technology through hyper-growth, 
           learning that the tools we build are only as effective as the humans who use them. 
           This perspective shapes everything I do: from technical architecture decisions to 
           how we structure teams to how we think about the future of AI in healthcare.
@@ -27,25 +27,25 @@ export default function About() {
 
         <h2>Influences</h2>
         <p>
-          I'm inspired by leaders who understand that technology is fundamentally about people. 
-          Jerry Colonna's work on conscious leadership, Derek Rutter's approach to systems thinking, 
-          and Gil Shklarski's insights on scaling organizations all inform how I think about 
+          I&apos;m inspired by leaders who understand that technology is fundamentally about people. 
+          Jerry Colonna&apos;s work on conscious leadership, Derek Rutter&apos;s approach to systems thinking, 
+          and Gil Shklarski&apos;s insights on scaling organizations all inform how I think about 
           building teams that can adapt and thrive through uncertainty.
         </p>
 
         <h2>Philosophy</h2>
         <p>
           I believe great engineering teams are built on three principles: deep technical 
-          understanding, clear communication, and genuine care for the problems we're solving. 
+          understanding, clear communication, and genuine care for the problems we&apos;re solving. 
           Technology should be leverage, not an end in itself.
         </p>
 
         <p>
-          When I'm not thinking about code or teams, I'm usually reflecting on macro trends 
+          When I&apos;m not thinking about code or teams, I&apos;m usually reflecting on macro trends 
           and their second-order effects. How does AI change how we think about expertise? 
           How do we maintain human agency in increasingly automated systems? These questions 
-          fascinate me because they're not just about technology—they're about the kind of 
-          future we're building together.
+          fascinate me because they&apos;re not just about technology—they&apos;re about the kind of 
+          future we&apos;re building together.
         </p>
 
         <div style={{ marginTop: '3rem' }}>
