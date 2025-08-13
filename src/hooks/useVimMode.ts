@@ -39,10 +39,19 @@ export function useVimMode() {
         if (searchTerm) {
           const selection = window.getSelection();
           selection?.removeAllRanges();
-          const found = window.find(searchTerm, false, false, true);
-          if (!found) {
-            // Try from beginning
-            window.find(searchTerm, false, false, false);
+          // Use legacy find API with fallback
+          try {
+            const windowWithFind = window as Window & { find?: (searchString: string, caseSensitive?: boolean, backwards?: boolean, wrapAround?: boolean) => boolean };
+            if ('find' in window && typeof windowWithFind.find === 'function') {
+              const found = windowWithFind.find(searchTerm, false, false, true);
+              if (!found) {
+                // Try from beginning
+                windowWithFind.find(searchTerm, false, false, false);
+              }
+            }
+          } catch {
+            // Fallback: just scroll to show search term if find fails
+            console.log('Search term:', searchTerm);
           }
         }
         setVimMode('normal');

@@ -11,19 +11,23 @@ export default function Home() {
       </header>
 
       <main>
-        <p>
-          I scale teams and businesses through hyper-growth, using technology as leverage for business outcomes. 
-          Nearly seven years in digital healthcare has taught me that the most interesting problems live at the 
-          intersection of human systems and technical systems.
+        <p style={{ marginBottom: '1.5rem' }}>
+          The most interesting problems live at the intersection of human systems and technical systems. Over the past decade—including seven years in digital healthcare—I&rsquo;ve learned how technology, when used well, can create outsized business outcomes.
+        </p>
+
+        <p style={{ marginBottom: '1.5rem' }}>
+          I&rsquo;ve applied that belief in scaling teams and businesses through rapid growth—most notably helping scale <a 
+            href="https://thirtymadison.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ borderBottom: '1px solid var(--text-tertiary)' }}
+          >
+            Thirty Madison
+          </a> from Series A to over $250M in ARR. My work sits at the crossroads of technology and business strategy, aligning people, process, and product to turn uncertainty into momentum.
         </p>
 
         <p>
-          <em>&ldquo;AI is shipping more of our code. But who actually understands the system now?&rdquo;</em>
-        </p>
-
-        <p>
-          I write about technical subjects as they relate to business insights and macro trends, 
-          team building, and the personal reflections that come from leading through uncertainty.
+          I write about the overlap between technical execution and business impact—covering macro trends, team dynamics, and the personal reflections that come from leading through change.
         </p>
 
         <nav style={{ marginTop: '3rem' }}>
