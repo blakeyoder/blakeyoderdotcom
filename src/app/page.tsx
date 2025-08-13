@@ -5,9 +5,6 @@ export default function Home() {
     <div className="container">
       <header>
         <h1>Blake Yoder</h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '2rem' }}>
-          Head of Engineering at <a href="https://berrystreet.co" target="_blank" rel="noopener noreferrer">Berry Street</a>
-        </p>
       </header>
 
       <main>

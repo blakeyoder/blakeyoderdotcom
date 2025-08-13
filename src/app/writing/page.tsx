@@ -31,13 +31,13 @@ export default function Writing() {
               • How do we maintain system understanding when AI writes more of our code?
             </li>
             <li style={{ marginBottom: '1rem' }}>
-              • The relationship between technical debt and organizational debt
+              • LLMs are like water, they dilute everything they touch. How do we create concentrated inputs. Dilute orange juice = gross. Dilute orange juice concentrate = good enough.
             </li>
             <li style={{ marginBottom: '1rem' }}>
               • Building teams that can adapt to macro trends without losing their core
             </li>
             <li style={{ marginBottom: '1rem' }}>
-              • What healthcare technology teaches us about human-centered design
+              • What differentiates products when the ability to build approaches zero
             </li>
           </ul>
         </div>
