@@ -1,4 +1,32 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Writing | Blake Yoder",
+  description: "Essays on technology, leadership, and the human systems that make or break great teams.",
+  openGraph: {
+    title: "Writing by Blake Yoder",
+    description: "Essays on technology, leadership, and the human systems that make or break great teams.",
+    url: "https://blakeyoder.com/writing",
+    siteName: "Blake Yoder",
+    images: [
+      {
+        url: "/og?title=Writing&subtitle=Essays%20on%20technology%20and%20leadership",
+        width: 1200,
+        height: 630,
+        alt: "Writing by Blake Yoder",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Writing by Blake Yoder",
+    description: "Essays on technology, leadership, and the human systems that make or break great teams.",
+    images: ["/og?title=Writing&subtitle=Essays%20on%20technology%20and%20leadership"],
+  },
+};
 
 export default function Writing() {
   return (
