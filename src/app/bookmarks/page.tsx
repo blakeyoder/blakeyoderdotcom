@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const bookmarkCategories = {
   "Engineering Leadership": [
@@ -490,13 +490,68 @@ const bookmarkCategories = {
   ]
 };
 
+const generateBookmarksHTML = () => {
+  let html = `<!DOCTYPE NETSCAPE-Bookmark-file-1>
+<!-- This is an automatically generated file.
+     It will be read and overwritten.
+     DO NOT EDIT! -->
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<TITLE>Bookmarks</TITLE>
+<H1>Bookmarks</H1>
+<DL><p>
+    <DT><H3 ADD_DATE="${Math.floor(Date.now() / 1000)}" LAST_MODIFIED="${Math.floor(Date.now() / 1000)}" PERSONAL_TOOLBAR_FOLDER="true">Blake's Bookmarks</H3>
+    <DL><p>`;
+
+  Object.entries(bookmarkCategories).forEach(([category, links]) => {
+    html += `
+        <DT><H3 ADD_DATE="${Math.floor(Date.now() / 1000)}" LAST_MODIFIED="${Math.floor(Date.now() / 1000)}">${category}</H3>
+        <DL><p>`;
+    
+    links.forEach((bookmark) => {
+      html += `
+            <DT><A HREF="${bookmark.url}" ADD_DATE="${Math.floor(Date.now() / 1000)}">${bookmark.title}</A>`;
+    });
+    
+    html += `
+        </DL><p>`;
+  });
+
+  html += `
+    </DL><p>
+</DL><p>`;
+  
+  return html;
+};
+
+const downloadBookmarks = () => {
+  const htmlContent = generateBookmarksHTML();
+  const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'blake-yoder-bookmarks.html';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
 export default function Bookmarks() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
   const categories = Object.keys(bookmarkCategories);
   
   const filteredCategories = selectedCategory
     ? { [selectedCategory]: bookmarkCategories[selectedCategory as keyof typeof bookmarkCategories] }
     : bookmarkCategories;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowDownloadModal(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="container">
@@ -645,6 +700,160 @@ I’m sharing it with you now in the same spirit. I hope you find something usef
           {Object.values(bookmarkCategories).flat().length} links • Last updated: {new Date().toLocaleDateString()}
         </p>
       </main>
+
+      {showDownloadModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            animation: 'fadeIn 0.3s ease'
+          }}
+          onClick={() => setShowDownloadModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: 'var(--background)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '8px',
+              padding: '2rem',
+              maxWidth: '500px',
+              width: '90%',
+              boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+              position: 'relative',
+              animation: 'slideIn 0.3s ease'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowDownloadModal(false)}
+              style={{
+                position: 'absolute',
+                top: '1rem',
+                right: '1rem',
+                background: 'none',
+                border: 'none',
+                fontSize: '1.5rem',
+                color: 'var(--text-secondary)',
+                cursor: 'pointer',
+                width: '2rem',
+                height: '2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '4px',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.backgroundColor = 'var(--border-color)';
+                (e.target as HTMLElement).style.color = 'var(--text-primary)';
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                (e.target as HTMLElement).style.color = 'var(--text-secondary)';
+              }}
+              aria-label="Close modal"
+            >
+              ×
+            </button>
+
+            <h3 style={{ 
+              fontSize: '1.25rem', 
+              marginBottom: '1rem', 
+              color: 'var(--text-primary)',
+              fontWeight: 'normal'
+            }}>
+              Download My Bookmarks
+            </h3>
+
+            <p style={{ 
+              marginBottom: '1.5rem', 
+              color: 'var(--text-secondary)', 
+              lineHeight: 1.5 
+            }}>
+              Want to add these {Object.values(bookmarkCategories).flat().length} bookmarks to your own browser? Download them as an HTML file that you can import into any browser.
+            </p>
+
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setShowDownloadModal(false)}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  border: '1px solid var(--border-color)',
+                  backgroundColor: 'transparent',
+                  color: 'var(--text-secondary)',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'inherit'
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.borderColor = 'var(--text-secondary)';
+                  (e.target as HTMLElement).style.color = 'var(--text-primary)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.borderColor = 'var(--border-color)';
+                  (e.target as HTMLElement).style.color = 'var(--text-secondary)';
+                }}
+              >
+                No thanks
+              </button>
+
+              <button
+                onClick={() => {
+                  downloadBookmarks();
+                  setShowDownloadModal(false);
+                }}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  border: '1px solid var(--text-primary)',
+                  backgroundColor: 'var(--text-primary)',
+                  color: 'var(--background)',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'inherit'
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.opacity = '0.9';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.opacity = '1';
+                }}
+              >
+                Download Bookmarks
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+          from { 
+            opacity: 0; 
+            transform: translateY(-20px); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0); 
+          }
+        }
+      `}</style>
     </div>
   );
 }
