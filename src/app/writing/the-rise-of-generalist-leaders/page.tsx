@@ -55,7 +55,7 @@ export default function GeneralistLeaders() {
           <h2>The Path from Code to Leadership</h2>
 
           <p>
-            Early in my career, I worked alongside an engineer who had come from Google. This was the first person who truly impressed—and frankly, intimidated—me with their programming ability. I&apos;d worked with good engineers before, people who seemed maybe a year or three ahead of me on a path I could eventually follow. But this person was different. They wrote lambda calculus functions in JavaScript <em>for fun</em>. Watching them work, I thought, "If this is what it takes to be a staff or principal engineer, I don&apos;t know if it&apos;s worth it." This person didn&apos;t just work with code—they breathed, ate, and slept it.
+            Early in my career, I worked alongside an engineer who had come from Google. This was the first person who truly impressed—and frankly, intimidated—me with their programming ability. I&apos;d worked with good engineers before, people who seemed maybe a year or three ahead of me on a path I could eventually follow. But this person was different. They wrote lambda calculus functions in JavaScript <em>for fun</em>. Watching them work, I thought, &ldquo;If this is what it takes to be a staff or principal engineer, I don&apos;t know if it&apos;s worth it.&rdquo; This person didn&apos;t just work with code—they breathed, ate, and slept it.
           </p>
 
           <p>
@@ -81,7 +81,7 @@ export default function GeneralistLeaders() {
           <h2>The Fundamental Shift</h2>
 
           <p>
-            Here&apos;s the pattern I see emerging: agentic tools are democratizing technical capability, which means raw coding skill is becoming less of a differentiator. The "intimidating expert" model—where technical depth alone determined career trajectory—is becoming obsolete. Instead, success will flow to those who can synthesize across domains, understand context, and create elegant solutions to messy problems.
+            Here&apos;s the pattern I see emerging: agentic tools are democratizing technical capability, which means raw coding skill is becoming less of a differentiator. The &ldquo;intimidating expert&rdquo; model—where technical depth alone determined career trajectory—is becoming obsolete. Instead, success will flow to those who can synthesize across domains, understand context, and create elegant solutions to messy problems.
           </p>
 
           <p>
