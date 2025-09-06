@@ -76,8 +76,18 @@ a:hover {
   padding: 2rem 1rem;
 }
 
+.container-wide {
+  max-width: 80ch;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
 @media (min-width: 768px) {
   .container {
+    padding: 4rem 2rem;
+  }
+  
+  .container-wide {
     padding: 4rem 2rem;
   }
   

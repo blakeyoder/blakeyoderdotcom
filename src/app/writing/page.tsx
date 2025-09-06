@@ -44,10 +44,57 @@ export default function Writing() {
         </p>
 
         <div style={{ marginTop: '3rem' }}>
-          <h2>Coming Soon</h2>
-          <p style={{ color: 'var(--text-secondary)' }}>
-            I&apos;m working on my first few essays. They will be published here soon. 
-          </p>
+          <h2>Recent Essays</h2>
+          
+          <article style={{ 
+            marginBottom: '4rem', 
+            paddingBottom: '2rem', 
+            borderBottom: '1px solid var(--border-color)' 
+          }}>
+            <header style={{ marginBottom: '1rem' }}>
+              <h3 style={{ marginBottom: '0.5rem' }}>
+                <Link href="/writing/the-rise-of-generalist-leaders" style={{ 
+                  textDecoration: 'none', 
+                  color: 'var(--text-primary)',
+                  transition: 'color 0.2s ease'
+                }}>
+                  The Rise of Generalist Leaders
+                </Link>
+              </h3>
+              <p style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '1.1rem', 
+                fontWeight: '400', 
+                margin: '0 0 0.75rem' 
+              }}>
+                How Agentic Tools Are Reshaping Engineering Leadership
+              </p>
+              <time style={{ 
+                color: 'var(--text-tertiary)', 
+                fontSize: '0.9rem',
+                fontStyle: 'italic'
+              }}>
+                September 6, 2025
+              </time>
+            </header>
+            <p style={{ marginBottom: '1.5rem' }}>
+              How agentic tools are democratizing technical capability and reshaping engineering leadership, creating organizations led by generalists who synthesize across domains.
+            </p>
+            <Link 
+              href="/writing/the-rise-of-generalist-leaders" 
+              style={{ 
+                fontSize: '1rem',
+                fontWeight: '500',
+                color: 'var(--text-primary)',
+                textDecoration: 'none',
+                borderBottom: '1px solid var(--text-primary)',
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Read essay →
+            </Link>
+          </article>
         </div>
 
         <div style={{ marginTop: '3rem' }}>
