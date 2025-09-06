@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "Blake Yoder",
     images: [
       {
-        url: "/og?title=Blake%20Yoder&subtitle=Head%20of%20Engineering%20at%20Berry%20Street",
+        url: "/og?title=Blake%20Yoder",
         width: 1200,
         height: 630,
         alt: "Blake Yoder",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blake Yoder",
     description: "Head of Engineering at Berry Street. Writing about technology, leadership, and building teams that scale.",
-    images: ["/og?title=Blake%20Yoder&subtitle=Head%20of%20Engineering%20at%20Berry%20Street"],
+    images: ["/og?title=Blake%20Yoder"],
   },
 };
 
