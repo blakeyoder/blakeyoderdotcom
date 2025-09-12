@@ -53,6 +53,56 @@ export default function Writing() {
           }}>
             <header style={{ marginBottom: '1rem' }}>
               <h3 style={{ marginBottom: '0.5rem' }}>
+                <Link href="/writing/when-ai-gets-your-types-wrong" style={{ 
+                  textDecoration: 'none', 
+                  color: 'var(--text-primary)',
+                  transition: 'color 0.2s ease'
+                }}>
+                  When AI Gets Your Types Wrong
+                </Link>
+              </h3>
+              <p style={{ 
+                color: 'var(--text-secondary)', 
+                fontSize: '1.1rem', 
+                fontWeight: '400', 
+                margin: '0 0 0.75rem' 
+              }}>
+                A Pragmatic Solution
+              </p>
+              <time style={{ 
+                color: 'var(--text-tertiary)', 
+                fontSize: '0.9rem',
+                fontStyle: 'italic'
+              }}>
+                September 11, 2025
+              </time>
+            </header>
+            <p style={{ marginBottom: '1.5rem' }}>
+              How I built a TypeScript definitions MCP server to help AI tools understand and mock complex types correctly, turning a testing frustration into a practical solution.
+            </p>
+            <Link 
+              href="/writing/when-ai-gets-your-types-wrong" 
+              style={{ 
+                fontSize: '1rem',
+                fontWeight: '500',
+                color: 'var(--text-primary)',
+                textDecoration: 'none',
+                borderBottom: '1px solid var(--text-primary)',
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Read essay →
+            </Link>
+          </article>
+
+          <article style={{ 
+            marginBottom: '4rem', 
+            paddingBottom: '2rem', 
+            borderBottom: '1px solid var(--border-color)' 
+          }}>
+            <header style={{ marginBottom: '1rem' }}>
+              <h3 style={{ marginBottom: '0.5rem' }}>
                 <Link href="/writing/the-rise-of-generalist-leaders" style={{ 
                   textDecoration: 'none', 
                   color: 'var(--text-primary)',
