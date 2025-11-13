@@ -52,9 +52,9 @@ export default function TypeScriptDefinitionsMCP() {
           <p>
             Today I was writing some unit and integration tests using Claude Code, and I noticed something that was driving me nuts: it really preferred to type cast unknown properties as{' '}
             <Highlight theme={themes.oneDark} code="any" language="typescript">
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              {({ className, style, tokens, getTokenProps }) => (
                 <code className={className} style={{...style, padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.9em'}}>
-                  {tokens.map((line, i) => 
+                  {tokens.map((line) => 
                     line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token })} />
                     ))
@@ -68,9 +68,9 @@ export default function TypeScriptDefinitionsMCP() {
           <p>
             It&apos;s one of those small frustrations that compounds when you&apos;re trying to maintain type safety in your tests. You know the types exist—they&apos;re sitting right there in your{' '}
             <Highlight theme={themes.oneDark} code="node_modules" language="bash">
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              {({ className, style, tokens, getTokenProps }) => (
                 <code className={className} style={{...style, padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.9em'}}>
-                  {tokens.map((line, i) => 
+                  {tokens.map((line) => 
                     line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token })} />
                     ))
@@ -94,9 +94,9 @@ export default function TypeScriptDefinitionsMCP() {
           <p>
             This is the pattern I&apos;ve noticed with AI tools: they excel when they have the right context, but they struggle when that context is buried in places they can&apos;t easily access. The TypeScript definitions were always there, sitting in{' '}
             <Highlight theme={themes.oneDark} code="node_modules" language="bash">
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              {({ className, style, tokens, getTokenProps }) => (
                 <code className={className} style={{...style, padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.9em'}}>
-                  {tokens.map((line, i) => 
+                  {tokens.map((line) => 
                     line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token })} />
                     ))
@@ -181,9 +181,9 @@ export default function TypeScriptDefinitionsMCP() {
           <p>
             Instead of manually digging through definition files or settling for{' '}
             <Highlight theme={themes.oneDark} code="any" language="typescript">
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              {({ className, style, tokens, getTokenProps }) => (
                 <code className={className} style={{...style, padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.9em'}}>
-                  {tokens.map((line, i) => 
+                  {tokens.map((line) => 
                     line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token })} />
                     ))

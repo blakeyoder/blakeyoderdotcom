@@ -1,13 +1,27 @@
 import type { Metadata } from "next";
-import { Crimson_Text } from "next/font/google";
+import { Fraunces, Crimson_Pro, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import VimStatusBar from "../components/VimStatusBar";
 
-const crimsonText = Crimson_Text({
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  axes: ["SOFT", "WONK"],
+});
+
+const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
   weight: ["400", "600"],
   style: ["normal", "italic"],
   variable: "--font-crimson",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -44,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={crimsonText.variable}>
+      <body className={`${fraunces.variable} ${crimsonPro.variable} ${jetbrainsMono.variable}`}>
         {children}
         <VimStatusBar />
       </body>
