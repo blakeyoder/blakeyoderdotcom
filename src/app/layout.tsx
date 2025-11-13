@@ -26,10 +26,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Blake Yoder",
-  description: "Head of Engineering at Berry Street. Writing about technology, leadership, and building teams that scale.",
+  description: "Engineering leader. Writing about technology, leadership, and building teams that scale.",
   openGraph: {
     title: "Blake Yoder",
-    description: "Head of Engineering at Berry Street. Writing about technology, leadership, and building teams that scale.",
+    description: "Engineering leader. Writing about technology, leadership, and building teams that scale.",
     url: "https://blakeyoder.com",
     siteName: "Blake Yoder",
     images: [
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blake Yoder",
-    description: "Head of Engineering at Berry Street. Writing about technology, leadership, and building teams that scale.",
+    description: "Engineering leader. Writing about technology, leadership, and building teams that scale.",
     images: ["/og?title=Blake%20Yoder"],
   },
 };

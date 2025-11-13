@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About | Blake Yoder",
-  description: "Head of Engineering at Berry Street, focused on the intersection of human systems and technical systems in healthcare technology.",
+  description: "Engineering leader focused on the intersection of human systems and technical systems in healthcare technology.",
   openGraph: {
     title: "About Blake Yoder",
-    description: "Head of Engineering at Berry Street, focused on the intersection of human systems and technical systems in healthcare technology.",
+    description: "Engineering leader focused on the intersection of human systems and technical systems in healthcare technology.",
     url: "https://blakeyoder.com/about",
     siteName: "Blake Yoder",
     images: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "About Blake Yoder",
-    description: "Head of Engineering at Berry Street, focused on the intersection of human systems and technical systems in healthcare technology.",
+    description: "Engineering leader focused on the intersection of human systems and technical systems in healthcare technology.",
     images: ["/og?title=About&subtitle=Engineering%20leader%20focused%20on%20healthcare%20technology"],
   },
 };
@@ -43,20 +43,11 @@ export default function About() {
       <main className="prose prose-lg">
         <div className="space-y-6 mb-12">
           <p className="text-lg leading-relaxed">
-            I lead engineering at{' '}
-            <a 
-              href="https://berrystreet.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              style={{ borderBottom: '1px solid var(--text-tertiary)' }}
-            >
-              Berry Street
-            </a>
-            , where we build technology that connects patients with registered dietitians. After nearly seven years in digital health, one thing&rsquo;s clear: the most interesting problems—and the most important ones—live at the messy intersection of human systems and technical systems.
+            I&apos;m an engineering leader building technology that connects patients with registered dietitians. After nearly seven years in digital health, one thing&rsquo;s clear: the most interesting problems—and the most important ones—live at the messy intersection of human systems and technical systems.
           </p>
 
           <p className="text-lg leading-relaxed">
-            Before Berry Street, I helped scale teams and technology through hyper-growth. Along the way, I learned that tools are only as effective as the people using them. That belief shapes everything I do—whether I&rsquo;m designing system architecture, structuring a team, or exploring how AI can make healthcare more human, not less.
+            Previously, I helped scale teams and technology through hyper-growth. Along the way, I learned that tools are only as effective as the people using them. That belief shapes everything I do—whether I&rsquo;m designing system architecture, structuring a team, or exploring how AI can make healthcare more human, not less.
           </p>
         </div>
 

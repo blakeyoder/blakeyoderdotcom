@@ -12,7 +12,7 @@ export default function Home() {
           marginBottom: '2.5rem',
           letterSpacing: '0.05em'
         }}>
-          HEAD OF ENGINEERING • BERRY STREET
+          ENGINEERING LEADER
         </p>
       </header>
 
