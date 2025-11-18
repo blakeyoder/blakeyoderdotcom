@@ -12,7 +12,8 @@
     "next": "15.3.5",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "resend": "^6.5.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

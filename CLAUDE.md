@@ -55,3 +55,10 @@ src/app/
 - Strict mode enabled
 - Path alias: `@/*` maps to `./src/*`
 - Target ES2017 with modern module resolution
+
+## Active Technologies
+- TypeScript 5 with Next.js 15 + Next.js 15, React 19, Resend SDK (001-contact-email)
+- In-memory rate limiting (Redis or Vercel KV for production scale if needed) (001-contact-email)
+
+## Recent Changes
+- 001-contact-email: Added TypeScript 5 with Next.js 15 + Next.js 15, React 19, Resend SDK
