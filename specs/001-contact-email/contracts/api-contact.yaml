@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: Contact Form API
+  description: API endpoint for processing contact form submissions on Blake Yoder's personal website
+  version: 1.0.0
+  contact:
+    name: Blake Yoder
+    email: blake@example.com
+
+servers:
+  - url: https://blakeyoder.com/api
+    description: Production
+  - url: http://localhost:3000/api
+    description: Local development
+
+paths:
+  /contact:
+    post:
+      summary: Submit contact form
+      description: |
+        Processes a contact form submission, validates input, performs spam checks,
+        and sends an email notification to Blake with the visitor's message.
+
+        **Rate Limiting**: 1 submission per IP address per 5 minutes.
+
+        **Spam Prevention**:
+        - Honeypot field detection
+        - Content filtering (excessive URLs, spam keywords)
+        - Message length limits
+
+      operationId: submitContactForm
+      tags:
+        - Contact
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactFormRequest'
+            examples:
+              validSubmission:
+                summary: Valid contact form submission
+                value:
+                  name: "Jane Doe"
+                  email: "jane@example.com"
+                  message: "Hi Blake! I'd love to grab coffee and chat about engineering leadership. Are you available next week?"
+                  honeypot: ""
+
+              spamDetected:
+                summary: Submission with spam indicators
+                value:
+                  name: "Spammer"
+                  email: "spam@example.com"
+                  message: "Buy cheap viagra! Click here: http://spam1.com http://spam2.com http://spam3.com"
+                  honeypot: ""
+
+      responses:
+        '200':
+          description: Form submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                success: true
+                message: "Your message has been sent! I'll get back to you soon."
+
+        '400':
+          description: Bad request - validation failed or spam detected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                validationError:
+                  summary: Field validation errors
+                  value:
+                    success: false
+                    error: "VALIDATION_ERROR"
+                    message: "Please check your input and try again."
+                    fields:
+                      name: "Name is required"
+                      email: "Please enter a valid email address"
+
+                spamDetected:
+                  summary: Spam content detected
+                  value:
+                    success: false
+                    error: "SPAM_DETECTED"
+                    message: "Your message appears to contain spam. Please remove links or suspicious content and try again."
+
+        '429':
+          description: Too many requests - rate limit exceeded
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying
+              schema:
+                type: integer
+                example: 180
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitErrorResponse'
+              example:
+                success: false
+                error: "RATE_LIMIT_EXCEEDED"
+                message: "Please wait a few minutes before submitting again."
+                retryAfter: 180
+
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                error: "SERVER_ERROR"
+                message: "Something went wrong. Please try again later."
+
+components:
+  schemas:
+    ContactFormRequest:
+      type: object
+      required:
+        - name
+        - email
+        - message
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Visitor's full name
+          example: "Jane Doe"
+
+        email:
+          type: string
+          format: email
+          maxLength: 254
+          description: Visitor's email address
+          example: "jane@example.com"
+
+        message:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: Message content
+          example: "Hi Blake! I'd love to grab coffee and chat about engineering leadership."
+
+        honeypot:
+          type: string
+          description: |
+            Spam trap field. Should be empty for legitimate submissions.
+            This field is hidden from humans but visible to bots.
+            Any submission with a non-empty honeypot is rejected silently.
+          example: ""
+
+    SuccessResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+          description: Indicates successful submission
+          example: true
+
+        message:
+          type: string
+          description: User-friendly success message
+          example: "Your message has been sent! I'll get back to you soon."
+
+    ErrorResponse:
+      type: object
+      required:
+        - success
+        - error
+        - message
+      properties:
+        success:
+          type: boolean
+          enum: [false]
+          description: Indicates failed submission
+          example: false
+
+        error:
+          type: string
+          enum:
+            - VALIDATION_ERROR
+            - SPAM_DETECTED
+            - SERVER_ERROR
+          description: Machine-readable error code
+          example: "VALIDATION_ERROR"
+
+        message:
+          type: string
+          description: User-friendly error message
+          example: "Please check your input and try again."
+
+        fields:
+          type: object
+          description: Field-specific error messages (only for VALIDATION_ERROR)
+          additionalProperties:
+            type: string
+          example:
+            name: "Name is required"
+            email: "Please enter a valid email address"
+
+    RateLimitErrorResponse:
+      type: object
+      required:
+        - success
+        - error
+        - message
+        - retryAfter
+      properties:
+        success:
+          type: boolean
+          enum: [false]
+          description: Indicates failed submission
+          example: false
+
+        error:
+          type: string
+          enum: [RATE_LIMIT_EXCEEDED]
+          description: Machine-readable error code
+          example: "RATE_LIMIT_EXCEEDED"
+
+        message:
+          type: string
+          description: User-friendly error message
+          example: "Please wait a few minutes before submitting again."
+
+        retryAfter:
+          type: integer
+          description: Seconds to wait before retrying
+          example: 180
+
+  securitySchemes: {}
+
+security: []
+
+tags:
+  - name: Contact
+    description: Contact form submission endpoint

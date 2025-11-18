@@ -67,6 +67,8 @@ export default function Home() {
                 <span style={{ color: 'var(--text-tertiary)' }}>•</span>
                 <Link href="/about">About</Link>
                 <span style={{ color: 'var(--text-tertiary)' }}>•</span>
+                <Link href="/contact">Contact</Link>
+                <span style={{ color: 'var(--text-tertiary)' }}>•</span>
                 <Link href="/vim">Vim</Link>
                 <span style={{ color: 'var(--text-tertiary)' }}>•</span>
                 <a
