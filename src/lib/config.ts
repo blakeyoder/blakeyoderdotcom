@@ -23,7 +23,8 @@ function getEnvVar(key: string, defaultValue?: string): string {
     );
   }
 
-  return value || defaultValue!;
+  // Trim whitespace from environment variables
+  return (value || defaultValue!).trim();
 }
 
 function getEnvNumber(key: string, defaultValue: number): number {
@@ -44,22 +45,49 @@ function getEnvNumber(key: string, defaultValue: number): number {
   return parsed;
 }
 
-// Validate and export configuration
-export const config: Config = {
-  resendApiKey: getEnvVar('RESEND_API_KEY'),
-  contactEmailTo: getEnvVar('CONTACT_EMAIL_TO'),
-  contactEmailFrom: getEnvVar('CONTACT_EMAIL_FROM', 'noreply@resend.dev'),
-  rateLimitWindowMs: getEnvNumber('RATE_LIMIT_WINDOW_MS', 5 * 60 * 1000), // 5 minutes
-  rateLimitMaxRequests: getEnvNumber('RATE_LIMIT_MAX_REQUESTS', 1),
-  spamMaxUrls: getEnvNumber('SPAM_MAX_URLS', 2),
-};
+// Email format validation - ensures format is compatible with Resend
+function validateEmailFormat(email: string, fieldName: string): string {
+  const trimmedEmail = email.trim();
 
-// Export individual values for convenience
-export const {
-  resendApiKey,
-  contactEmailTo,
-  contactEmailFrom,
-  rateLimitWindowMs,
-  rateLimitMaxRequests,
-  spamMaxUrls,
-} = config;
+  // Basic email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(trimmedEmail)) {
+    throw new Error(
+      `Invalid email format for ${fieldName}: "${email}". ` +
+      `Email must follow the format: email@example.com`
+    );
+  }
+
+  return trimmedEmail;
+}
+
+// Lazy-load configuration - only validate when accessed
+let _config: Config | null = null;
+
+function getConfig(): Config {
+  if (!_config) {
+    _config = {
+      resendApiKey: getEnvVar('RESEND_API_KEY'),
+      contactEmailTo: validateEmailFormat(
+        getEnvVar('CONTACT_EMAIL_TO'),
+        'CONTACT_EMAIL_TO'
+      ),
+      contactEmailFrom: validateEmailFormat(
+        getEnvVar('CONTACT_EMAIL_FROM', 'noreply@resend.dev'),
+        'CONTACT_EMAIL_FROM'
+      ),
+      rateLimitWindowMs: getEnvNumber('RATE_LIMIT_WINDOW_MS', 5 * 60 * 1000), // 5 minutes
+      rateLimitMaxRequests: getEnvNumber('RATE_LIMIT_MAX_REQUESTS', 1),
+      spamMaxUrls: getEnvNumber('SPAM_MAX_URLS', 2),
+    };
+  }
+  return _config;
+}
+
+// Export configuration object that validates on first access
+export const config = new Proxy({} as Config, {
+  get(_target, prop: keyof Config) {
+    return getConfig()[prop];
+  },
+});

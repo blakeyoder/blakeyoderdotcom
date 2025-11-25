@@ -11,7 +11,7 @@ export default function ContactPage() {
     email: "",
     linkedin: "",
     message: "",
-    honeypot: "", // Hidden field for spam prevention
+    honeypot: "",
   });
 
   const [errors, setErrors] = useState<ContactFormErrors>({});
@@ -25,13 +25,11 @@ export default function ContactPage() {
     isLoading: boolean;
   }>({ isLoading: false });
 
-  // Refs for focus management
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const linkedinRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  // Focus on first error field when errors change
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
       if (errors.name) {
@@ -46,7 +44,6 @@ export default function ContactPage() {
     }
   }, [errors]);
 
-  // Fetch LinkedIn preview when URL changes
   useEffect(() => {
     const linkedInPattern = /^https?:\/\/(www\.)?linkedin\.com\/in\/([a-zA-Z0-9_-]+)\/?$/;
     const match = formData.linkedin.trim().match(linkedInPattern);
@@ -67,7 +64,6 @@ export default function ContactPage() {
         if (response.ok) {
           const data = await response.json();
 
-          // If we got data, use it. Otherwise, create a fallback preview
           if (data.name || data.headline || data.imageUrl) {
             setLinkedInPreview({
               name: data.name,
@@ -76,29 +72,26 @@ export default function ContactPage() {
               isLoading: false,
             });
           } else {
-            // Fallback: Create a basic preview with username
             setLinkedInPreview({
               name: username,
-              headline: 'LinkedIn Profile',
+              headline: "LinkedIn Profile",
               imageUrl: undefined,
               isLoading: false,
             });
           }
         } else {
-          // On error, still show basic info
           setLinkedInPreview({
             name: username,
-            headline: 'LinkedIn Profile',
+            headline: "LinkedIn Profile",
             imageUrl: undefined,
             isLoading: false,
           });
         }
       } catch (error) {
-        console.error('Failed to fetch LinkedIn preview:', error);
-        // Show basic preview even on error
+        console.error("Failed to fetch LinkedIn preview:", error);
         setLinkedInPreview({
           name: username,
-          headline: 'LinkedIn Profile',
+          headline: "LinkedIn Profile",
           imageUrl: undefined,
           isLoading: false,
         });
@@ -129,16 +122,13 @@ export default function ContactPage() {
 
       if (!response.ok) {
         if (data.errors) {
-          // Field-specific validation errors
           setErrors(data.errors);
           setSubmitStatus("error");
         } else {
-          // General error (rate limit, spam, server error)
           setErrorMessage(data.message || "Something went wrong. Please try again.");
           setSubmitStatus("error");
         }
       } else {
-        // Success
         setSubmitStatus("success");
         setFormData({
           name: "",
@@ -159,28 +149,24 @@ export default function ContactPage() {
 
   return (
     <div className="container">
-      <header className="mb-8">
-        <h1 className="mb-4">Get in touch</h1>
-        <p className="text-base text-secondary mb-0">
-          <Link href="/" className="hover:text-primary transition-colors">
-            ← Back to home
-          </Link>
+      <header style={{ marginBottom: "2rem" }}>
+        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
+          <Link href="/" className="nav-link">Blake Yoder</Link>
         </p>
+        <h1>Get in touch</h1>
       </header>
 
-      <main style={{ maxWidth: "65ch" }}>
+      <hr className="rule-thick" />
+
+      <main>
         {submitStatus === "success" ? (
-          <div
-            style={{
-              padding: "1.5rem",
-              borderRadius: "4px",
-              border: "2px solid var(--border-color)",
-              backgroundColor: "var(--background)",
-              marginBottom: "2rem",
-            }}
-          >
-            <h2 style={{ fontSize: "1.25rem", marginBottom: "0.5rem", color: "var(--text-primary)" }}>
-              Message sent!
+          <div style={{
+            padding: "2rem",
+            border: "2px solid var(--ink)",
+            marginBottom: "2rem",
+          }}>
+            <h2 style={{ fontSize: "1.25rem", marginBottom: "0.5rem" }}>
+              Message sent
             </h2>
             <p style={{ marginBottom: 0, color: "var(--text-secondary)" }}>
               Thanks for reaching out. I&apos;ll get back to you soon.
@@ -188,27 +174,23 @@ export default function ContactPage() {
           </div>
         ) : (
           <>
-            <p style={{ marginBottom: "2rem", fontSize: "1.125rem", lineHeight: "1.7" }}>
+            <p style={{ marginBottom: "2.5rem" }}>
               If you&apos;re in the NYC area and want to meet up for coffee or a beer, feel free to reach out.
             </p>
 
             {errorMessage && (
-              <div
-                style={{
-                  padding: "1rem",
-                  borderRadius: "4px",
-                  border: "2px solid var(--border-color)",
-                  backgroundColor: "var(--background)",
-                  color: "var(--text-primary)",
-                  marginBottom: "1.5rem",
-                }}
-              >
+              <div style={{
+                padding: "1rem",
+                border: "1px solid var(--accent)",
+                color: "var(--accent)",
+                marginBottom: "2rem",
+              }}>
                 {errorMessage}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} style={{ marginBottom: "3rem" }}>
-              {/* Honeypot field - hidden from humans, visible to bots */}
+            <form onSubmit={handleSubmit}>
+              {/* Honeypot field */}
               <div style={{ position: "absolute", left: "-9999px" }} aria-hidden="true">
                 <label htmlFor="honeypot">Leave this field empty</label>
                 <input
@@ -218,23 +200,12 @@ export default function ContactPage() {
                   tabIndex={-1}
                   autoComplete="off"
                   value={formData.honeypot}
-                  onChange={(e) =>
-                    setFormData({ ...formData, honeypot: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
                 />
               </div>
 
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label
-                  htmlFor="name"
-                  style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  Name
-                </label>
+              <div style={{ marginBottom: "2rem" }}>
+                <label htmlFor="name">Name</label>
                 <input
                   ref={nameRef}
                   type="text"
@@ -242,46 +213,24 @@ export default function ContactPage() {
                   name="name"
                   required
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    fontSize: "1rem",
-                    border: "1px solid var(--border-color)",
-                    borderRadius: "4px",
-                    backgroundColor: "var(--background)",
-                    color: "var(--text-primary)",
-                  }}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   aria-invalid={errors.name ? "true" : "false"}
                   aria-describedby={errors.name ? "name-error" : undefined}
                 />
                 {errors.name && (
-                  <p
-                    id="name-error"
-                    style={{
-                      marginTop: "0.5rem",
-                      fontSize: "0.875rem",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
+                  <p id="name-error" style={{
+                    marginTop: "0.5rem",
+                    fontSize: "0.875rem",
+                    color: "var(--accent)",
+                    marginBottom: 0,
+                  }}>
                     {errors.name}
                   </p>
                 )}
               </div>
 
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label
-                  htmlFor="email"
-                  style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  Email
-                </label>
+              <div style={{ marginBottom: "2rem" }}>
+                <label htmlFor="email">Email</label>
                 <input
                   ref={emailRef}
                   type="email"
@@ -289,46 +238,24 @@ export default function ContactPage() {
                   name="email"
                   required
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    fontSize: "1rem",
-                    border: "1px solid var(--border-color)",
-                    borderRadius: "4px",
-                    backgroundColor: "var(--background)",
-                    color: "var(--text-primary)",
-                  }}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   aria-invalid={errors.email ? "true" : "false"}
                   aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && (
-                  <p
-                    id="email-error"
-                    style={{
-                      marginTop: "0.5rem",
-                      fontSize: "0.875rem",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
+                  <p id="email-error" style={{
+                    marginTop: "0.5rem",
+                    fontSize: "0.875rem",
+                    color: "var(--accent)",
+                    marginBottom: 0,
+                  }}>
                     {errors.email}
                   </p>
                 )}
               </div>
 
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label
-                  htmlFor="linkedin"
-                  style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  LinkedIn Profile URL
-                </label>
+              <div style={{ marginBottom: "2rem" }}>
+                <label htmlFor="linkedin">LinkedIn Profile URL</label>
                 <input
                   ref={linkedinRef}
                   type="url"
@@ -337,64 +264,42 @@ export default function ContactPage() {
                   required
                   placeholder="https://linkedin.com/in/yourname"
                   value={formData.linkedin}
-                  onChange={(e) =>
-                    setFormData({ ...formData, linkedin: e.target.value })
-                  }
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    fontSize: "1rem",
-                    border: "1px solid var(--border-color)",
-                    borderRadius: "4px",
-                    backgroundColor: "var(--background)",
-                    color: "var(--text-primary)",
-                  }}
+                  onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
                   aria-invalid={errors.linkedin ? "true" : "false"}
                   aria-describedby={errors.linkedin ? "linkedin-error" : undefined}
                 />
                 {errors.linkedin && (
-                  <p
-                    id="linkedin-error"
-                    style={{
-                      marginTop: "0.5rem",
-                      fontSize: "0.875rem",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
+                  <p id="linkedin-error" style={{
+                    marginTop: "0.5rem",
+                    fontSize: "0.875rem",
+                    color: "var(--accent)",
+                    marginBottom: 0,
+                  }}>
                     {errors.linkedin}
                   </p>
                 )}
 
-                {/* LinkedIn Preview */}
                 {linkedInPreview.isLoading && (
-                  <div
-                    style={{
-                      marginTop: "1rem",
-                      padding: "1rem",
-                      border: "1px solid var(--border-color)",
-                      borderRadius: "4px",
-                      backgroundColor: "var(--background)",
-                    }}
-                  >
-                    <p style={{ margin: 0, color: "var(--text-secondary)", fontSize: "0.875rem" }}>
+                  <div style={{
+                    marginTop: "1rem",
+                    padding: "1rem",
+                    border: "1px solid var(--rule)",
+                  }}>
+                    <p style={{ margin: 0, color: "var(--text-tertiary)", fontSize: "0.875rem" }}>
                       Loading preview...
                     </p>
                   </div>
                 )}
 
                 {!linkedInPreview.isLoading && (linkedInPreview.name || linkedInPreview.headline) && (
-                  <div
-                    style={{
-                      marginTop: "1rem",
-                      padding: "1rem",
-                      border: "1px solid var(--border-color)",
-                      borderRadius: "4px",
-                      backgroundColor: "var(--background)",
-                      display: "flex",
-                      gap: "1rem",
-                      alignItems: "center",
-                    }}
-                  >
+                  <div style={{
+                    marginTop: "1rem",
+                    padding: "1rem",
+                    border: "1px solid var(--rule)",
+                    display: "flex",
+                    gap: "1rem",
+                    alignItems: "center",
+                  }}>
                     {linkedInPreview.imageUrl ? (
                       <Image
                         src={linkedInPreview.imageUrl}
@@ -408,42 +313,36 @@ export default function ContactPage() {
                         unoptimized
                       />
                     ) : (
-                      <div
-                        style={{
-                          width: "48px",
-                          height: "48px",
-                          borderRadius: "50%",
-                          backgroundColor: "var(--border-color)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "1.5rem",
-                        }}
-                      >
-                        👤
+                      <div style={{
+                        width: "48px",
+                        height: "48px",
+                        borderRadius: "50%",
+                        backgroundColor: "var(--rule)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "var(--text-tertiary)",
+                        fontSize: "1.25rem",
+                      }}>
+                        ?
                       </div>
                     )}
                     <div style={{ flex: 1 }}>
                       {linkedInPreview.name && (
-                        <p
-                          style={{
-                            margin: 0,
-                            fontWeight: 500,
-                            color: "var(--text-primary)",
-                            fontSize: "0.875rem",
-                          }}
-                        >
+                        <p style={{
+                          margin: 0,
+                          fontWeight: 500,
+                          fontSize: "0.875rem",
+                        }}>
                           {linkedInPreview.name}
                         </p>
                       )}
                       {linkedInPreview.headline && (
-                        <p
-                          style={{
-                            margin: "0.25rem 0 0 0",
-                            color: "var(--text-secondary)",
-                            fontSize: "0.75rem",
-                          }}
-                        >
+                        <p style={{
+                          margin: "0.25rem 0 0 0",
+                          color: "var(--text-secondary)",
+                          fontSize: "0.75rem",
+                        }}>
                           {linkedInPreview.headline}
                         </p>
                       )}
@@ -452,17 +351,8 @@ export default function ContactPage() {
                 )}
               </div>
 
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label
-                  htmlFor="message"
-                  style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  Message
-                </label>
+              <div style={{ marginBottom: "2rem" }}>
+                <label htmlFor="message">Message</label>
                 <textarea
                   ref={messageRef}
                   id="message"
@@ -470,32 +360,18 @@ export default function ContactPage() {
                   required
                   rows={6}
                   value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    fontSize: "1rem",
-                    border: "1px solid var(--border-color)",
-                    borderRadius: "4px",
-                    backgroundColor: "var(--background)",
-                    color: "var(--text-primary)",
-                    fontFamily: "inherit",
-                    resize: "vertical",
-                  }}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  style={{ resize: "vertical" }}
                   aria-invalid={errors.message ? "true" : "false"}
                   aria-describedby={errors.message ? "message-error" : undefined}
                 />
                 {errors.message && (
-                  <p
-                    id="message-error"
-                    style={{
-                      marginTop: "0.5rem",
-                      fontSize: "0.875rem",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
+                  <p id="message-error" style={{
+                    marginTop: "0.5rem",
+                    fontSize: "0.875rem",
+                    color: "var(--accent)",
+                    marginBottom: 0,
+                  }}>
                     {errors.message}
                   </p>
                 )}
@@ -504,17 +380,10 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
+                className="btn btn-accent"
                 style={{
-                  padding: "0.875rem 2rem",
-                  fontSize: "1rem",
-                  fontWeight: 500,
-                  color: "var(--background)",
-                  backgroundColor: "var(--text-primary)",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: isSubmitting ? "not-allowed" : "pointer",
                   opacity: isSubmitting ? 0.6 : 1,
-                  transition: "opacity 0.2s",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
                 }}
               >
                 {isSubmitting ? "Sending..." : "Send message"}

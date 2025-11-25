@@ -52,9 +52,17 @@ Sent from blakeyoder.com contact form
   `.trim();
 
   try {
-    const result = await resend.emails.send({
+    // Log configuration for debugging (safe in production logs)
+    console.log('Email config:', {
       from: config.contactEmailFrom,
       to: config.contactEmailTo,
+      toType: typeof config.contactEmailTo,
+      toLength: config.contactEmailTo.length,
+    });
+
+    const result = await resend.emails.send({
+      from: config.contactEmailFrom,
+      to: [config.contactEmailTo], // Resend expects an array
       subject: `Contact Form: ${name}`,
       html: emailHtml,
       text: emailText,

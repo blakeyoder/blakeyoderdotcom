@@ -1,24 +1,23 @@
 import type { Metadata } from "next";
-import { Fraunces, Crimson_Pro, JetBrains_Mono } from "next/font/google";
+import { EB_Garamond, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import VimStatusBar from "../components/VimStatusBar";
 
-const fraunces = Fraunces({
+const ebGaramond = EB_Garamond({
   subsets: ["latin"],
-  weight: "variable",
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-fraunces",
-  axes: ["SOFT", "WONK"],
+  variable: "--font-display",
 });
 
-const crimsonPro = Crimson_Pro({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
-  variable: "--font-crimson",
+  variable: "--font-body",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-mono",
@@ -59,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fraunces.variable} ${crimsonPro.variable} ${jetbrainsMono.variable}`}>
+      <body className={`${ebGaramond.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}>
         {children}
         <VimStatusBar />
       </body>

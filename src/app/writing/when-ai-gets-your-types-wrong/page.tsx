@@ -33,19 +33,24 @@ export const metadata: Metadata = {
 
 export default function TypeScriptDefinitionsMCP() {
   return (
-    <div className="container-wide">
-      <header>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '2rem' }}>
-          <Link href="/writing">← Back to Writing</Link>
+    <div className="container">
+      <header style={{ marginBottom: "2rem" }}>
+        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
+          <Link href="/writing" className="nav-link">Writing</Link>
         </p>
-        <h1>When AI Gets Your Types Wrong</h1>
-        <h2 style={{ color: 'var(--text-secondary)', fontWeight: '400', fontSize: '1.5rem', marginTop: '-0.5rem', marginBottom: '2rem' }}>
+        <p className="article-date" style={{ marginBottom: "1rem" }}>September 11, 2025</p>
+        <h1 style={{ marginBottom: "0.5rem" }}>When AI Gets Your Types Wrong</h1>
+        <p style={{
+          fontSize: "1.25rem",
+          fontStyle: "italic",
+          color: "var(--text-secondary)",
+          margin: 0
+        }}>
           A Pragmatic Solution
-        </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '3rem' }}>
-          September 11, 2025
         </p>
       </header>
+
+      <hr className="rule-thick" />
 
       <main>
         <article>
@@ -213,31 +218,20 @@ export default function TypeScriptDefinitionsMCP() {
           </p>
 
           <div style={{
-            backgroundColor: 'var(--background-secondary)',
-            border: '1px solid var(--border-color)',
-            borderRadius: '8px',
-            padding: '1.5rem',
-            margin: '2rem 0',
-            textAlign: 'center'
+            border: "2px solid var(--ink)",
+            padding: "2rem",
+            margin: "2rem 0",
+            textAlign: "center"
           }}>
-            <p style={{ margin: '0 0 1rem 0', fontSize: '1.1rem', fontWeight: '500' }}>
+            <p style={{ margin: "0 0 1rem 0", fontSize: "1.1rem", fontWeight: "500" }}>
               TypeScript Definitions MCP
             </p>
-            <Link 
+            <Link
               href="https://github.com/blakeyoder/typescript-definitions-mcp"
-              style={{
-                display: 'inline-block',
-                padding: '0.75rem 1.5rem',
-                backgroundColor: 'transparent',
-                color: 'var(--text-primary)',
-                textDecoration: 'none',
-                borderRadius: '6px',
-                fontWeight: '500',
-                border: '2px solid var(--text-primary)',
-                transition: 'all 0.2s ease'
-              }}
+              className="btn btn-outline"
+              style={{ textDecoration: "none" }}
             >
-              View on GitHub →
+              View on GitHub
             </Link>
           </div>
 

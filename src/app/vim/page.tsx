@@ -493,103 +493,88 @@ export default function Vim() {
 
   return (
     <div className="container">
-      <header>
-        <h1>On Vim</h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '2rem' }}>
-          <Link href="/">← Back to home</Link>
+      <header style={{ marginBottom: "2rem" }}>
+        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
+          <Link href="/" className="nav-link">Blake Yoder</Link>
         </p>
+        <h1>On Vim</h1>
       </header>
 
+      <hr className="rule-thick" />
+
       <main>
-        {/* Personal Story Section */}
-        <div style={{ marginBottom: '3rem' }}>
-          <p style={{ marginBottom: '1.5rem' }}>
-            I first picked up Vim in 2016 while working at <a 
-              href="https://fictivekin.com" 
-              target="_blank" 
+        <section style={{ marginBottom: "3rem" }}>
+          <p>
+            I first picked up Vim in 2016 while working at <a
+              href="https://fictivekin.com"
+              target="_blank"
               rel="noopener noreferrer"
-              style={{ borderBottom: '1px solid var(--text-tertiary)' }}
             >
               fictivekin.com
-            </a>. One day, I quit Sublime Text 
-            cold turkey and dove straight into vim. For the first two weeks, it felt like coding with one 
+            </a>. One day, I quit Sublime Text
+            cold turkey and dove straight into vim. For the first two weeks, it felt like coding with one
             arm tied behind my back—every keystroke was friction, every task took twice as long.
           </p>
-          
-          <p style={{ marginBottom: '1.5rem' }}>
-            Then, around week three, something clicked. The motions stopped feeling foreign, and I started 
-            to see patterns: Vim wasn&rsquo;t just a text editor, it was a language. Key bindings were verbs 
+
+          <p>
+            Then, around week three, something clicked. The motions stopped feeling foreign, and I started
+            to see patterns: Vim wasn&apos;t just a text editor, it was a language. Key bindings were verbs
             and modifiers, each combining into concise ways of expressing intent.
           </p>
-          
-          <p style={{ marginBottom: '1.5rem' }}>
-            Almost ten years later, that way of thinking is second nature. I use Vim bindings everywhere, 
-            and with the rise of agentic coding tools, the payoff has only grown. A tool like <a 
-              href="https://github.com/anthropics/claude-code" 
-              target="_blank" 
+
+          <p>
+            Almost ten years later, that way of thinking is second nature. I use Vim bindings everywhere,
+            and with the rise of agentic coding tools, the payoff has only grown. A tool like <a
+              href="https://github.com/anthropics/claude-code"
+              target="_blank"
               rel="noopener noreferrer"
-              style={{ borderBottom: '1px solid var(--text-tertiary)' }}
             >
               Claude Code
-            </a> in the terminal feels like it was made for this—fast, fluid, and effortless in a way I could 
+            </a> in the terminal feels like it was made for this—fast, fluid, and effortless in a way I could
             only dream of back in those first awkward weeks.
           </p>
-          
-          <p style={{ marginBottom: '2rem' }}>
-            If you want to learn the dialect I speak, my <a 
-              href="https://raw.githubusercontent.com/blakeyoder/dotfiles/refs/heads/master/.vimrc" 
-              target="_blank" 
+
+          <p>
+            If you want to learn the dialect I speak, my <a
+              href="https://raw.githubusercontent.com/blakeyoder/dotfiles/refs/heads/master/.vimrc"
+              target="_blank"
               rel="noopener noreferrer"
-              style={{ borderBottom: '1px solid var(--text-tertiary)' }}
             >
               .vimrc
-            </a> is right here for you to borrow, steal, or adapt. Not ready to go all-in? You can still 
+            </a> is right here for you to borrow, steal, or adapt. Not ready to go all-in? You can still
             hop into Vim mode on this site and try some of my favorite keybindings here—no commitment.
           </p>
-        </div>
+        </section>
 
-        {/* Enter Vim Mode Button */}
-        <div style={{ 
-          padding: '2rem', 
-          border: '1px solid var(--border-color)',
-          borderRadius: '8px',
-          backgroundColor: 'var(--background)',
-          marginBottom: '2rem',
-          textAlign: 'center'
+        <div style={{
+          padding: "2rem",
+          border: "2px solid var(--ink)",
+          marginBottom: "2rem",
+          textAlign: "center"
         }}>
-          <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: "1.25rem", marginBottom: "1rem" }}>
             Ready to try vim?
           </h2>
-          
-          <p style={{ marginBottom: '2rem', color: 'var(--text-secondary)' }}>
-            This entire page will become your vim editor. You&rsquo;ll get step-by-step guidance 
+
+          <p style={{ marginBottom: "2rem", color: "var(--text-secondary)" }}>
+            This entire page will become your vim editor. You&apos;ll get step-by-step guidance
             through persistent status bars at the top as you learn my custom keybindings.
           </p>
-          
+
           <button
             onClick={enterVimMode}
-            style={{
-              padding: '1rem 2rem',
-              border: '1px solid var(--text-primary)',
-              backgroundColor: 'var(--text-primary)',
-              color: 'var(--background)',
-              borderRadius: '4px',
-              fontSize: '1.1rem',
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-              fontWeight: 'bold'
-            }}
+            className="btn"
           >
             Enter Vim Mode
           </button>
-          
-          <p style={{ 
-            marginTop: '1rem', 
-            fontSize: '0.9rem', 
-            color: 'var(--text-tertiary)',
-            fontStyle: 'italic' 
+
+          <p style={{
+            marginTop: "1rem",
+            fontSize: "0.875rem",
+            color: "var(--text-tertiary)",
+            fontStyle: "italic"
           }}>
-            Don&rsquo;t worry—you can exit anytime with <code>:q</code> or the × button
+            Don&apos;t worry—you can exit anytime with <code className="mono">:q</code> or the × button
           </p>
         </div>
       </main>

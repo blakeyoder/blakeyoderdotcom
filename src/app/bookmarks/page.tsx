@@ -408,7 +408,7 @@ const bookmarkCategories = {
   ],
   "Random": [
     {
-      title: "Easy No-Knead Focaccia Bread Recipe | Bon Appétit",
+      title: "Easy No-Knead Focaccia Bread Recipe | Bon Appetit",
       url: "https://www.bonappetit.com/recipe/easy-no-knead-focaccia"
     },
     {
@@ -506,12 +506,12 @@ const generateBookmarksHTML = () => {
     html += `
         <DT><H3 ADD_DATE="${Math.floor(Date.now() / 1000)}" LAST_MODIFIED="${Math.floor(Date.now() / 1000)}">${category}</H3>
         <DL><p>`;
-    
+
     links.forEach((bookmark) => {
       html += `
             <DT><A HREF="${bookmark.url}" ADD_DATE="${Math.floor(Date.now() / 1000)}">${bookmark.title}</A>`;
     });
-    
+
     html += `
         </DL><p>`;
   });
@@ -519,17 +519,17 @@ const generateBookmarksHTML = () => {
   html += `
     </DL><p>
 </DL><p>`;
-  
+
   return html;
 };
 
 const downloadBookmarks = () => {
   const htmlContent = generateBookmarksHTML();
-  const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+  const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = url;
-  link.download = 'blake-yoder-bookmarks.html';
+  link.download = "blake-yoder-bookmarks.html";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -540,7 +540,7 @@ export default function Bookmarks() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showDownloadModal, setShowDownloadModal] = useState(false);
   const categories = Object.keys(bookmarkCategories);
-  
+
   const filteredCategories = selectedCategory
     ? { [selectedCategory]: bookmarkCategories[selectedCategory as keyof typeof bookmarkCategories] }
     : bookmarkCategories;
@@ -553,94 +553,48 @@ export default function Bookmarks() {
     return () => clearTimeout(timer);
   }, []);
 
+  const totalLinks = Object.values(bookmarkCategories).flat().length;
+
   return (
-    <div className="container">
-      <header>
-        <h1>Bookmarks</h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '2rem' }}>
-          <Link href="/">← Back to home</Link>
+    <div className="container-wide">
+      <header style={{ marginBottom: "2rem" }}>
+        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
+          <Link href="/" className="nav-link">Blake Yoder</Link>
         </p>
+        <h1>Bookmarks</h1>
       </header>
 
+      <hr className="rule-thick" />
+
       <main>
-        <p style={{ marginBottom: '2rem' }}>
-For nearly six years, I’ve kept a Firefox bookmark folder called “Reading List”—a running collection of interesting articles I’ve found online. Most I’ve read, some I still haven’t. A few years ago, a report who was leaving asked if they could take the list with them. (Some folks on the team knew I had a pretty extensive stash of saved resources.) I exported the folder and shared it with them.
-<br/>
-<br/>
-I’m sharing it with you now in the same spirit. I hope you find something useful in here. It’s a little snapshot of me—spanning everything from scaling systems to no-knead focaccia bread recipes.
+        <p style={{ marginBottom: "2.5rem" }}>
+          For nearly six years, I&apos;ve kept a Firefox bookmark folder called &quot;Reading List&quot;—a running collection of interesting articles I&apos;ve found online. Most I&apos;ve read, some I still haven&apos;t. A few years ago, a report who was leaving asked if they could take the list with them. I&apos;m sharing it with you now in the same spirit. It&apos;s a little snapshot of me—spanning everything from scaling systems to no-knead focaccia bread recipes.
         </p>
 
-        <div style={{ marginBottom: '3rem' }}>
-          <div 
-            role="group" 
+        <div style={{ marginBottom: "2.5rem" }}>
+          <div
+            role="group"
             aria-label="Filter bookmarks by category"
-            style={{ 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              gap: '0.5rem',
-              marginBottom: '0.5rem' 
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.5rem",
             }}
           >
             <button
               onClick={() => setSelectedCategory(null)}
               aria-pressed={selectedCategory === null}
-              aria-label={`Show all categories (${Object.values(bookmarkCategories).flat().length} links)`}
-              style={{
-                padding: '0.5rem 1rem',
-                border: selectedCategory === null ? '1px solid var(--text-primary)' : '1px solid var(--border-color)',
-                backgroundColor: selectedCategory === null ? 'var(--text-primary)' : 'transparent',
-                color: selectedCategory === null ? 'var(--background)' : 'var(--text-secondary)',
-                borderRadius: '4px',
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                fontFamily: 'inherit'
-              }}
-              onMouseEnter={(e) => {
-                if (selectedCategory !== null) {
-                  (e.target as HTMLElement).style.borderColor = 'var(--text-secondary)';
-                  (e.target as HTMLElement).style.color = 'var(--text-primary)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (selectedCategory !== null) {
-                  (e.target as HTMLElement).style.borderColor = 'var(--border-color)';
-                  (e.target as HTMLElement).style.color = 'var(--text-secondary)';
-                }
-              }}
+              className={`tag ${selectedCategory === null ? "tag-active" : ""}`}
             >
-              All ({Object.values(bookmarkCategories).flat().length})
+              All ({totalLinks})
             </button>
-            
+
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 aria-pressed={selectedCategory === category}
-                aria-label={`Filter by ${category} (${bookmarkCategories[category as keyof typeof bookmarkCategories].length} links)`}
-                style={{
-                  padding: '0.5rem 1rem',
-                  border: selectedCategory === category ? '1px solid var(--text-primary)' : '1px solid var(--border-color)',
-                  backgroundColor: selectedCategory === category ? 'var(--text-primary)' : 'transparent',
-                  color: selectedCategory === category ? 'var(--background)' : 'var(--text-secondary)',
-                  borderRadius: '4px',
-                  fontSize: '0.875rem',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  fontFamily: 'inherit'
-                }}
-                onMouseEnter={(e) => {
-                  if (selectedCategory !== category) {
-                    (e.target as HTMLElement).style.borderColor = 'var(--text-secondary)';
-                    (e.target as HTMLElement).style.color = 'var(--text-primary)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (selectedCategory !== category) {
-                    (e.target as HTMLElement).style.borderColor = 'var(--border-color)';
-                    (e.target as HTMLElement).style.color = 'var(--text-secondary)';
-                  }
-                }}
+                className={`tag ${selectedCategory === category ? "tag-active" : ""}`}
               >
                 {category} ({bookmarkCategories[category as keyof typeof bookmarkCategories].length})
               </button>
@@ -648,161 +602,121 @@ I’m sharing it with you now in the same spirit. I hope you find something usef
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))",
+          gap: "3rem",
+        }}>
           {Object.entries(filteredCategories).map(([category, links]) => (
-            <div 
-              key={category}
-              style={{
-                opacity: 1,
-                transform: 'translateY(0)',
-                transition: 'opacity 0.3s ease, transform 0.3s ease'
-              }}
-            >
-              <h2 style={{ 
-                fontSize: '1.25rem', 
-                marginBottom: '1.5rem',
-                color: 'var(--text-primary)',
-                fontWeight: 'normal'
-              }}>
+            <div key={category}>
+              <h2 style={{
+                fontSize: "1rem",
+                marginBottom: "1.25rem",
+                paddingBottom: "0.75rem",
+                borderBottom: "2px solid var(--ink)",
+              }} className="small-caps">
                 {category}
               </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {links.map((bookmark, index) => (
-                  <div key={index} style={{ 
-                    paddingBottom: '0.75rem', 
-                    borderBottom: '1px solid var(--border-color)'
+                  <li key={index} style={{
+                    paddingBottom: "0.625rem",
+                    marginBottom: "0.625rem",
+                    borderBottom: "1px solid var(--rule-light)",
                   }}>
-                    <a 
-                      href={bookmark.url} 
-                      target="_blank" 
+                    <a
+                      href={bookmark.url}
+                      target="_blank"
                       rel="noopener noreferrer"
-                      style={{ 
-                        textDecoration: 'none',
-                        color: 'var(--text-primary)',
-                        fontSize: '1rem',
+                      style={{
+                        fontSize: "0.9375rem",
                         lineHeight: 1.4,
-                        display: 'block',
-                        transition: 'color 0.2s ease'
                       }}
-                      onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'var(--text-secondary)'}
-                      onMouseLeave={(e) => (e.target as HTMLElement).style.color = 'var(--text-primary)'}
                     >
                       {bookmark.title}
                     </a>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))}
         </div>
 
-        <p style={{ marginTop: '3rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-          {Object.values(bookmarkCategories).flat().length} links • Last updated: {new Date().toLocaleDateString()}
+        <hr className="rule" style={{ marginTop: "3rem" }} />
+
+        <p style={{ color: "var(--text-tertiary)", fontSize: "0.875rem", margin: 0 }}>
+          {totalLinks} links
         </p>
       </main>
 
       {showDownloadModal && (
         <div
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             zIndex: 1000,
-            animation: 'fadeIn 0.3s ease'
           }}
           onClick={() => setShowDownloadModal(false)}
         >
           <div
             style={{
-              backgroundColor: 'var(--background)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '8px',
-              padding: '2rem',
-              maxWidth: '500px',
-              width: '90%',
-              boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
-              position: 'relative',
-              animation: 'slideIn 0.3s ease'
+              backgroundColor: "var(--paper)",
+              border: "2px solid var(--ink)",
+              padding: "2rem",
+              maxWidth: "480px",
+              width: "90%",
+              position: "relative",
             }}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setShowDownloadModal(false)}
               style={{
-                position: 'absolute',
-                top: '1rem',
-                right: '1rem',
-                background: 'none',
-                border: 'none',
-                fontSize: '1.5rem',
-                color: 'var(--text-secondary)',
-                cursor: 'pointer',
-                width: '2rem',
-                height: '2rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '4px',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'var(--border-color)';
-                (e.target as HTMLElement).style.color = 'var(--text-primary)';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'transparent';
-                (e.target as HTMLElement).style.color = 'var(--text-secondary)';
+                position: "absolute",
+                top: "1rem",
+                right: "1rem",
+                background: "none",
+                border: "none",
+                fontSize: "1.5rem",
+                color: "var(--text-tertiary)",
+                cursor: "pointer",
+                width: "2rem",
+                height: "2rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               aria-label="Close modal"
             >
               ×
             </button>
 
-            <h3 style={{ 
-              fontSize: '1.25rem', 
-              marginBottom: '1rem', 
-              color: 'var(--text-primary)',
-              fontWeight: 'normal'
+            <h3 style={{
+              fontSize: "1.25rem",
+              marginBottom: "1rem",
             }}>
-              Download My Bookmarks
+              Download Bookmarks
             </h3>
 
-            <p style={{ 
-              marginBottom: '1.5rem', 
-              color: 'var(--text-secondary)', 
-              lineHeight: 1.5 
+            <p style={{
+              marginBottom: "1.5rem",
+              color: "var(--text-secondary)",
+              lineHeight: 1.6
             }}>
-              Want to add these {Object.values(bookmarkCategories).flat().length} bookmarks to your own browser? Download them as an HTML file that you can import into any browser.
+              Want to add these {totalLinks} bookmarks to your own browser? Download them as an HTML file that you can import into any browser.
             </p>
 
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+            <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
               <button
                 onClick={() => setShowDownloadModal(false)}
-                style={{
-                  padding: '0.75rem 1.5rem',
-                  border: '1px solid var(--border-color)',
-                  backgroundColor: 'transparent',
-                  color: 'var(--text-secondary)',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                  transition: 'all 0.2s ease',
-                  fontFamily: 'inherit'
-                }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.borderColor = 'var(--text-secondary)';
-                  (e.target as HTMLElement).style.color = 'var(--text-primary)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.borderColor = 'var(--border-color)';
-                  (e.target as HTMLElement).style.color = 'var(--text-secondary)';
-                }}
+                className="btn btn-outline"
               >
                 No thanks
               </button>
@@ -812,48 +726,14 @@ I’m sharing it with you now in the same spirit. I hope you find something usef
                   downloadBookmarks();
                   setShowDownloadModal(false);
                 }}
-                style={{
-                  padding: '0.75rem 1.5rem',
-                  border: '1px solid var(--text-primary)',
-                  backgroundColor: 'var(--text-primary)',
-                  color: 'var(--background)',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                  transition: 'all 0.2s ease',
-                  fontFamily: 'inherit'
-                }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.opacity = '0.9';
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.opacity = '1';
-                }}
+                className="btn"
               >
-                Download Bookmarks
+                Download
               </button>
             </div>
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-          from { 
-            opacity: 0; 
-            transform: translateY(-20px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-      `}</style>
     </div>
   );
 }

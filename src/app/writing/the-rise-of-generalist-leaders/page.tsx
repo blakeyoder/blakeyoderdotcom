@@ -32,19 +32,24 @@ export const metadata: Metadata = {
 
 export default function GeneralistLeaders() {
   return (
-    <div className="container-wide">
-      <header>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '2rem' }}>
-          <Link href="/writing">← Back to Writing</Link>
+    <div className="container">
+      <header style={{ marginBottom: "2rem" }}>
+        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
+          <Link href="/writing" className="nav-link">Writing</Link>
         </p>
-        <h1>The Rise of Generalist Leaders</h1>
-        <h2 style={{ color: 'var(--text-secondary)', fontWeight: '400', fontSize: '1.5rem', marginTop: '-0.5rem', marginBottom: '2rem' }}>
+        <p className="article-date" style={{ marginBottom: "1rem" }}>September 6, 2025</p>
+        <h1 style={{ marginBottom: "0.5rem" }}>The Rise of Generalist Leaders</h1>
+        <p style={{
+          fontSize: "1.25rem",
+          fontStyle: "italic",
+          color: "var(--text-secondary)",
+          margin: 0
+        }}>
           How Agentic Tools Are Reshaping Engineering Leadership
-        </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '3rem' }}>
-          September 6, 2025
         </p>
       </header>
+
+      <hr className="rule-thick" />
 
       <main>
         <article>
