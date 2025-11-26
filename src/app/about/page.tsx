@@ -110,7 +110,7 @@ export default function About() {
 
         <section style={{ paddingTop: "0.5rem" }}>
           <h2 style={{ fontSize: "1rem", marginBottom: "1rem" }} className="small-caps">Get in touch</h2>
-          <p style={{ margin: 0 }}>
+          <p className="nav-links" style={{ margin: 0, display: "flex", flexWrap: "wrap", alignItems: "center" }}>
             <a href="mailto:me@blakeyoder.com">me@blakeyoder.com</a>
             <span className="nav-divider">|</span>
             <a

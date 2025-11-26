@@ -32,7 +32,7 @@ export default function Home() {
         <hr className="rule-thick" />
 
         <nav style={{ paddingTop: "0.5rem" }}>
-          <p style={{
+          <p className="nav-links" style={{
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",

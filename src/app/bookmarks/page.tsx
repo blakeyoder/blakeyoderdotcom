@@ -604,8 +604,8 @@ export default function Bookmarks() {
 
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))",
-          gap: "3rem",
+          gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 400px), 1fr))",
+          gap: "3rem 2rem",
         }}>
           {Object.entries(filteredCategories).map(([category, links]) => (
             <div key={category}>
@@ -669,9 +669,10 @@ export default function Bookmarks() {
             style={{
               backgroundColor: "var(--paper)",
               border: "2px solid var(--ink)",
-              padding: "2rem",
+              padding: "1.5rem",
               maxWidth: "480px",
-              width: "90%",
+              width: "calc(100% - 2rem)",
+              margin: "0 1rem",
               position: "relative",
             }}
             onClick={(e) => e.stopPropagation()}
@@ -713,10 +714,11 @@ export default function Bookmarks() {
               Want to add these {totalLinks} bookmarks to your own browser? Download them as an HTML file that you can import into any browser.
             </p>
 
-            <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
+            <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end", flexWrap: "wrap" }}>
               <button
                 onClick={() => setShowDownloadModal(false)}
                 className="btn btn-outline"
+                style={{ flex: "1 1 auto", minWidth: "120px" }}
               >
                 No thanks
               </button>
@@ -727,6 +729,7 @@ export default function Bookmarks() {
                   setShowDownloadModal(false);
                 }}
                 className="btn"
+                style={{ flex: "1 1 auto", minWidth: "120px" }}
               >
                 Download
               </button>

@@ -43,6 +43,10 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -177,6 +181,17 @@ a:hover {
   color: var(--rule);
   margin: 0 0.75rem;
   user-select: none;
+}
+
+/* Mobile navigation: hide dividers and add gap between links */
+@media (max-width: 480px) {
+  .nav-divider {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 0.5rem 1rem !important;
+  }
 }
 
 /* Button styles */
