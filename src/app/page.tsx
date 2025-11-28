@@ -40,11 +40,11 @@ export default function Home() {
             margin: 0,
             fontSize: "1rem"
           }}>
+            <Link href="/about" className="nav-link">About</Link>
+            <span className="nav-divider">|</span>
             <Link href="/writing" className="nav-link">Writing</Link>
             <span className="nav-divider">|</span>
             <Link href="/bookmarks" className="nav-link">Bookmarks</Link>
-            <span className="nav-divider">|</span>
-            <Link href="/about" className="nav-link">About</Link>
             <span className="nav-divider">|</span>
             <Link href="/now" className="nav-link">Now</Link>
             <span className="nav-divider">|</span>
