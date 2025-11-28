@@ -54,7 +54,7 @@ export default function Writing() {
             </h2>
             <p className="article-subtitle">Everyone&apos;s obsessing over what AI changes. The more interesting question: what doesn&apos;t it change at all?</p>
             <p className="article-excerpt">
-              Slop, side-quests, and skipped learning existed long before ChatGPT. AI is a lever that amplifies whatever force you apply—the question was never "Will AI write good code?" but "Will you?"
+              Slop, side-quests, and skipped learning existed long before ChatGPT. AI is a lever that amplifies whatever force you apply—the question was never &quot;Will AI write good code?&quot; but &quot;Will you?&quot;
             </p>
           </article>
 

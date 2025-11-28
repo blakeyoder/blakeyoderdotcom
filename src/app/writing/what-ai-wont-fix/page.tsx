@@ -66,11 +66,11 @@ export default function WhatAIWontFix() {
           <h2>Slop isn&apos;t new. The scapegoat is.</h2>
 
           <p>
-            Before ChatGPT, developers shipped sloppy code. After ChatGPT, developers ship sloppy code. The only difference is who gets blamed.
+            Before Cursor, Claude Code, etc, developers shipped sloppy code. After these tools, developers ship sloppy code. The only difference is who gets blamed.
           </p>
 
           <p>
-            "AI writes bad code, so don&apos;t use AI" sounds reasonable until you think about it for three seconds. It&apos;s a false dichotomy. The argument assumes code quality is binary and inherent to the tool—ignoring the human wielding it.
+            &quot;AI writes bad code, so don&apos;t use AI&quot; sounds reasonable until you think about it for three seconds. It&apos;s a false dichotomy. The argument assumes code quality is binary and inherent to the tool—ignoring the human wielding it.
           </p>
 
           <p>
@@ -110,11 +110,11 @@ export default function WhatAIWontFix() {
           <h2>Learning didn&apos;t become optional.</h2>
 
           <p>
-            AI is an intelligence multiplier. Used well, it&apos;s the best tutor you&apos;ve ever had. "Explain how DNS works." "My company deploys on ECS with Fargate—help me build a mental model of how requests flow." These prompts make you smarter.
+            AI is an intelligence multiplier. Used well, it&apos;s the best tutor you&apos;ve ever had. &quot;Explain how DNS works.&quot; &quot;My company deploys on ECS with Fargate—help me build a mental model of how requests flow.&quot; These prompts make you smarter.
           </p>
 
           <p>
-            But slapping a stack trace into a window and accepting the fix? That&apos;s not learning. The problem is "solved," but you never internalized what went wrong.
+            But slapping a stack trace into a window and accepting the fix? That&apos;s not learning. The problem is &quot;solved,&quot; but you never internalized what went wrong.
           </p>
 
           <p>
@@ -140,7 +140,7 @@ export default function WhatAIWontFix() {
           </p>
 
           <p>
-            The question was never "Will AI write good code?" It&apos;s always been "Will you?"
+            The question was never &quot;Will AI write good code?&quot; It&apos;s always been &quot;Will you?&quot;
           </p>
         </article>
       </main>

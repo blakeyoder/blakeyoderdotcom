@@ -46,6 +46,8 @@ export default function Home() {
             <span className="nav-divider">|</span>
             <Link href="/about" className="nav-link">About</Link>
             <span className="nav-divider">|</span>
+            <Link href="/now" className="nav-link">Now</Link>
+            <span className="nav-divider">|</span>
             <Link href="/contact" className="nav-link">Contact</Link>
             <span className="nav-divider">|</span>
             <a
