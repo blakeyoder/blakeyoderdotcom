@@ -409,6 +409,24 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+/* Article header image */
+.article-header-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 2rem;
+  background: var(--rule-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.article-header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /* Selection */
 ::selection {
   background: var(--accent);

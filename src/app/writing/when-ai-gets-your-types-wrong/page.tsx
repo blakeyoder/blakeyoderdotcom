@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Highlight, themes } from "prism-react-renderer";
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     siteName: "Blake Yoder",
     images: [
       {
-        url: "/when-ai-gets-your-types-wrong-og.png",
+        url: "/when-ai-gets-your-types-wrong.png",
         width: 1200,
         height: 630,
         alt: "When AI Gets Your Types Wrong: A Pragmatic Solution",
@@ -27,13 +28,22 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "When AI Gets Your Types Wrong: A Pragmatic Solution",
     description: "How I built a TypeScript definitions MCP server to help AI tools understand and mock complex types correctly, turning a testing frustration into a practical solution.",
-    images: ["/when-ai-gets-your-types-wrong-og.png"],
+    images: ["/when-ai-gets-your-types-wrong.png"],
   },
 };
 
 export default function TypeScriptDefinitionsMCP() {
   return (
     <div className="container">
+      <div className="article-header-image">
+        <Image
+          src="/when-ai-gets-your-types-wrong.png"
+          alt="When AI Gets Your Types Wrong"
+          width={1200}
+          height={630}
+          priority
+        />
+      </div>
       <header style={{ marginBottom: "2rem" }}>
         <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
           <Link href="/writing" className="nav-link">Writing</Link>

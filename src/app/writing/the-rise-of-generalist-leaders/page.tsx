@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     siteName: "Blake Yoder",
     images: [
       {
-        url: "/theriseofgeneralistleaders-og.png",
+        url: "/the-rise-of-generalist-leaders.png",
         width: 1200,
         height: 630,
         alt: "The Rise of Generalist Leaders: How Agentic Tools Are Reshaping Engineering Leadership",
@@ -26,13 +27,22 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Rise of Generalist Leaders: How Agentic Tools Are Reshaping Engineering Leadership",
     description: "How agentic tools are democratizing technical capability and reshaping engineering leadership, creating organizations led by generalists who synthesize across domains.",
-    images: ["/theriseofgeneralistleaders-og.png"],
+    images: ["/the-rise-of-generalist-leaders.png"],
   },
 };
 
 export default function GeneralistLeaders() {
   return (
     <div className="container">
+      <div className="article-header-image">
+        <Image
+          src="/the-rise-of-generalist-leaders.png"
+          alt="The Rise of Generalist Leaders"
+          width={1200}
+          height={630}
+          priority
+        />
+      </div>
       <header style={{ marginBottom: "2rem" }}>
         <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
           <Link href="/writing" className="nav-link">Writing</Link>

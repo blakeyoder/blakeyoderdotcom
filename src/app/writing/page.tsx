@@ -46,6 +46,19 @@ export default function Writing() {
       <main>
         <section>
           <article className="article-card">
+            <p className="article-date">November 28, 2025</p>
+            <h2 className="article-title">
+              <Link href="/writing/what-ai-wont-fix">
+                What AI Won&apos;t Fix
+              </Link>
+            </h2>
+            <p className="article-subtitle">Everyone&apos;s obsessing over what AI changes. The more interesting question: what doesn&apos;t it change at all?</p>
+            <p className="article-excerpt">
+              Slop, side-quests, and skipped learning existed long before ChatGPT. AI is a lever that amplifies whatever force you apply—the question was never "Will AI write good code?" but "Will you?"
+            </p>
+          </article>
+
+          <article className="article-card">
             <p className="article-date">September 11, 2025</p>
             <h2 className="article-title">
               <Link href="/writing/when-ai-gets-your-types-wrong">
