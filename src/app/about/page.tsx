@@ -43,16 +43,28 @@ export default function About() {
       <main>
         <section style={{ marginBottom: "3rem" }}>
           <p style={{ fontSize: "1.25rem", lineHeight: 1.65 }}>
-            I&apos;m an engineering leader building technology that connects patients with registered dietitians. After nearly seven years in digital health, one thing&apos;s clear: the most interesting problems—and the most important ones—live at the messy intersection of human systems and technical systems.
+            I used to think expertise meant knowing more than everyone else in the room. Now I think it means knowing which questions to ask—and which tools extend your reach.
           </p>
 
           <p>
-            Previously, I helped scale teams and technology through hyper-growth. Along the way, I learned that tools are only as effective as the people using them. That belief shapes everything I do—whether I&apos;m designing system architecture, structuring a team, or exploring how AI can make healthcare more human, not less.
+            I lead engineering in digital health, working the seam between human systems and technical systems—the place where elegant architecture meets messy reality, where tools succeed or fail based on the people holding them.
+          </p>
+
+          <p>
+            Seven years taught me that technology is leverage, not destination. The real win isn&apos;t shipping code. It&apos;s making a meaningful difference for the humans on the other side.
+          </p>
+
+          <p>
+            Recently, something shifted. I spent years believing I had to choose between deep technical work and leadership. That choice felt permanent. Then new tools cracked it open—and my own creativity, dormant for years, began to grow.
+          </p>
+
+          <p>
+            What I&apos;m watching now: the rise of generalist leaders, the changing shape of expertise, the question of human agency in increasingly automated systems. Not as abstract debates—as things I&apos;m living through and building toward.
           </p>
         </section>
 
         <section style={{ marginBottom: "3rem" }}>
-          <h2 style={{ fontSize: "1rem", marginBottom: "1.5rem" }} className="small-caps">Influences</h2>
+          <h2 style={{ fontSize: "1rem", marginBottom: "1.5rem" }} className="small-caps">People who shaped my thinking</h2>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             <li style={{
               paddingBottom: "1rem",
@@ -66,7 +78,7 @@ export default function About() {
               >
                 Jerry Colonna
               </a>
-              <span style={{ color: "var(--text-secondary)" }}>, whom I&apos;ve never met, taught me that leadership starts with self-awareness.</span>
+              <span style={{ color: "var(--text-secondary)" }}> taught me leadership starts with self-awareness.</span>
             </li>
             <li style={{
               paddingBottom: "1rem",
@@ -80,7 +92,7 @@ export default function About() {
               >
                 Derek Rutter
               </a>
-              <span style={{ color: "var(--text-secondary)" }}> showed me that the best answer is a better question.</span>
+              <span style={{ color: "var(--text-secondary)" }}> showed me the best answer is a better question.</span>
             </li>
             <li>
               <a
@@ -90,26 +102,15 @@ export default function About() {
               >
                 Gil Shklarski
               </a>
-              <span style={{ color: "var(--text-secondary)" }}> reminded me that scaling an organization is more about trust than it is about tech.</span>
+              <span style={{ color: "var(--text-secondary)" }}> reminded me that scaling is about trust, not tech.</span>
             </li>
           </ul>
-        </section>
-
-        <section style={{ marginBottom: "3rem" }}>
-          <h2 style={{ fontSize: "1rem", marginBottom: "1.5rem" }} className="small-caps">Philosophy</h2>
-          <p>
-            Great engineering teams run on three things: deep technical skill, clear communication, and genuine care for the problem. Technology should be leverage, not the destination. The real win isn&apos;t shipping code—it&apos;s making a meaningful difference for the humans on the other side of the screen.
-          </p>
-
-          <p>
-            Outside of work, I&apos;m often thinking about macro trends and their second-order effects. How will AI change how we think about expertise? How do we keep human agency alive in increasingly automated systems? These aren&apos;t just tech questions—they&apos;re questions about the kind of future we&apos;re building together.
-          </p>
         </section>
 
         <hr className="rule" />
 
         <section style={{ paddingTop: "0.5rem" }}>
-          <h2 style={{ fontSize: "1rem", marginBottom: "1rem" }} className="small-caps">Get in touch</h2>
+          <h2 style={{ fontSize: "1rem", marginBottom: "1rem" }} className="small-caps">Let&apos;s talk</h2>
           <p className="nav-links" style={{ margin: 0, display: "flex", flexWrap: "wrap", alignItems: "center" }}>
             <a href="mailto:me@blakeyoder.com">me@blakeyoder.com</a>
             <span className="nav-divider">|</span>

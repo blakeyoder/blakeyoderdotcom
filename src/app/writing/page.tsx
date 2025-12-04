@@ -46,6 +46,19 @@ export default function Writing() {
       <main>
         <section>
           <article className="article-card">
+            <p className="article-date">December 4, 2025</p>
+            <h2 className="article-title">
+              <Link href="/writing/slop-might-save-your-startup">
+                Slop Might Save Your Startup
+              </Link>
+            </h2>
+            <p className="article-subtitle">Speed is the only moat that matters—until it isn&apos;t.</p>
+            <p className="article-excerpt">
+              In early-stage startups, shipping fast isn&apos;t just important—it&apos;s the only sustainable competitive advantage you have. AI is fundamentally altering the cost structure of technical debt.
+            </p>
+          </article>
+
+          <article className="article-card">
             <p className="article-date">November 28, 2025</p>
             <h2 className="article-title">
               <Link href="/writing/what-ai-wont-fix">
