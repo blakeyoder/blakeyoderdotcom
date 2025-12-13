@@ -4,10 +4,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Slop Might Save Your Startup | Blake Yoder",
-  description: "In early-stage startups, shipping fast isn't just important—it's the only sustainable competitive advantage you have. Everything else is a luxury you can't afford.",
+  description: "In early-stage startups, shipping fast isn't just important. It's the only sustainable competitive advantage you have. Everything else is a luxury you can't afford.",
   openGraph: {
     title: "Slop Might Save Your Startup",
-    description: "In early-stage startups, shipping fast isn't just important—it's the only sustainable competitive advantage you have. Everything else is a luxury you can't afford.",
+    description: "In early-stage startups, shipping fast isn't just important. It's the only sustainable competitive advantage you have. Everything else is a luxury you can't afford.",
     url: "https://blakeyoder.com/writing/slop-might-save-your-startup",
     siteName: "Blake Yoder",
     images: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Slop Might Save Your Startup",
-    description: "In early-stage startups, shipping fast isn't just important—it's the only sustainable competitive advantage you have. Everything else is a luxury you can't afford.",
+    description: "In early-stage startups, shipping fast isn't just important. It's the only sustainable competitive advantage you have. Everything else is a luxury you can't afford.",
     images: ["/slop-might-save-your-startup.png"],
   },
 };
@@ -64,7 +64,7 @@ export default function SlopMightSaveYourStartup() {
       <main>
         <article>
           <p>
-            In early-stage startups, shipping fast isn&apos;t just important—it&apos;s the only sustainable competitive advantage you have. Everything else is a luxury you can&apos;t afford.
+            In early-stage startups, shipping fast isn&apos;t just important. It&apos;s the only sustainable competitive advantage you have. Everything else is a luxury you can&apos;t afford.
           </p>
 
           <p>
@@ -82,7 +82,7 @@ export default function SlopMightSaveYourStartup() {
           </p>
 
           <p>
-            This might be hard for engineers to accept because it feels wrong to those trained to value craftsmanship. We&apos;re taught that clean code is good code, that shortcuts create problems, that quality matters. All of this is true—in the right context. But early-stage startups exist in a different context entirely.
+            It feels wrong to engineers trained to value craftsmanship. We&apos;re taught that clean code is good code, that shortcuts create problems, that quality matters. All of this is true—in the right context. But early-stage startups exist in a different context entirely.
           </p>
 
           <p>
@@ -92,11 +92,11 @@ export default function SlopMightSaveYourStartup() {
           <h2>AI Changes the Calculation</h2>
 
           <p>
-            Here&apos;s where it gets interesting: AI tools are fundamentally altering the cost structure of technical debt.
+            AI tools are changing the cost structure of technical debt.
           </p>
 
           <p>
-            Traditional wisdom says you pay for shortcuts later. Write sloppy code now, spend months untangling it when you need to scale. But what if &quot;later&quot; doesn&apos;t look like manual refactoring? What if it looks like Claude Sonnet 6.0 reading your Sonnet 3.5 code and automatically improving it?
+            Traditional wisdom says you pay for shortcuts later. Write sloppy code now, spend months untangling it when you need to scale. But what if &quot;later&quot; doesn&apos;t look like manual refactoring? What if it looks like Sonnet 6.0 reading your Sonnet 3.5 code and automatically improving it?
           </p>
 
           <p>
@@ -104,7 +104,7 @@ export default function SlopMightSaveYourStartup() {
           </p>
 
           <p>
-            I&apos;m not suggesting we abandon all standards. Security still matters. Basic functionality still matters. Performance that&apos;s &quot;good enough&quot; still matters. But the obsession with perfect abstractions, elegant architecture, and pristine code organization? That might be a luxury we can&apos;t afford—and increasingly don&apos;t need to afford.
+            I&apos;m not suggesting we abandon all standards. Security still matters. Basic functionality still matters. Performance that&apos;s &quot;good enough&quot; still matters. But the obsession with perfect abstractions, elegant architecture, and pristine code organization? That might be a luxury we can&apos;t afford, and one we increasingly don&apos;t need to afford.
           </p>
 
           <p>
@@ -118,11 +118,11 @@ export default function SlopMightSaveYourStartup() {
           </p>
 
           <p>
-            The pattern I observe is clear: startups don&apos;t die because their code was messy—they die because they ran out of runway while perfecting their first version. Others succeed with embarrassing codebases that somehow scaled to millions of users. The difference isn&apos;t code quality—it&apos;s velocity.
+            Startups don&apos;t die because their code was messy—they die because they ran out of runway while perfecting their first version. Others succeed with embarrassing codebases that somehow scaled to millions of users. The difference isn&apos;t code quality—it&apos;s velocity.
           </p>
 
           <p>
-            This might be hard for engineers to accept because it feels like we&apos;re being asked to do bad work. But here&apos;s the reframe: shipping imperfect solutions to real problems is better work than crafting perfect solutions to problems that don&apos;t exist.
+            It feels like we&apos;re being asked to do bad work. But think about it differently: shipping imperfect solutions to real problems is better work than crafting perfect solutions to problems that don&apos;t exist.
           </p>
 
           <p>

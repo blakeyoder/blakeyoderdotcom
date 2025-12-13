@@ -96,11 +96,11 @@ export default function GeneralistLeaders() {
           <h2>The Fundamental Shift</h2>
 
           <p>
-            Here&apos;s the pattern I see emerging: agentic tools are democratizing technical capability, which means raw coding skill is becoming less of a differentiator. The &ldquo;intimidating expert&rdquo; model—where technical depth alone determined career trajectory—is becoming obsolete. Instead, success will flow to those who can synthesize across domains, understand context, and create elegant solutions to messy problems.
+            Agentic tools are democratizing technical capability, which means raw coding skill is becoming less of a differentiator. The &ldquo;intimidating expert&rdquo; model—where technical depth alone determined career trajectory—is becoming obsolete. Instead, success will flow to those who can synthesize across domains, understand context, and create elegant solutions to messy problems.
           </p>
 
           <p>
-            I&apos;m not alone in noticing this. I&apos;m seeing it in conversations with other managers and leaders who chose the people path over the individual contributor track midway through their careers. These tools are re-sparking their creativity, allowing them to bypass the tedious obstacles that drove them away from hands-on coding in the first place. They can build again. Create again. And their efficiency multiplies because, fundamentally, they were always problem solvers, product builders, tinkerers, and curious individuals.
+            I&apos;m not alone in noticing this. I&apos;m seeing it in conversations with other managers and leaders who chose the people path over the individual contributor track midway through their careers. These tools are re-sparking their creativity, allowing them to bypass the tedious obstacles that drove them away from hands-on coding in the first place. They can build again. Create again. And their efficiency multiplies because they were always problem solvers, product builders, tinkerers, and curious individuals.
           </p>
 
           <p>

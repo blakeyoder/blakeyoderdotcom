@@ -107,7 +107,7 @@ export default function TypeScriptDefinitionsMCP() {
           </p>
 
           <p>
-            This is the pattern I&apos;ve noticed with AI tools: they excel when they have the right context, but they struggle when that context is buried in places they can&apos;t easily access. The TypeScript definitions were always there, sitting in{' '}
+            AI tools excel when they have the right context, but they struggle when that context is buried in places they can&apos;t easily access. The TypeScript definitions were always there, sitting in{' '}
             <Highlight theme={themes.oneDark} code="node_modules" language="bash">
               {({ className, style, tokens, getTokenProps }) => (
                 <code className={className} style={{...style, padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.9em'}}>
@@ -133,7 +133,7 @@ export default function TypeScriptDefinitionsMCP() {
           </p>
 
           <p>
-            The beauty of this approach is its simplicity. Instead of trying to teach AI tools how to navigate and understand TypeScript definition files on the fly, we give them a dedicated interface to query type information. The MCP server handles the heavy lifting of parsing definitions, understanding inheritance, and extracting relevant properties.
+            The approach is simple. Instead of trying to teach AI tools how to navigate and understand TypeScript definition files on the fly, we give them a dedicated interface to query type information. The MCP server handles the heavy lifting of parsing definitions, understanding inheritance, and extracting relevant properties.
           </p>
 
           <h2>How I&apos;m Using It</h2>
@@ -212,7 +212,7 @@ export default function TypeScriptDefinitionsMCP() {
           <h2>The Bigger Picture</h2>
 
           <p>
-            This experience reinforced something I&apos;ve been thinking about: the most effective use of AI tools isn&apos;t about replacing human expertise—it&apos;s about removing the friction between having an idea and implementing it. The frustration I felt wasn&apos;t about not knowing how to create proper mocks; it was about the tedious process of manually cross-referencing type definitions every time.
+            The most effective use of AI tools isn&apos;t about replacing human expertise—it&apos;s about removing the friction between having an idea and implementing it. The frustration I felt wasn&apos;t about not knowing how to create proper mocks; it was about the tedious process of manually cross-referencing type definitions every time.
           </p>
 
           <p>
