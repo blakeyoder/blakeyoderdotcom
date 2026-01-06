@@ -8,11 +8,13 @@ This is Blake Yoder's personal website built with Next.js 15 and TypeScript. It'
 
 ## Development Commands
 
-- **Development server**: `yarn dev` (uses Next.js with Turbopack for faster builds)
-- **Build**: `yarn build` 
-- **Production server**: `yarn start`
-- **Linting**: `yarn lint` (uses ESLint with Next.js config)
-- **Package manager**: Uses Yarn (version 1.18.0) - prefer yarn over npm
+- **Development server**: `bun run dev` (uses Next.js with Turbopack for faster builds)
+- **Build**: `bun run build`
+- **Production server**: `bun run start`
+- **Linting**: `bun run lint` (uses ESLint with Next.js config)
+- **Type checking**: `bun run typecheck`
+- **Dead code detection**: `bun run knip`
+- **Package manager**: Bun
 
 ## Architecture & Structure
 

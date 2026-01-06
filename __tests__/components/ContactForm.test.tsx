@@ -1,14 +1,8 @@
 /**
  * Tests for ContactForm component
- * Written FIRST per Test-First Development principle
- * These tests will FAIL until the component is implemented
+ * TODO: Install @testing-library/react when ready to implement component tests
  */
 
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-
-// This import will fail until we create the component
-// That's expected - we're writing the test first
 describe('ContactForm', () => {
   it('should render form with all required fields', () => {
     // TODO: Implement when ContactForm component exists

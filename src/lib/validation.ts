@@ -110,7 +110,7 @@ export interface ContactFormErrors {
 /**
  * Validates LinkedIn URL format
  */
-export function validateLinkedIn(url: string): ValidationResult {
+function validateLinkedIn(url: string): ValidationResult {
   const trimmed = url.trim();
 
   if (trimmed.length === 0) {
