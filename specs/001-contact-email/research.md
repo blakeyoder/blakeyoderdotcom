@@ -15,6 +15,7 @@ This document captures research findings and technical decisions for implementin
 **Decision**: Use Resend.com for transactional email delivery
 
 **Rationale**:
+
 - **Free tier sufficient**: 100 emails/day, 3,000/month covers expected traffic (10-50/month)
 - **No credit card required**: Can start immediately without payment setup
 - **Simple API**: RESTful API with clean TypeScript SDK
@@ -23,6 +24,7 @@ This document captures research findings and technical decisions for implementin
 - **Developer experience**: Clear documentation, helpful error messages
 
 **Alternatives Considered**:
+
 - **SendGrid**: More complex API, requires credit card for free tier, overkill for simple use case
 - **Mailgun**: Similar complexity to SendGrid, less modern developer experience
 - **Postmark**: Excellent service but no free tier, minimum $10/month
@@ -30,6 +32,7 @@ This document captures research findings and technical decisions for implementin
 - **Nodemailer + Gmail SMTP**: Free but unreliable, security concerns with app passwords, poor deliverability
 
 **Implementation Notes**:
+
 - Install via `yarn add resend`
 - Store API key in environment variable: `RESEND_API_KEY`
 - Verify domain or use test mode during development
@@ -40,17 +43,20 @@ This document captures research findings and technical decisions for implementin
 **Decision**: Dual validation (client + server) with server as source of truth
 
 **Rationale**:
+
 - **Security**: Server-side validation prevents bypassing via browser dev tools
 - **User Experience**: Client-side validation provides immediate feedback without round trip
 - **Progressive Enhancement**: Form works without JavaScript (server validates)
 - **Type Safety**: TypeScript validation schemas shared between client and server
 
 **Alternatives Considered**:
+
 - **Client-only validation**: Insecure, easily bypassed, rejected
 - **Server-only validation**: Poor UX (requires round trip for every error), rejected
 - **Third-party validation library (Zod, Yup)**: Adds dependency, simple validation doesn't justify it
 
 **Implementation Notes**:
+
 - Create shared validation functions in `src/lib/validation.ts`
 - Client-side: React state + event handlers for immediate feedback
 - Server-side: Validate in API route before processing
@@ -61,17 +67,20 @@ This document captures research findings and technical decisions for implementin
 **Decision**: In-memory rate limiting with Map-based storage for MVP
 
 **Rationale**:
+
 - **Simplicity**: No external dependencies (Redis, KV store) for MVP
 - **Sufficient for scale**: Expected traffic (10-50/month) doesn't justify Redis
 - **Easy to upgrade**: Can swap to Vercel KV or Redis later if needed
 - **Development simplicity**: No local Redis setup required for development
 
 **Alternatives Considered**:
+
 - **Vercel KV (Redis)**: Overkill for current scale, adds cost/complexity, can add later
 - **Upstash Redis**: Similar to Vercel KV, premature optimization
 - **No rate limiting**: Would allow spam, rejected per requirements
 
 **Implementation Notes**:
+
 - Track submissions by IP address in memory: `Map<string, { count: number, resetAt: Date }>`
 - 5-minute sliding window: max 1 submission per IP per 5 minutes
 - Clear expired entries periodically to prevent memory leak
@@ -83,6 +92,7 @@ This document captures research findings and technical decisions for implementin
 **Decision**: Multi-layered approach - honeypot + rate limiting + content filtering
 
 **Rationale**:
+
 - **Honeypot field**: Catches dumb bots (hidden CSS field, bots auto-fill it)
 - **Rate limiting**: Prevents rapid automated submissions
 - **Content filtering**: Blocks excessive links, suspicious keywords
@@ -90,12 +100,14 @@ This document captures research findings and technical decisions for implementin
 - **Layered defense**: Multiple simple techniques better than one complex one
 
 **Alternatives Considered**:
+
 - **reCAPTCHA**: Degrades UX, accessibility concerns, privacy issues, overkill for traffic level
 - **hCaptcha**: Similar to reCAPTCHA, same concerns
 - **Akismet**: Paid service ($5/month minimum), overkill for expected volume
 - **No spam prevention**: Would result in spam submissions, rejected
 
 **Implementation Notes**:
+
 - **Honeypot**: Hidden input field named something tempting like `website` or `phone`
 - **Content filtering rules**:
   - Max 2 URLs in message (more likely spam)
@@ -110,17 +122,20 @@ This document captures research findings and technical decisions for implementin
 **Decision**: Jest + React Testing Library + MSW for API mocking
 
 **Rationale**:
+
 - **Standard Next.js stack**: Jest is Next.js default testing framework
 - **React Testing Library**: Encourages testing user behavior vs. implementation
 - **MSW (Mock Service Worker)**: Clean API mocking without monkey-patching fetch
 - **Already installed**: No new dependencies needed (part of Next.js setup)
 
 **Alternatives Considered**:
+
 - **Vitest**: Faster but non-standard for Next.js, not worth migration
 - **Cypress/Playwright**: E2E tools are overkill for simple form, can add later if needed
 - **Manual mocking**: More brittle than MSW, harder to maintain
 
 **Test Coverage Plan**:
+
 1. **Component tests** (`ContactForm.test.tsx`):
    - Form renders with all fields
    - Client-side validation triggers on invalid input
@@ -142,6 +157,7 @@ This document captures research findings and technical decisions for implementin
    - Error handling: invalid data → see errors → fix → submit success
 
 **Implementation Notes**:
+
 - Mock Resend SDK in tests (don't send real emails)
 - Use MSW to intercept API calls in integration tests
 - Test both with and without JavaScript enabled (progressive enhancement)
@@ -151,12 +167,14 @@ This document captures research findings and technical decisions for implementin
 **Decision**: Environment variables with validation at startup
 
 **Rationale**:
+
 - **Security**: API keys never committed to repository
 - **Flexibility**: Different keys for development vs. production
 - **Fail fast**: Validate required env vars at application startup
 - **Next.js standard**: Built-in env var support with `.env.local`
 
 **Required Environment Variables**:
+
 ```bash
 # Required
 RESEND_API_KEY=re_...                    # Resend API key
@@ -170,6 +188,7 @@ SPAM_MAX_URLS=2                          # Max URLs in message (default: 2)
 ```
 
 **Implementation Notes**:
+
 - Create `.env.local` for local development (git ignored)
 - Add `.env.example` with placeholder values (committed)
 - Validate env vars in `src/lib/config.ts` at module load time
@@ -181,6 +200,7 @@ SPAM_MAX_URLS=2                          # Max URLs in message (default: 2)
 ### Accessibility Requirements
 
 **Standards to follow**:
+
 - WCAG 2.1 Level AA compliance
 - Semantic HTML5 form elements
 - Proper label associations (explicit `<label for="...">`)
@@ -190,6 +210,7 @@ SPAM_MAX_URLS=2                          # Max URLs in message (default: 2)
 - Focus management (error fields get focus)
 
 **Implementation checklist**:
+
 - [ ] All inputs have associated `<label>` elements
 - [ ] Error messages have `role="alert"` for screen reader announcement
 - [ ] Required fields indicated visually and in markup (`required` attribute)
@@ -200,11 +221,13 @@ SPAM_MAX_URLS=2                          # Max URLs in message (default: 2)
 ### Progressive Enhancement
 
 **Base functionality (no JavaScript)**:
+
 - Form submits via standard HTML form POST
 - Server-side validation returns error page with errors pre-filled
 - Success page shows after successful submission
 
 **Enhanced functionality (with JavaScript)**:
+
 - Inline client-side validation (immediate feedback)
 - AJAX submission (no page reload)
 - Loading states during submission
@@ -212,6 +235,7 @@ SPAM_MAX_URLS=2                          # Max URLs in message (default: 2)
 - Smooth focus management
 
 **Implementation approach**:
+
 - Use Next.js server actions OR standard API route (API route chosen for simplicity)
 - Form `action` attribute points to `/api/contact`
 - JavaScript progressively enhances via `fetch` interception
@@ -223,6 +247,7 @@ SPAM_MAX_URLS=2                          # Max URLs in message (default: 2)
 **Subject line**: New contact form submission from [Visitor Name]
 
 **Body template**:
+
 ```
 You have a new contact form submission from your website.
 
@@ -239,6 +264,7 @@ Reply directly to this email to respond to [Visitor Name].
 ```
 
 **Implementation notes**:
+
 - Plain text email (simpler, better deliverability)
 - Set `reply-to` header to visitor's email for easy replies
 - Include timestamp in Blake's local timezone
@@ -249,6 +275,7 @@ Reply directly to this email to respond to [Visitor Name].
 **Subject line**: Thanks for reaching out!
 
 **Body template**:
+
 ```
 Hi [Visitor Name],
 
@@ -262,6 +289,7 @@ This is an automated confirmation. Please don't reply to this email.
 ```
 
 **Implementation notes**:
+
 - Send after successful submission (if enabled)
 - Lower priority than email to Blake (can fail silently)
 - Set `from` to no-reply address
@@ -318,17 +346,20 @@ This is an automated confirmation. Please don't reply to this email.
 ### Error Logging
 
 **What to log**:
+
 - All email sending failures (with error details)
 - Rate limit triggers (IP, timestamp)
 - Spam detection triggers (reason, content hash)
 - Validation errors (aggregated, no PII)
 
 **What NOT to log**:
+
 - Full message content (privacy)
 - Visitor email addresses (privacy)
 - API keys (security)
 
 **Implementation**:
+
 - Use `console.error` for server errors (captured by Vercel)
 - Structured logging format for easy parsing
 - Include request ID for correlation
@@ -338,10 +369,12 @@ This is an automated confirmation. Please don't reply to this email.
 ### Input Sanitization
 
 **Client-side**:
+
 - Trim whitespace from all inputs
 - Basic XSS prevention (HTML escaping in display)
 
 **Server-side**:
+
 - Validate all inputs against schema
 - Sanitize email content (strip HTML, escape special chars)
 - Limit message length (prevent DOS via large payloads)
@@ -350,6 +383,7 @@ This is an automated confirmation. Please don't reply to this email.
 ### Rate Limiting
 
 **Implementation details**:
+
 - Track by IP address (X-Forwarded-For header, fallback to connection IP)
 - Sliding window algorithm (not fixed window to prevent burst at boundary)
 - Clear old entries to prevent memory leak
@@ -358,6 +392,7 @@ This is an automated confirmation. Please don't reply to this email.
 ### Honeypot
 
 **Implementation details**:
+
 - Field name: `website` (looks legitimate to bots)
 - Hidden via CSS (`position: absolute; left: -9999px; opacity: 0`)
 - NOT using `display: none` (some bots detect this)
@@ -367,6 +402,7 @@ This is an automated confirmation. Please don't reply to this email.
 ### CSRF Protection
 
 **Next.js API routes**:
+
 - Same-origin policy enforced by default
 - Can add CSRF token if needed (likely overkill for public form)
 - Verify `Origin` and `Referer` headers match domain
@@ -378,6 +414,7 @@ This is an automated confirmation. Please don't reply to this email.
 **Approach**: Fire-and-forget with error handling
 
 **Options**:
+
 1. **Synchronous** (chosen for MVP): Wait for email to send, return success/error
    - Pros: User knows if email sent successfully
    - Cons: Slower response time (500ms - 2s)
@@ -391,6 +428,7 @@ This is an automated confirmation. Please don't reply to this email.
 ### Bundle Size Impact
 
 **Estimated additions**:
+
 - Resend SDK: ~50KB (server-only, no client impact)
 - Form validation: ~5KB client-side
 - Spam detection: ~3KB server-only
@@ -408,23 +446,27 @@ This is an automated confirmation. Please don't reply to this email.
 ### Vercel Deployment
 
 **Configuration**:
+
 - Environment variables set in Vercel dashboard
 - Domain verification for Resend (or use test domain initially)
 - Monitor Vercel logs for errors
 - Function timeout: Default (10s) is sufficient
 
 **Domains for Resend**:
+
 - Option 1: Verify `blakeyoder.com` with Resend (recommended for production)
 - Option 2: Use Resend test domain initially (emails go to registered account only)
 
 ### Monitoring
 
 **What to monitor**:
+
 - Email delivery failures (alert if >10% failure rate)
 - API error rates (alert if >5% 5xx errors)
 - Form submission volume (to detect spam attacks)
 
 **Tools**:
+
 - Vercel Analytics (built-in)
 - Resend dashboard (email delivery metrics)
 - Consider: Sentry or similar for error tracking (future enhancement)

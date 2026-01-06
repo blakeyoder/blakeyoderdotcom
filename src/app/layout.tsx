@@ -26,10 +26,12 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://blakeyoder.com"),
   title: "Blake Yoder",
-  description: "Engineering leader. Writing about technology, leadership, and building teams that scale.",
+  description:
+    "Engineering leader. Writing about technology, leadership, and building teams that scale.",
   openGraph: {
     title: "Blake Yoder",
-    description: "Engineering leader. Writing about technology, leadership, and building teams that scale.",
+    description:
+      "Engineering leader. Writing about technology, leadership, and building teams that scale.",
     url: "https://blakeyoder.com",
     siteName: "Blake Yoder",
     images: [
@@ -46,7 +48,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blake Yoder",
-    description: "Engineering leader. Writing about technology, leadership, and building teams that scale.",
+    description:
+      "Engineering leader. Writing about technology, leadership, and building teams that scale.",
     images: ["/og?title=Blake%20Yoder"],
   },
 };
@@ -58,7 +61,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ebGaramond.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}>
+      <body
+        className={`${ebGaramond.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}
+      >
         {children}
         <VimStatusBar />
       </body>

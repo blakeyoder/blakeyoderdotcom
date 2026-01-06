@@ -24,6 +24,7 @@ Follow-up TODOs: None
 Every change must compile and pass tests. No broken intermediate states.
 
 **Rules**:
+
 - All commits MUST compile successfully and pass all existing tests
 - Break complex work into 3-5 stages documented in `IMPLEMENTATION_PLAN.md`
 - Each stage MUST have specific deliverables and testable outcomes
@@ -37,6 +38,7 @@ Every change must compile and pass tests. No broken intermediate states.
 Write tests before implementation. Red → Green → Refactor.
 
 **Rules**:
+
 - Tests MUST be written before implementation code
 - Tests MUST fail initially (red), proving they test actual behavior
 - Implementation proceeds only after test failure is confirmed
@@ -50,6 +52,7 @@ Write tests before implementation. Red → Green → Refactor.
 Study before building. Find 3 similar implementations, identify patterns.
 
 **Rules**:
+
 - Before implementing, find 3 similar features/components in the codebase
 - Identify common patterns, libraries, and conventions
 - Use same utilities and test patterns when possible
@@ -63,6 +66,7 @@ Study before building. Find 3 similar implementations, identify patterns.
 Boring, obvious code over clever solutions.
 
 **Rules**:
+
 - Single responsibility per function/class
 - Avoid premature abstractions—wait for 3+ use cases
 - Choose boring, well-understood solutions over clever ones
@@ -76,6 +80,7 @@ Boring, obvious code over clever solutions.
 Design serves content, not vice versa. Minimal, distinctive aesthetics.
 
 **Rules**:
+
 - Typography and readability take priority over decoration
 - Content constrained to readable widths (65ch max)
 - Responsive design is mobile-first
@@ -133,6 +138,7 @@ After 3 failed attempts:
 ### Quality Gates
 
 **Every commit MUST**:
+
 - Compile successfully (TypeScript, no errors)
 - Pass all existing tests
 - Include tests for new functionality
@@ -140,6 +146,7 @@ After 3 failed attempts:
 - Follow existing code formatting
 
 **Before committing**:
+
 - Run `yarn lint`
 - Self-review changes
 - Ensure commit message explains context and rationale

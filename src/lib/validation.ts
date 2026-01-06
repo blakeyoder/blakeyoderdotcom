@@ -11,7 +11,10 @@ export interface ValidationResult {
 /**
  * Validates that a value is not empty after trimming whitespace
  */
-export function validateRequired(value: string, fieldName: string): ValidationResult {
+export function validateRequired(
+  value: string,
+  fieldName: string,
+): ValidationResult {
   const trimmed = value.trim();
 
   if (trimmed.length === 0) {
@@ -34,7 +37,7 @@ export function validateEmail(email: string): ValidationResult {
   if (trimmed.length === 0) {
     return {
       isValid: false,
-      error: 'Email is required',
+      error: "Email is required",
     };
   }
 
@@ -42,7 +45,7 @@ export function validateEmail(email: string): ValidationResult {
   if (trimmed.length > 254) {
     return {
       isValid: false,
-      error: 'Email address is too long',
+      error: "Email address is too long",
     };
   }
 
@@ -52,7 +55,7 @@ export function validateEmail(email: string): ValidationResult {
   if (!emailRegex.test(trimmed)) {
     return {
       isValid: false,
-      error: 'Please enter a valid email address',
+      error: "Please enter a valid email address",
     };
   }
 
@@ -66,7 +69,7 @@ export function validateLength(
   value: string,
   fieldName: string,
   min: number,
-  max: number
+  max: number,
 ): ValidationResult {
   const trimmed = value.trim();
   const length = trimmed.length;
@@ -116,17 +119,19 @@ function validateLinkedIn(url: string): ValidationResult {
   if (trimmed.length === 0) {
     return {
       isValid: false,
-      error: 'LinkedIn URL is required',
+      error: "LinkedIn URL is required",
     };
   }
 
   // Check if it's a valid LinkedIn URL
-  const linkedInPattern = /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
+  const linkedInPattern =
+    /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
 
   if (!linkedInPattern.test(trimmed)) {
     return {
       isValid: false,
-      error: 'Please enter a valid LinkedIn profile URL (e.g., https://linkedin.com/in/yourname)',
+      error:
+        "Please enter a valid LinkedIn profile URL (e.g., https://linkedin.com/in/yourname)",
     };
   }
 
@@ -140,11 +145,11 @@ export function validateContactForm(data: ContactFormData): {
   const errors: ContactFormErrors = {};
 
   // Validate name
-  const nameRequired = validateRequired(data.name, 'Name');
+  const nameRequired = validateRequired(data.name, "Name");
   if (!nameRequired.isValid) {
     errors.name = nameRequired.error;
   } else {
-    const nameLength = validateLength(data.name, 'Name', 1, 100);
+    const nameLength = validateLength(data.name, "Name", 1, 100);
     if (!nameLength.isValid) {
       errors.name = nameLength.error;
     }
@@ -163,11 +168,11 @@ export function validateContactForm(data: ContactFormData): {
   }
 
   // Validate message
-  const messageRequired = validateRequired(data.message, 'Message');
+  const messageRequired = validateRequired(data.message, "Message");
   if (!messageRequired.isValid) {
     errors.message = messageRequired.error;
   } else {
-    const messageLength = validateLength(data.message, 'Message', 1, 2000);
+    const messageLength = validateLength(data.message, "Message", 1, 2000);
     if (!messageLength.isValid) {
       errors.message = messageLength.error;
     }

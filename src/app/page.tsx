@@ -5,7 +5,10 @@ export default function Home() {
     <div className="container">
       <header>
         <h1>Blake Yoder</h1>
-        <p className="small-caps" style={{ marginTop: "-0.5rem", marginBottom: "3rem" }}>
+        <p
+          className="small-caps"
+          style={{ marginTop: "-0.5rem", marginBottom: "3rem" }}
+        >
           Engineering Leader
         </p>
       </header>
@@ -13,42 +16,67 @@ export default function Home() {
       <main>
         <section style={{ marginBottom: "2.5rem" }}>
           <p style={{ fontSize: "1.25rem", lineHeight: 1.65 }}>
-            The most interesting problems live at the intersection of human systems and technical systems. Over the past decade—including seven years in digital healthcare—I&apos;ve learned how technology, when used well, can create outsized business outcomes.
+            The most interesting problems live at the intersection of human
+            systems and technical systems. Over the past decade—including seven
+            years in digital healthcare—I&apos;ve learned how technology, when
+            used well, can create outsized business outcomes.
           </p>
 
           <p>
-            I&apos;ve applied that belief in scaling teams and businesses through rapid growth—most notably helping scale{" "}
-            <a href="https://thirtymadison.com" target="_blank" rel="noopener noreferrer">
+            I&apos;ve applied that belief in scaling teams and businesses
+            through rapid growth—most notably helping scale{" "}
+            <a
+              href="https://thirtymadison.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Thirty Madison
             </a>{" "}
-            from Series A to over $250M in ARR. My work sits at the crossroads of technology and business strategy, aligning people, process, and product to turn uncertainty into momentum.
+            from Series A to over $250M in ARR. My work sits at the crossroads
+            of technology and business strategy, aligning people, process, and
+            product to turn uncertainty into momentum.
           </p>
 
           <p>
-            I write about the overlap between technical execution and business impact—covering macro trends, team dynamics, and the personal reflections that come from leading through change.
+            I write about the overlap between technical execution and business
+            impact—covering macro trends, team dynamics, and the personal
+            reflections that come from leading through change.
           </p>
         </section>
 
         <hr className="rule-thick" />
 
         <nav style={{ paddingTop: "0.5rem" }}>
-          <p className="nav-links" style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            gap: "0",
-            margin: 0,
-            fontSize: "1rem"
-          }}>
-            <Link href="/about" className="nav-link">About</Link>
+          <p
+            className="nav-links"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "0",
+              margin: 0,
+              fontSize: "1rem",
+            }}
+          >
+            <Link href="/about" className="nav-link">
+              About
+            </Link>
             <span className="nav-divider">|</span>
-            <Link href="/writing" className="nav-link">Writing</Link>
+            <Link href="/writing" className="nav-link">
+              Writing
+            </Link>
             <span className="nav-divider">|</span>
-            <Link href="/bookmarks" className="nav-link">Bookmarks</Link>
+            <Link href="/bookmarks" className="nav-link">
+              Bookmarks
+            </Link>
             <span className="nav-divider">|</span>
-            <Link href="/now" className="nav-link">Now</Link>
+            <Link href="/now" className="nav-link">
+              Now
+            </Link>
             <span className="nav-divider">|</span>
-            <Link href="/contact" className="nav-link">Contact</Link>
+            <Link href="/contact" className="nav-link">
+              Contact
+            </Link>
             <span className="nav-divider">|</span>
             <a
               href="https://www.linkedin.com/in/blakeyoder/"

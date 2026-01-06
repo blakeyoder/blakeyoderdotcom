@@ -1,5 +1,4 @@
 ---
-
 description: "Task list for contact form implementation"
 ---
 
@@ -45,7 +44,7 @@ description: "Task list for contact form implementation"
 - [ ] T006 Study existing page components in src/app/page.tsx and src/app/about/page.tsx for styling patterns
 - [ ] T007 [P] Create src/lib/config.ts to validate and export environment variables with TypeScript types
 - [ ] T008 [P] Create src/lib/validation.ts with shared validation functions (validateEmail, validateRequired, validateLength)
-- [ ] T009 Test for src/lib/validation.ts in __tests__/lib/validation.test.ts (write FIRST, verify fails)
+- [ ] T009 Test for src/lib/validation.ts in **tests**/lib/validation.test.ts (write FIRST, verify fails)
 - [ ] T010 Implement validation functions in src/lib/validation.ts to pass tests
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
@@ -62,9 +61,9 @@ description: "Task list for contact form implementation"
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T011 [P] [US1] Write component test for ContactForm in __tests__/components/ContactForm.test.tsx (render, fields present, no implementation yet)
-- [ ] T012 [P] [US1] Write API route test for /api/contact in __tests__/api/contact.test.ts (POST request handling, no implementation yet)
-- [ ] T013 [P] [US1] Write email service test for src/lib/email.ts in __tests__/lib/email.test.ts (Resend SDK mocking, no implementation yet)
+- [ ] T011 [P] [US1] Write component test for ContactForm in **tests**/components/ContactForm.test.tsx (render, fields present, no implementation yet)
+- [ ] T012 [P] [US1] Write API route test for /api/contact in **tests**/api/contact.test.ts (POST request handling, no implementation yet)
+- [ ] T013 [P] [US1] Write email service test for src/lib/email.ts in **tests**/lib/email.test.ts (Resend SDK mocking, no implementation yet)
 
 ### Implementation for User Story 1
 
@@ -93,8 +92,8 @@ description: "Task list for contact form implementation"
 
 ### Tests for User Story 2 (REQUIRED - write FIRST, verify fails)
 
-- [ ] T026 [P] [US2] Write client-side validation tests in __tests__/components/ContactForm.test.tsx (empty fields, invalid email, error display)
-- [ ] T027 [P] [US2] Write server-side validation error tests in __tests__/api/contact.test.ts (400 responses with field errors)
+- [ ] T026 [P] [US2] Write client-side validation tests in **tests**/components/ContactForm.test.tsx (empty fields, invalid email, error display)
+- [ ] T027 [P] [US2] Write server-side validation error tests in **tests**/api/contact.test.ts (400 responses with field errors)
 
 ### Implementation for User Story 2
 
@@ -118,11 +117,11 @@ description: "Task list for contact form implementation"
 
 ### Tests for User Story 3 (REQUIRED - write FIRST, verify fails)
 
-- [ ] T035 [P] [US3] Write rate limiting tests in __tests__/lib/rate-limit.test.ts (track IP, enforce limits, no implementation yet)
-- [ ] T036 [P] [US3] Write spam detection tests in __tests__/lib/spam-detection.test.ts (detect URLs, keywords, no implementation yet)
-- [ ] T037 [P] [US3] Write honeypot tests in __tests__/api/contact.test.ts (reject when honeypot filled)
-- [ ] T038 [P] [US3] Write rate limit API tests in __tests__/api/contact.test.ts (429 response when rate limited)
-- [ ] T039 [P] [US3] Write spam detection API tests in __tests__/api/contact.test.ts (400 response for spam content)
+- [ ] T035 [P] [US3] Write rate limiting tests in **tests**/lib/rate-limit.test.ts (track IP, enforce limits, no implementation yet)
+- [ ] T036 [P] [US3] Write spam detection tests in **tests**/lib/spam-detection.test.ts (detect URLs, keywords, no implementation yet)
+- [ ] T037 [P] [US3] Write honeypot tests in **tests**/api/contact.test.ts (reject when honeypot filled)
+- [ ] T038 [P] [US3] Write rate limit API tests in **tests**/api/contact.test.ts (429 response when rate limited)
+- [ ] T039 [P] [US3] Write spam detection API tests in **tests**/api/contact.test.ts (400 response for spam content)
 
 ### Implementation for User Story 3
 
@@ -146,7 +145,7 @@ description: "Task list for contact form implementation"
 
 **Purpose**: Improvements that affect multiple user stories and final production readiness
 
-- [ ] T051 [P] Write integration test in __tests__/integration/contact-flow.test.ts (end-to-end happy path)
+- [ ] T051 [P] Write integration test in **tests**/integration/contact-flow.test.ts (end-to-end happy path)
 - [ ] T052 [P] Add form reset after successful submission in src/app/contact/page.tsx
 - [ ] T053 [P] Add loading state to submit button in src/app/contact/page.tsx (disabled during submission)
 - [ ] T054 Verify all edge cases handled in src/app/api/contact/route.ts (email service failure, malformed input)

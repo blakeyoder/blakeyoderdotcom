@@ -93,6 +93,7 @@ cat tsconfig.json
 ```
 
 **Key patterns to note**:
+
 - Server components by default (no "use client" unless needed)
 - Tailwind CSS 4 usage with custom CSS properties
 - Crimson Text font via next/font
@@ -108,6 +109,7 @@ Follow these stages in order (test-first for each):
 **Goal**: Display contact form with all fields
 
 **Tasks**:
+
 1. Create `src/app/contact/page.tsx`
 2. Add form with name, email, message fields
 3. Add hidden honeypot field
@@ -121,6 +123,7 @@ Follow these stages in order (test-first for each):
 **Goal**: Immediate validation feedback without server round trip
 
 **Tasks**:
+
 1. Add "use client" directive
 2. Implement validation logic (see `src/lib/validation.ts`)
 3. Add error state management
@@ -134,6 +137,7 @@ Follow these stages in order (test-first for each):
 **Goal**: Server-side processing and email delivery
 
 **Tasks**:
+
 1. Create `src/lib/validation.ts` (shared validation)
 2. Create `src/lib/email.ts` (Resend wrapper)
 3. Create `src/app/api/contact/route.ts`
@@ -147,6 +151,7 @@ Follow these stages in order (test-first for each):
 **Goal**: Block spam submissions
 
 **Tasks**:
+
 1. Create `src/lib/rate-limit.ts`
 2. Create `src/lib/spam-detection.ts`
 3. Add honeypot check to API route
@@ -160,6 +165,7 @@ Follow these stages in order (test-first for each):
 **Goal**: Production-ready feature
 
 **Tasks**:
+
 1. Add success message state
 2. Clear form after successful submission
 3. Add loading states during submission
@@ -337,6 +343,7 @@ Create alerts for:
 #### Issue: "RESEND_API_KEY is not defined"
 
 **Solution**:
+
 - Verify `.env.local` exists in project root
 - Check key is spelled correctly: `RESEND_API_KEY=re_...`
 - Restart dev server: `yarn dev`
@@ -344,6 +351,7 @@ Create alerts for:
 #### Issue: Emails not being received
 
 **Solution**:
+
 - Check Resend dashboard logs for delivery status
 - Verify `CONTACT_EMAIL_TO` is correct
 - Check spam folder
@@ -353,12 +361,14 @@ Create alerts for:
 #### Issue: Rate limiting not working after restart
 
 **Solution**:
+
 - Expected behavior: In-memory rate limits reset on server restart
 - For persistent rate limiting, upgrade to Redis/Vercel KV (future enhancement)
 
 #### Issue: TypeScript errors in tests
 
 **Solution**:
+
 - Ensure `@types/jest` installed: `yarn add -D @types/jest`
 - Check `tsconfig.json` includes test files
 - Restart TypeScript server in editor
@@ -366,6 +376,7 @@ Create alerts for:
 #### Issue: Spam detection too aggressive
 
 **Solution**:
+
 - Adjust thresholds in `src/lib/spam-detection.ts`
 - Update `SPAM_MAX_URLS` environment variable
 - Review spam keywords list and remove false positives
@@ -404,16 +415,16 @@ git push origin main
 
 ### Key Files
 
-| File | Purpose |
-|------|---------|
-| `src/app/contact/page.tsx` | Contact page with form |
+| File                           | Purpose                          |
+| ------------------------------ | -------------------------------- |
+| `src/app/contact/page.tsx`     | Contact page with form           |
 | `src/app/api/contact/route.ts` | API endpoint for form submission |
-| `src/lib/validation.ts` | Validation logic (shared) |
-| `src/lib/email.ts` | Email sending (Resend wrapper) |
-| `src/lib/rate-limit.ts` | Rate limiting logic |
-| `src/lib/spam-detection.ts` | Spam detection logic |
-| `.env.local` | Local environment variables |
-| `.env.example` | Example env vars (committed) |
+| `src/lib/validation.ts`        | Validation logic (shared)        |
+| `src/lib/email.ts`             | Email sending (Resend wrapper)   |
+| `src/lib/rate-limit.ts`        | Rate limiting logic              |
+| `src/lib/spam-detection.ts`    | Spam detection logic             |
+| `.env.local`                   | Local environment variables      |
+| `.env.example`                 | Example env vars (committed)     |
 
 ### Commands
 

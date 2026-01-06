@@ -3,8 +3,8 @@
  * Sends contact form submissions to Blake
  */
 
-import { Resend } from 'resend';
-import { config } from './config';
+import { Resend } from "resend";
+import { config } from "./config";
 
 // Initialize Resend client
 const resend = new Resend(config.resendApiKey);
@@ -32,7 +32,7 @@ export async function sendContactEmail(data: ContactEmailData): Promise<void> {
     <p><strong>Email:</strong> ${escapeHtml(email)}</p>
     <p><strong>LinkedIn:</strong> <a href="${escapeHtml(linkedin)}">${escapeHtml(linkedin)}</a></p>
     <p><strong>Message:</strong></p>
-    <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
+    <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
     <hr>
     <p><small>Sent from blakeyoder.com contact form</small></p>
   `;
@@ -53,7 +53,7 @@ Sent from blakeyoder.com contact form
 
   try {
     // Log configuration for debugging (safe in production logs)
-    console.log('Email config:', {
+    console.log("Email config:", {
       from: config.contactEmailFrom,
       to: config.contactEmailTo,
       toType: typeof config.contactEmailTo,
@@ -74,8 +74,8 @@ Sent from blakeyoder.com contact form
     }
   } catch (error) {
     // Log error for debugging (don't expose details to user)
-    console.error('Failed to send contact email:', error);
-    throw new Error('Failed to send email. Please try again later.');
+    console.error("Failed to send contact email:", error);
+    throw new Error("Failed to send email. Please try again later.");
   }
 }
 
@@ -84,11 +84,11 @@ Sent from blakeyoder.com contact form
  */
 function escapeHtml(text: string): string {
   const htmlEscapes: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
   };
 
   return text.replace(/[&<>"']/g, (char) => htmlEscapes[char]);

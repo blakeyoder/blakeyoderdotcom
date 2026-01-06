@@ -3,8 +3,8 @@
  * TODO: Install @testing-library/react when ready to implement component tests
  */
 
-describe('ContactForm', () => {
-  it('should render form with all required fields', () => {
+describe("ContactForm", () => {
+  it("should render form with all required fields", () => {
     // TODO: Implement when ContactForm component exists
     // render(<ContactForm />);
     // expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
@@ -14,17 +14,17 @@ describe('ContactForm', () => {
     expect(true).toBe(true); // Placeholder - replace with actual tests
   });
 
-  it('should display error messages when validation fails', () => {
+  it("should display error messages when validation fails", () => {
     // TODO: Implement validation UI tests
     expect(true).toBe(true); // Placeholder
   });
 
-  it('should show success message after successful submission', () => {
+  it("should show success message after successful submission", () => {
     // TODO: Implement success state tests
     expect(true).toBe(true); // Placeholder
   });
 
-  it('should show loading state during submission', () => {
+  it("should show loading state during submission", () => {
     // TODO: Implement loading state tests
     expect(true).toBe(true); // Placeholder
   });

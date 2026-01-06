@@ -18,8 +18,8 @@ function getEnvVar(key: string, defaultValue?: string): string {
   if (!value && !defaultValue) {
     throw new Error(
       `Missing required environment variable: ${key}. ` +
-      `Please add it to your .env.local file. ` +
-      `See .env.example for required variables.`
+        `Please add it to your .env.local file. ` +
+        `See .env.example for required variables.`,
     );
   }
 
@@ -38,7 +38,7 @@ function getEnvNumber(key: string, defaultValue: number): number {
 
   if (isNaN(parsed)) {
     throw new Error(
-      `Environment variable ${key} must be a number, got: ${value}`
+      `Environment variable ${key} must be a number, got: ${value}`,
     );
   }
 
@@ -55,7 +55,7 @@ function validateEmailFormat(email: string, fieldName: string): string {
   if (!emailRegex.test(trimmedEmail)) {
     throw new Error(
       `Invalid email format for ${fieldName}: "${email}". ` +
-      `Email must follow the format: email@example.com`
+        `Email must follow the format: email@example.com`,
     );
   }
 
@@ -68,18 +68,18 @@ let _config: Config | null = null;
 function getConfig(): Config {
   if (!_config) {
     _config = {
-      resendApiKey: getEnvVar('RESEND_API_KEY'),
+      resendApiKey: getEnvVar("RESEND_API_KEY"),
       contactEmailTo: validateEmailFormat(
-        getEnvVar('CONTACT_EMAIL_TO'),
-        'CONTACT_EMAIL_TO'
+        getEnvVar("CONTACT_EMAIL_TO"),
+        "CONTACT_EMAIL_TO",
       ),
       contactEmailFrom: validateEmailFormat(
-        getEnvVar('CONTACT_EMAIL_FROM', 'noreply@resend.dev'),
-        'CONTACT_EMAIL_FROM'
+        getEnvVar("CONTACT_EMAIL_FROM", "noreply@resend.dev"),
+        "CONTACT_EMAIL_FROM",
       ),
-      rateLimitWindowMs: getEnvNumber('RATE_LIMIT_WINDOW_MS', 5 * 60 * 1000), // 5 minutes
-      rateLimitMaxRequests: getEnvNumber('RATE_LIMIT_MAX_REQUESTS', 1),
-      spamMaxUrls: getEnvNumber('SPAM_MAX_URLS', 2),
+      rateLimitWindowMs: getEnvNumber("RATE_LIMIT_WINDOW_MS", 5 * 60 * 1000), // 5 minutes
+      rateLimitMaxRequests: getEnvNumber("RATE_LIMIT_MAX_REQUESTS", 1),
+      spamMaxUrls: getEnvNumber("SPAM_MAX_URLS", 2),
     };
   }
   return _config;

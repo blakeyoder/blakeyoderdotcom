@@ -3,7 +3,7 @@
  * Checks for excessive URLs and spam keywords
  */
 
-import { config } from './config';
+import { config } from "./config";
 
 export interface SpamCheckResult {
   isSpam: boolean;
@@ -12,27 +12,27 @@ export interface SpamCheckResult {
 
 // Common spam keywords (case-insensitive)
 const SPAM_KEYWORDS = [
-  'viagra',
-  'cialis',
-  'pharmacy',
-  'casino',
-  'lottery',
-  'winner',
-  'congratulations you won',
-  'click here now',
-  'limited time offer',
-  'act now',
-  'buy now',
-  'credit card',
-  'cash prize',
-  'work from home',
-  'make money fast',
-  'investment opportunity',
-  'earn extra cash',
-  'nigerian prince',
-  'inheritance',
-  'western union',
-  'wire transfer',
+  "viagra",
+  "cialis",
+  "pharmacy",
+  "casino",
+  "lottery",
+  "winner",
+  "congratulations you won",
+  "click here now",
+  "limited time offer",
+  "act now",
+  "buy now",
+  "credit card",
+  "cash prize",
+  "work from home",
+  "make money fast",
+  "investment opportunity",
+  "earn extra cash",
+  "nigerian prince",
+  "inheritance",
+  "western union",
+  "wire transfer",
 ];
 
 /**
@@ -57,20 +57,20 @@ export function checkForSpam(message: string): SpamCheckResult {
     if (lowerMessage.includes(keyword)) {
       return {
         isSpam: true,
-        reason: 'Message contains suspicious content',
+        reason: "Message contains suspicious content",
       };
     }
   }
 
   // Check for excessive ALL CAPS (>80% of letters are uppercase)
-  const letters = message.replace(/[^a-zA-Z]/g, '');
+  const letters = message.replace(/[^a-zA-Z]/g, "");
   if (letters.length > 20) {
-    const upperCount = message.replace(/[^A-Z]/g, '').length;
+    const upperCount = message.replace(/[^A-Z]/g, "").length;
     const capsPercentage = upperCount / letters.length;
     if (capsPercentage > 0.8) {
       return {
         isSpam: true,
-        reason: 'Message contains excessive capitalization',
+        reason: "Message contains excessive capitalization",
       };
     }
   }

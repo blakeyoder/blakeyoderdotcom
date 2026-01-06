@@ -5,13 +5,7 @@ export default function NotFound() {
   return (
     <div className="container">
       <div className="article-header-image">
-        <Image
-          src="/404-image.png"
-          alt=""
-          width={1200}
-          height={630}
-          priority
-        />
+        <Image src="/404-image.png" alt="" width={1200} height={630} priority />
       </div>
 
       <main style={{ textAlign: "center" }}>

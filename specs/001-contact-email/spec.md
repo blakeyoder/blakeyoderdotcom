@@ -5,7 +5,7 @@
 **Status**: Draft
 **Input**: User description: "build a feature where someone can send me an email to grab a beer"
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Send Meetup Request (Priority: P1)
 
@@ -64,7 +64,7 @@ The contact form includes basic spam prevention measures to reduce unwanted subm
 - How are messages handled if they contain potentially malicious content (scripts, links)?
 - What if the visitor's email address is valid format but doesn't exist?
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -87,7 +87,7 @@ The contact form includes basic spam prevention measures to reduce unwanted subm
 - **Contact Submission**: Represents a visitor's attempt to reach out, containing visitor name, email address, message text, submission timestamp, and IP address (for rate limiting)
 - **Email Message**: The formatted email sent to Blake, containing formatted visitor information and the original message
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

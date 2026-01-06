@@ -23,11 +23,12 @@ Build a contact form allowing website visitors to send Blake email requests for 
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 ### Principle I: Incremental Progress Over Big Bangs
 
 ✅ **PASS** - Implementation will be broken into 3-5 stages:
+
 1. Basic form UI (compiles, displays)
 2. Client-side validation (works independently)
 3. Server-side API route + email delivery (tested with mock)
@@ -39,6 +40,7 @@ Each stage compiles, passes tests, and delivers independently testable value.
 ### Principle II: Test-First Development
 
 ✅ **PASS** - Test-first approach:
+
 - Form component tests (render, validation UX) written before component
 - API route tests (validation, email sending, rate limiting) written before API logic
 - Integration tests (end-to-end form submission) written before full integration
@@ -47,12 +49,14 @@ Each stage compiles, passes tests, and delivers independently testable value.
 ### Principle III: Learn From Existing Code
 
 ✅ **PASS** - Will study existing patterns in codebase:
+
 - Examine existing page components in `src/app/` for component patterns
 - Review existing styling approach (Tailwind CSS 4 usage patterns)
 - Use same TypeScript strict mode configuration
 - Follow existing file organization (App Router structure)
 
 **Note**: Current codebase has limited features, so will also reference:
+
 - Next.js 15 official examples for form handling
 - Resend.com documentation for email integration patterns
 - Standard React form validation patterns
@@ -60,6 +64,7 @@ Each stage compiles, passes tests, and delivers independently testable value.
 ### Principle IV: Simplicity & Clarity
 
 ✅ **PASS** - Simple, boring solutions chosen:
+
 - Standard HTML form with progressive enhancement (works without JS)
 - Server-side validation as source of truth (client-side is UX enhancement)
 - Single API route endpoint (POST /api/contact)
@@ -70,6 +75,7 @@ Each stage compiles, passes tests, and delivers independently testable value.
 ### Principle V: Content-First Design
 
 ✅ **PASS** - Design aligns with site aesthetics:
+
 - Form will use existing Crimson Text typography
 - Constrained to 65ch max width (matches site content)
 - Minimal, editorial styling (no generic form template aesthetics)

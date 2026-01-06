@@ -4,7 +4,7 @@
  * For production scale, consider Redis or Vercel KV
  */
 
-import { config } from './config';
+import { config } from "./config";
 
 interface RateLimitEntry {
   count: number;
@@ -16,14 +16,17 @@ interface RateLimitEntry {
 const rateLimitMap = new Map<string, RateLimitEntry>();
 
 // Cleanup old entries every 10 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of rateLimitMap.entries()) {
-    if (now > entry.resetTime) {
-      rateLimitMap.delete(ip);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [ip, entry] of rateLimitMap.entries()) {
+      if (now > entry.resetTime) {
+        rateLimitMap.delete(ip);
+      }
     }
-  }
-}, 10 * 60 * 1000);
+  },
+  10 * 60 * 1000,
+);
 
 export interface RateLimitResult {
   allowed: boolean;
@@ -89,18 +92,18 @@ export function checkRateLimit(ip: string): RateLimitResult {
  */
 export function getClientIP(headers: Headers): string {
   // Try various headers that might contain the real IP
-  const forwardedFor = headers.get('x-forwarded-for');
+  const forwardedFor = headers.get("x-forwarded-for");
   if (forwardedFor) {
     // x-forwarded-for can contain multiple IPs, take the first one
-    return forwardedFor.split(',')[0].trim();
+    return forwardedFor.split(",")[0].trim();
   }
 
-  const realIP = headers.get('x-real-ip');
+  const realIP = headers.get("x-real-ip");
   if (realIP) {
     return realIP;
   }
 
   // Fallback to a generic identifier if no IP found
   // This shouldn't happen in production but prevents errors
-  return 'unknown';
+  return "unknown";
 }

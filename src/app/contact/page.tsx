@@ -16,7 +16,9 @@ export default function ContactPage() {
 
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [linkedInPreview, setLinkedInPreview] = useState<{
     name?: string;
@@ -45,7 +47,8 @@ export default function ContactPage() {
   }, [errors]);
 
   useEffect(() => {
-    const linkedInPattern = /^https?:\/\/(www\.)?linkedin\.com\/in\/([a-zA-Z0-9_-]+)\/?$/;
+    const linkedInPattern =
+      /^https?:\/\/(www\.)?linkedin\.com\/in\/([a-zA-Z0-9_-]+)\/?$/;
     const match = formData.linkedin.trim().match(linkedInPattern);
 
     if (!match) {
@@ -59,7 +62,9 @@ export default function ContactPage() {
       setLinkedInPreview({ isLoading: true });
 
       try {
-        const response = await fetch(`/api/linkedin-preview?url=${encodeURIComponent(formData.linkedin)}`);
+        const response = await fetch(
+          `/api/linkedin-preview?url=${encodeURIComponent(formData.linkedin)}`,
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -125,7 +130,9 @@ export default function ContactPage() {
           setErrors(data.errors);
           setSubmitStatus("error");
         } else {
-          setErrorMessage(data.message || "Something went wrong. Please try again.");
+          setErrorMessage(
+            data.message || "Something went wrong. Please try again.",
+          );
           setSubmitStatus("error");
         }
       } else {
@@ -151,7 +158,9 @@ export default function ContactPage() {
     <div className="container">
       <header style={{ marginBottom: "2rem" }}>
         <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
-          <Link href="/" className="nav-link">Blake Yoder</Link>
+          <Link href="/" className="nav-link">
+            Blake Yoder
+          </Link>
         </p>
         <h1>Get in touch</h1>
       </header>
@@ -160,11 +169,13 @@ export default function ContactPage() {
 
       <main>
         {submitStatus === "success" ? (
-          <div style={{
-            padding: "2rem",
-            border: "2px solid var(--ink)",
-            marginBottom: "2rem",
-          }}>
+          <div
+            style={{
+              padding: "2rem",
+              border: "2px solid var(--ink)",
+              marginBottom: "2rem",
+            }}
+          >
             <h2 style={{ fontSize: "1.25rem", marginBottom: "0.5rem" }}>
               Message sent
             </h2>
@@ -175,23 +186,29 @@ export default function ContactPage() {
         ) : (
           <>
             <p style={{ marginBottom: "2.5rem" }}>
-              If you&apos;re in the NYC area and want to meet up for coffee or a beer, feel free to reach out.
+              If you&apos;re in the NYC area and want to meet up for coffee or a
+              beer, feel free to reach out.
             </p>
 
             {errorMessage && (
-              <div style={{
-                padding: "1rem",
-                border: "1px solid var(--accent)",
-                color: "var(--accent)",
-                marginBottom: "2rem",
-              }}>
+              <div
+                style={{
+                  padding: "1rem",
+                  border: "1px solid var(--accent)",
+                  color: "var(--accent)",
+                  marginBottom: "2rem",
+                }}
+              >
                 {errorMessage}
               </div>
             )}
 
             <form onSubmit={handleSubmit}>
               {/* Honeypot field */}
-              <div style={{ position: "absolute", left: "-9999px" }} aria-hidden="true">
+              <div
+                style={{ position: "absolute", left: "-9999px" }}
+                aria-hidden="true"
+              >
                 <label htmlFor="honeypot">Leave this field empty</label>
                 <input
                   type="text"
@@ -200,7 +217,9 @@ export default function ContactPage() {
                   tabIndex={-1}
                   autoComplete="off"
                   value={formData.honeypot}
-                  onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, honeypot: e.target.value })
+                  }
                 />
               </div>
 
@@ -213,17 +232,22 @@ export default function ContactPage() {
                   name="name"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   aria-invalid={errors.name ? "true" : "false"}
                   aria-describedby={errors.name ? "name-error" : undefined}
                 />
                 {errors.name && (
-                  <p id="name-error" style={{
-                    marginTop: "0.5rem",
-                    fontSize: "0.875rem",
-                    color: "var(--accent)",
-                    marginBottom: 0,
-                  }}>
+                  <p
+                    id="name-error"
+                    style={{
+                      marginTop: "0.5rem",
+                      fontSize: "0.875rem",
+                      color: "var(--accent)",
+                      marginBottom: 0,
+                    }}
+                  >
                     {errors.name}
                   </p>
                 )}
@@ -238,17 +262,22 @@ export default function ContactPage() {
                   name="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   aria-invalid={errors.email ? "true" : "false"}
                   aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && (
-                  <p id="email-error" style={{
-                    marginTop: "0.5rem",
-                    fontSize: "0.875rem",
-                    color: "var(--accent)",
-                    marginBottom: 0,
-                  }}>
+                  <p
+                    id="email-error"
+                    style={{
+                      marginTop: "0.5rem",
+                      fontSize: "0.875rem",
+                      color: "var(--accent)",
+                      marginBottom: 0,
+                    }}
+                  >
                     {errors.email}
                   </p>
                 )}
@@ -264,91 +293,115 @@ export default function ContactPage() {
                   required
                   placeholder="https://linkedin.com/in/yourname"
                   value={formData.linkedin}
-                  onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, linkedin: e.target.value })
+                  }
                   aria-invalid={errors.linkedin ? "true" : "false"}
-                  aria-describedby={errors.linkedin ? "linkedin-error" : undefined}
+                  aria-describedby={
+                    errors.linkedin ? "linkedin-error" : undefined
+                  }
                 />
                 {errors.linkedin && (
-                  <p id="linkedin-error" style={{
-                    marginTop: "0.5rem",
-                    fontSize: "0.875rem",
-                    color: "var(--accent)",
-                    marginBottom: 0,
-                  }}>
+                  <p
+                    id="linkedin-error"
+                    style={{
+                      marginTop: "0.5rem",
+                      fontSize: "0.875rem",
+                      color: "var(--accent)",
+                      marginBottom: 0,
+                    }}
+                  >
                     {errors.linkedin}
                   </p>
                 )}
 
                 {linkedInPreview.isLoading && (
-                  <div style={{
-                    marginTop: "1rem",
-                    padding: "1rem",
-                    border: "1px solid var(--rule)",
-                  }}>
-                    <p style={{ margin: 0, color: "var(--text-tertiary)", fontSize: "0.875rem" }}>
+                  <div
+                    style={{
+                      marginTop: "1rem",
+                      padding: "1rem",
+                      border: "1px solid var(--rule)",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: 0,
+                        color: "var(--text-tertiary)",
+                        fontSize: "0.875rem",
+                      }}
+                    >
                       Loading preview...
                     </p>
                   </div>
                 )}
 
-                {!linkedInPreview.isLoading && (linkedInPreview.name || linkedInPreview.headline) && (
-                  <div style={{
-                    marginTop: "1rem",
-                    padding: "1rem",
-                    border: "1px solid var(--rule)",
-                    display: "flex",
-                    gap: "1rem",
-                    alignItems: "center",
-                  }}>
-                    {linkedInPreview.imageUrl ? (
-                      <Image
-                        src={linkedInPreview.imageUrl}
-                        alt={linkedInPreview.name || "Profile"}
-                        width={48}
-                        height={48}
-                        style={{
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                        }}
-                        unoptimized
-                      />
-                    ) : (
-                      <div style={{
-                        width: "48px",
-                        height: "48px",
-                        borderRadius: "50%",
-                        backgroundColor: "var(--rule)",
+                {!linkedInPreview.isLoading &&
+                  (linkedInPreview.name || linkedInPreview.headline) && (
+                    <div
+                      style={{
+                        marginTop: "1rem",
+                        padding: "1rem",
+                        border: "1px solid var(--rule)",
                         display: "flex",
+                        gap: "1rem",
                         alignItems: "center",
-                        justifyContent: "center",
-                        color: "var(--text-tertiary)",
-                        fontSize: "1.25rem",
-                      }}>
-                        ?
+                      }}
+                    >
+                      {linkedInPreview.imageUrl ? (
+                        <Image
+                          src={linkedInPreview.imageUrl}
+                          alt={linkedInPreview.name || "Profile"}
+                          width={48}
+                          height={48}
+                          style={{
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                          }}
+                          unoptimized
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            width: "48px",
+                            height: "48px",
+                            borderRadius: "50%",
+                            backgroundColor: "var(--rule)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "var(--text-tertiary)",
+                            fontSize: "1.25rem",
+                          }}
+                        >
+                          ?
+                        </div>
+                      )}
+                      <div style={{ flex: 1 }}>
+                        {linkedInPreview.name && (
+                          <p
+                            style={{
+                              margin: 0,
+                              fontWeight: 500,
+                              fontSize: "0.875rem",
+                            }}
+                          >
+                            {linkedInPreview.name}
+                          </p>
+                        )}
+                        {linkedInPreview.headline && (
+                          <p
+                            style={{
+                              margin: "0.25rem 0 0 0",
+                              color: "var(--text-secondary)",
+                              fontSize: "0.75rem",
+                            }}
+                          >
+                            {linkedInPreview.headline}
+                          </p>
+                        )}
                       </div>
-                    )}
-                    <div style={{ flex: 1 }}>
-                      {linkedInPreview.name && (
-                        <p style={{
-                          margin: 0,
-                          fontWeight: 500,
-                          fontSize: "0.875rem",
-                        }}>
-                          {linkedInPreview.name}
-                        </p>
-                      )}
-                      {linkedInPreview.headline && (
-                        <p style={{
-                          margin: "0.25rem 0 0 0",
-                          color: "var(--text-secondary)",
-                          fontSize: "0.75rem",
-                        }}>
-                          {linkedInPreview.headline}
-                        </p>
-                      )}
                     </div>
-                  </div>
-                )}
+                  )}
               </div>
 
               <div style={{ marginBottom: "2rem" }}>
@@ -360,18 +413,25 @@ export default function ContactPage() {
                   required
                   rows={6}
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                   style={{ resize: "vertical" }}
                   aria-invalid={errors.message ? "true" : "false"}
-                  aria-describedby={errors.message ? "message-error" : undefined}
+                  aria-describedby={
+                    errors.message ? "message-error" : undefined
+                  }
                 />
                 {errors.message && (
-                  <p id="message-error" style={{
-                    marginTop: "0.5rem",
-                    fontSize: "0.875rem",
-                    color: "var(--accent)",
-                    marginBottom: 0,
-                  }}>
+                  <p
+                    id="message-error"
+                    style={{
+                      marginTop: "0.5rem",
+                      fontSize: "0.875rem",
+                      color: "var(--accent)",
+                      marginBottom: 0,
+                    }}
+                  >
                     {errors.message}
                   </p>
                 )}

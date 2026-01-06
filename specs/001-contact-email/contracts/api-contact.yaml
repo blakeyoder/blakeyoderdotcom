@@ -37,7 +37,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ContactFormRequest'
+              $ref: "#/components/schemas/ContactFormRequest"
             examples:
               validSubmission:
                 summary: Valid contact form submission
@@ -56,22 +56,22 @@ paths:
                   honeypot: ""
 
       responses:
-        '200':
+        "200":
           description: Form submitted successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessResponse'
+                $ref: "#/components/schemas/SuccessResponse"
               example:
                 success: true
                 message: "Your message has been sent! I'll get back to you soon."
 
-        '400':
+        "400":
           description: Bad request - validation failed or spam detected
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
               examples:
                 validationError:
                   summary: Field validation errors
@@ -90,7 +90,7 @@ paths:
                     error: "SPAM_DETECTED"
                     message: "Your message appears to contain spam. Please remove links or suspicious content and try again."
 
-        '429':
+        "429":
           description: Too many requests - rate limit exceeded
           headers:
             Retry-After:
@@ -101,19 +101,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RateLimitErrorResponse'
+                $ref: "#/components/schemas/RateLimitErrorResponse"
               example:
                 success: false
                 error: "RATE_LIMIT_EXCEEDED"
                 message: "Please wait a few minutes before submitting again."
                 retryAfter: 180
 
-        '500':
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
               example:
                 success: false
                 error: "SERVER_ERROR"

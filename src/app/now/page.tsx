@@ -24,7 +24,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Now | Blake Yoder",
     description: "What I'm focused on right now.",
-    images: ["/og?title=Now&subtitle=What%20I%27m%20focused%20on%20right%20now"],
+    images: [
+      "/og?title=Now&subtitle=What%20I%27m%20focused%20on%20right%20now",
+    ],
   },
 };
 
@@ -33,10 +35,15 @@ export default function Now() {
     <div className="container">
       <header style={{ marginBottom: "2rem" }}>
         <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
-          <Link href="/" className="nav-link">Blake Yoder</Link>
+          <Link href="/" className="nav-link">
+            Blake Yoder
+          </Link>
         </p>
         <h1>Now</h1>
-        <p className="small-caps" style={{ marginTop: "0.5rem", marginBottom: 0 }}>
+        <p
+          className="small-caps"
+          style={{ marginTop: "0.5rem", marginBottom: 0 }}
+        >
           Updated November 2024
         </p>
       </header>
@@ -46,18 +53,26 @@ export default function Now() {
       <main>
         <section style={{ marginBottom: "3rem" }}>
           <p style={{ fontSize: "1.25rem", lineHeight: 1.65 }}>
-            After four years in the mountains of Western North Carolina, Amanda and I moved back to <strong>Brooklyn</strong> this year.
+            After four years in the mountains of Western North Carolina, Amanda
+            and I moved back to <strong>Brooklyn</strong> this year.
           </p>
         </section>
 
         <section style={{ marginBottom: "3rem" }}>
-          <h2 style={{ fontSize: "1rem", marginBottom: "1.5rem" }} className="small-caps">Reading</h2>
+          <h2
+            style={{ fontSize: "1rem", marginBottom: "1.5rem" }}
+            className="small-caps"
+          >
+            Reading
+          </h2>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            <li style={{
-              paddingBottom: "1rem",
-              marginBottom: "1rem",
-              borderBottom: "1px solid var(--rule)"
-            }}>
+            <li
+              style={{
+                paddingBottom: "1rem",
+                marginBottom: "1rem",
+                borderBottom: "1px solid var(--rule)",
+              }}
+            >
               <a
                 href="https://rickatkinson.com/british-are-coming/"
                 target="_blank"
@@ -66,13 +81,18 @@ export default function Now() {
               >
                 The British Are Coming
               </a>
-              <span style={{ color: "var(--text-secondary)" }}> by Rick Atkinson</span>
+              <span style={{ color: "var(--text-secondary)" }}>
+                {" "}
+                by Rick Atkinson
+              </span>
             </li>
-            <li style={{
-              paddingBottom: "1rem",
-              marginBottom: "1rem",
-              borderBottom: "1px solid var(--rule)"
-            }}>
+            <li
+              style={{
+                paddingBottom: "1rem",
+                marginBottom: "1rem",
+                borderBottom: "1px solid var(--rule)",
+              }}
+            >
               <a
                 href="https://www.goodreads.com/book/show/10131648-the-greater-journey"
                 target="_blank"
@@ -81,7 +101,10 @@ export default function Now() {
               >
                 The Greater Journey: Americans in Paris
               </a>
-              <span style={{ color: "var(--text-secondary)" }}> by David McCullough</span>
+              <span style={{ color: "var(--text-secondary)" }}>
+                {" "}
+                by David McCullough
+              </span>
             </li>
             <li>
               <a
@@ -92,34 +115,54 @@ export default function Now() {
               >
                 One Summer: America, 1927
               </a>
-              <span style={{ color: "var(--text-secondary)" }}> by Bill Bryson</span>
+              <span style={{ color: "var(--text-secondary)" }}>
+                {" "}
+                by Bill Bryson
+              </span>
             </li>
           </ul>
         </section>
 
         <section style={{ marginBottom: "3rem" }}>
-          <h2 style={{ fontSize: "1rem", marginBottom: "1.5rem" }} className="small-caps">Focusing On</h2>
+          <h2
+            style={{ fontSize: "1rem", marginBottom: "1.5rem" }}
+            className="small-caps"
+          >
+            Focusing On
+          </h2>
           <p>
             My health. Loving the{" "}
             <a
               href="https://www.rayfit.com/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ textDecoration: "underline", textDecorationColor: "var(--accent)" }}
+              style={{
+                textDecoration: "underline",
+                textDecorationColor: "var(--accent)",
+              }}
             >
               Rayfit
-            </a>
-            {" "}app.
+            </a>{" "}
+            app.
           </p>
         </section>
 
         <section style={{ marginBottom: "3rem" }}>
-          <h2 style={{ fontSize: "1rem", marginBottom: "1.5rem" }} className="small-caps">Thinking About</h2>
+          <h2
+            style={{ fontSize: "1rem", marginBottom: "1.5rem" }}
+            className="small-caps"
+          >
+            Thinking About
+          </h2>
           <p>
-            How belief is contagious—especially when it comes to building a team. The way conviction spreads (or doesn&apos;t) shapes what&apos;s possible.
+            How belief is contagious—especially when it comes to building a
+            team. The way conviction spreads (or doesn&apos;t) shapes
+            what&apos;s possible.
           </p>
           <p>
-            AI is being compared to the dot-com bubble, but we still have the internet. The genie is out of the bottle. What matters now is what we build with it.
+            AI is being compared to the dot-com bubble, but we still have the
+            internet. The genie is out of the bottle. What matters now is what
+            we build with it.
           </p>
           <p>
             The role{" "}
@@ -129,11 +172,13 @@ export default function Now() {
               rel="noopener noreferrer"
             >
               mimetic desire
-            </a>
-            {" "}plays in our lives—how much of what we want is truly ours, and how much is borrowed from others.
+            </a>{" "}
+            plays in our lives—how much of what we want is truly ours, and how
+            much is borrowed from others.
           </p>
           <p>
-            How all roads lead back to relationships. Everything circles around eventually—it&apos;s better to build bridges than burn them.
+            How all roads lead back to relationships. Everything circles around
+            eventually—it&apos;s better to build bridges than burn them.
           </p>
         </section>
 
