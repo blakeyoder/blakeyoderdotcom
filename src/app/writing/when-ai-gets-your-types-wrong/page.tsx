@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { Highlight, themes } from "prism-react-renderer";
+import { ArticleHeaderImage } from "@/components/ArticleHeaderImage";
 
 export const metadata: Metadata = {
   title: "When AI Gets Your Types Wrong: A Pragmatic Solution | Blake Yoder",
@@ -35,15 +35,10 @@ export const metadata: Metadata = {
 export default function TypeScriptDefinitionsMCP() {
   return (
     <div className="container">
-      <div className="article-header-image">
-        <Image
-          src="/when-ai-gets-your-types-wrong.png"
-          alt="When AI Gets Your Types Wrong"
-          width={1200}
-          height={630}
-          priority
-        />
-      </div>
+      <ArticleHeaderImage
+        src="/when-ai-gets-your-types-wrong.png"
+        alt="When AI Gets Your Types Wrong"
+      />
       <header style={{ marginBottom: "2rem" }}>
         <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
           <Link href="/writing" className="nav-link">Writing</Link>

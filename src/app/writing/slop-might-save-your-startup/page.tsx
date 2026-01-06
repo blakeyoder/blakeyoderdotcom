@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
+import { ArticleHeaderImage } from "@/components/ArticleHeaderImage";
 
 export const metadata: Metadata = {
   title: "Slop Might Save Your Startup | Blake Yoder",
@@ -34,15 +34,10 @@ export const metadata: Metadata = {
 export default function SlopMightSaveYourStartup() {
   return (
     <div className="container">
-      <div className="article-header-image">
-        <Image
-          src="/slop-might-save-your-startup.png"
-          alt="Slop Might Save Your Startup"
-          width={1200}
-          height={630}
-          priority
-        />
-      </div>
+      <ArticleHeaderImage
+        src="/slop-might-save-your-startup.png"
+        alt="Slop Might Save Your Startup"
+      />
       <header style={{ marginBottom: "2rem" }}>
         <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
           <Link href="/writing" className="nav-link">Writing</Link>

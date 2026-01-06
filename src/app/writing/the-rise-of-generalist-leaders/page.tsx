@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
+import { ArticleHeaderImage } from "@/components/ArticleHeaderImage";
 
 export const metadata: Metadata = {
   title: "The Rise of Generalist Leaders | Blake Yoder",
@@ -34,15 +34,10 @@ export const metadata: Metadata = {
 export default function GeneralistLeaders() {
   return (
     <div className="container">
-      <div className="article-header-image">
-        <Image
-          src="/the-rise-of-generalist-leaders.png"
-          alt="The Rise of Generalist Leaders"
-          width={1200}
-          height={630}
-          priority
-        />
-      </div>
+      <ArticleHeaderImage
+        src="/the-rise-of-generalist-leaders.png"
+        alt="The Rise of Generalist Leaders"
+      />
       <header style={{ marginBottom: "2rem" }}>
         <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
           <Link href="/writing" className="nav-link">Writing</Link>
