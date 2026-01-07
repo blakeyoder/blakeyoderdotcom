@@ -29,37 +29,14 @@ export default function VimStatusBar() {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: "var(--text-primary)",
-        color: "var(--background)",
-        padding: "0.5rem 1rem",
-        fontSize: "0.875rem",
-        fontFamily: 'Monaco, "SF Mono", Consolas, monospace',
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        zIndex: 1000,
-        borderTop: "1px solid var(--border-color)",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+    <div className="fixed bottom-0 left-0 right-0 bg-text-primary text-background px-4 py-2 text-sm font-mono flex justify-between items-center z-[1000] border-t border-border">
+      <div className="flex items-center gap-4">
         <span
-          style={{
-            backgroundColor:
-              vimMode === "normal" ? "var(--background)" : "transparent",
-            color:
-              vimMode === "normal"
-                ? "var(--text-primary)"
-                : "var(--background)",
-            padding: "0.25rem 0.5rem",
-            borderRadius: "2px",
-            fontWeight: "bold",
-          }}
+          className={`px-2 py-1 rounded-sm font-bold ${
+            vimMode === "normal"
+              ? "bg-background text-text-primary"
+              : "bg-transparent text-background"
+          }`}
         >
           {vimMode === "normal" ? "NORMAL" : "SEARCH"}
         </span>
@@ -67,14 +44,14 @@ export default function VimStatusBar() {
         {vimMode === "search" && (
           <span>
             /{searchTerm}
-            <span style={{ opacity: 0.7 }}>_</span>
+            <span className="opacity-70">_</span>
           </span>
         )}
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+      <div className="flex items-center gap-4">
         <span>{getCurrentPage()}</span>
-        <span style={{ opacity: 0.7 }}>
+        <span className="opacity-70">
           {typeof window !== "undefined" && `${Math.round(window.scrollY)}px`}
         </span>
       </div>

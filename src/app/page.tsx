@@ -5,17 +5,12 @@ export default function Home() {
     <div className="container">
       <header>
         <h1>Blake Yoder</h1>
-        <p
-          className="small-caps"
-          style={{ marginTop: "-0.5rem", marginBottom: "3rem" }}
-        >
-          Engineering Leader
-        </p>
+        <p className="small-caps -mt-2 mb-12">Engineering Leader</p>
       </header>
 
       <main>
-        <section style={{ marginBottom: "2.5rem" }}>
-          <p style={{ fontSize: "1.25rem", lineHeight: 1.65 }}>
+        <section className="mb-10">
+          <p className="text-xl leading-relaxed">
             The most interesting problems live at the intersection of human
             systems and technical systems. Over the past decade—including seven
             years in digital healthcare—I&apos;ve learned how technology, when
@@ -46,18 +41,8 @@ export default function Home() {
 
         <hr className="rule-thick" />
 
-        <nav style={{ paddingTop: "0.5rem" }}>
-          <p
-            className="nav-links"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-              gap: "0",
-              margin: 0,
-              fontSize: "1rem",
-            }}
-          >
+        <nav className="pt-2">
+          <p className="nav-links flex flex-wrap items-center gap-0 m-0 text-base">
             <Link href="/about" className="nav-link">
               About
             </Link>

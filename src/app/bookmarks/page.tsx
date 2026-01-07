@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
+import { PageShell } from "@/components/PageShell";
+import { Modal } from "@/components/Modal";
 
 const bookmarkCategories = {
   "Engineering Leadership": [
@@ -564,229 +565,109 @@ export default function Bookmarks() {
   const totalLinks = Object.values(bookmarkCategories).flat().length;
 
   return (
-    <div className="container-wide">
-      <header style={{ marginBottom: "2rem" }}>
-        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
-          <Link href="/" className="nav-link">
-            Blake Yoder
-          </Link>
-        </p>
-        <h1>Bookmarks</h1>
-      </header>
+    <PageShell title="Bookmarks" wide>
+      <p className="mb-10">
+        For nearly six years, I&apos;ve kept a Firefox bookmark folder called
+        &quot;Reading List&quot;—a running collection of interesting articles
+        I&apos;ve found online. Most I&apos;ve read, some I still haven&apos;t.
+        A few years ago, a report who was leaving asked if they could take the
+        list with them. I&apos;m sharing it with you now in the same spirit.
+        It&apos;s a little snapshot of me—spanning everything from scaling
+        systems to no-knead focaccia bread recipes.
+      </p>
 
-      <hr className="rule-thick" />
-
-      <main>
-        <p style={{ marginBottom: "2.5rem" }}>
-          For nearly six years, I&apos;ve kept a Firefox bookmark folder called
-          &quot;Reading List&quot;—a running collection of interesting articles
-          I&apos;ve found online. Most I&apos;ve read, some I still
-          haven&apos;t. A few years ago, a report who was leaving asked if they
-          could take the list with them. I&apos;m sharing it with you now in the
-          same spirit. It&apos;s a little snapshot of me—spanning everything
-          from scaling systems to no-knead focaccia bread recipes.
-        </p>
-
-        <div style={{ marginBottom: "2.5rem" }}>
-          <div
-            role="group"
-            aria-label="Filter bookmarks by category"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.5rem",
-            }}
-          >
-            <button
-              onClick={() => setSelectedCategory(null)}
-              aria-pressed={selectedCategory === null}
-              className={`tag ${selectedCategory === null ? "tag-active" : ""}`}
-            >
-              All ({totalLinks})
-            </button>
-
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                aria-pressed={selectedCategory === category}
-                className={`tag ${selectedCategory === category ? "tag-active" : ""}`}
-              >
-                {category} (
-                {
-                  bookmarkCategories[
-                    category as keyof typeof bookmarkCategories
-                  ].length
-                }
-                )
-              </button>
-            ))}
-          </div>
-        </div>
-
+      <div className="mb-10">
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fill, minmax(min(100%, 400px), 1fr))",
-            gap: "3rem 2rem",
-          }}
+          role="group"
+          aria-label="Filter bookmarks by category"
+          className="flex flex-wrap gap-2"
         >
-          {Object.entries(filteredCategories).map(([category, links]) => (
-            <div key={category}>
-              <h2
-                style={{
-                  fontSize: "1rem",
-                  marginBottom: "1.25rem",
-                  paddingBottom: "0.75rem",
-                  borderBottom: "2px solid var(--ink)",
-                }}
-                className="small-caps"
-              >
-                {category}
-              </h2>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                {links.map((bookmark, index) => (
-                  <li
-                    key={index}
-                    style={{
-                      paddingBottom: "0.625rem",
-                      marginBottom: "0.625rem",
-                      borderBottom: "1px solid var(--rule-light)",
-                    }}
-                  >
-                    <a
-                      href={bookmark.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontSize: "0.9375rem",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {bookmark.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <button
+            onClick={() => setSelectedCategory(null)}
+            aria-pressed={selectedCategory === null}
+            className={`tag ${selectedCategory === null ? "tag-active" : ""}`}
+          >
+            All ({totalLinks})
+          </button>
+
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              aria-pressed={selectedCategory === category}
+              className={`tag ${selectedCategory === category ? "tag-active" : ""}`}
+            >
+              {category} (
+              {
+                bookmarkCategories[category as keyof typeof bookmarkCategories]
+                  .length
+              }
+              )
+            </button>
           ))}
         </div>
+      </div>
 
-        <hr className="rule" style={{ marginTop: "3rem" }} />
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,400px),1fr))] gap-y-12 gap-x-8">
+        {Object.entries(filteredCategories).map(([category, links]) => (
+          <div key={category}>
+            <h2 className="small-caps text-base mb-5 pb-3 border-b-2 border-border-strong">
+              {category}
+            </h2>
+            <ul className="list-none p-0 m-0">
+              {links.map((bookmark, index) => (
+                <li
+                  key={index}
+                  className="pb-2.5 mb-2.5 border-b border-border-subtle"
+                >
+                  <a
+                    href={bookmark.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[0.9375rem] leading-snug"
+                  >
+                    {bookmark.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
 
-        <p
-          style={{
-            color: "var(--text-tertiary)",
-            fontSize: "0.875rem",
-            margin: 0,
-          }}
-        >
-          {totalLinks} links
-        </p>
-      </main>
+      <hr className="rule mt-12" />
 
-      {showDownloadModal && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-          }}
-          onClick={() => setShowDownloadModal(false)}
-        >
-          <div
-            style={{
-              backgroundColor: "var(--paper)",
-              border: "2px solid var(--ink)",
-              padding: "1.5rem",
-              maxWidth: "480px",
-              width: "calc(100% - 2rem)",
-              margin: "0 1rem",
-              position: "relative",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
+      <p className="text-text-tertiary text-sm m-0">{totalLinks} links</p>
+
+      <Modal
+        isOpen={showDownloadModal}
+        onClose={() => setShowDownloadModal(false)}
+        title="Download Bookmarks"
+        footer={
+          <>
             <button
               onClick={() => setShowDownloadModal(false)}
-              style={{
-                position: "absolute",
-                top: "1rem",
-                right: "1rem",
-                background: "none",
-                border: "none",
-                fontSize: "1.5rem",
-                color: "var(--text-tertiary)",
-                cursor: "pointer",
-                width: "2rem",
-                height: "2rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              aria-label="Close modal"
+              className="btn btn-outline flex-auto min-w-[120px]"
             >
-              ×
+              No thanks
             </button>
-
-            <h3
-              style={{
-                fontSize: "1.25rem",
-                marginBottom: "1rem",
+            <button
+              onClick={() => {
+                downloadBookmarks();
+                setShowDownloadModal(false);
               }}
+              className="btn flex-auto min-w-[120px]"
             >
-              Download Bookmarks
-            </h3>
-
-            <p
-              style={{
-                marginBottom: "1.5rem",
-                color: "var(--text-secondary)",
-                lineHeight: 1.6,
-              }}
-            >
-              Want to add these {totalLinks} bookmarks to your own browser?
-              Download them as an HTML file that you can import into any
-              browser.
-            </p>
-
-            <div
-              style={{
-                display: "flex",
-                gap: "1rem",
-                justifyContent: "flex-end",
-                flexWrap: "wrap",
-              }}
-            >
-              <button
-                onClick={() => setShowDownloadModal(false)}
-                className="btn btn-outline"
-                style={{ flex: "1 1 auto", minWidth: "120px" }}
-              >
-                No thanks
-              </button>
-
-              <button
-                onClick={() => {
-                  downloadBookmarks();
-                  setShowDownloadModal(false);
-                }}
-                className="btn"
-                style={{ flex: "1 1 auto", minWidth: "120px" }}
-              >
-                Download
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+              Download
+            </button>
+          </>
+        }
+      >
+        <p className="m-0">
+          Want to add these {totalLinks} bookmarks to your own browser? Download
+          them as an HTML file that you can import into any browser.
+        </p>
+      </Modal>
+    </PageShell>
   );
 }

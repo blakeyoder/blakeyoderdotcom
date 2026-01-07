@@ -358,56 +358,26 @@ export default function Vim() {
 
   if (vimModeActive) {
     return (
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: "var(--background)",
-          zIndex: 1000,
-        }}
-      >
+      <div className="fixed inset-0 bg-background z-[1000]">
         {/* Tutorial Status Bar */}
-        <div
-          style={{
-            padding: "1rem 2rem",
-            backgroundColor: "var(--text-primary)",
-            color: "var(--background)",
-            borderBottom: "1px solid var(--border-color)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontSize: "0.95rem",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <div className="px-8 py-4 bg-text-primary text-background border-b border-border flex justify-between items-center text-[0.95rem]">
+          <div className="flex items-center gap-8">
             <div>
               <strong>
                 Step {tutorialStep + 1} of {tutorialSteps.length}:
               </strong>{" "}
               {tutorialSteps[tutorialStep].title}
             </div>
-            <div style={{ fontSize: "0.9rem", opacity: 0.8 }}>
+            <div className="text-[0.9rem] opacity-80">
               {tutorialSteps[tutorialStep].content}
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div className="flex items-center gap-4">
             {tutorialStep > 0 && (
               <button
                 onClick={() => setTutorialStep(tutorialStep - 1)}
-                style={{
-                  padding: "0.4rem 0.8rem",
-                  border: `1px solid var(--background)`,
-                  backgroundColor: "transparent",
-                  color: "var(--background)",
-                  borderRadius: "4px",
-                  fontSize: "0.85rem",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                }}
+                className="px-3 py-1.5 border border-background bg-transparent text-background rounded text-[0.85rem] cursor-pointer font-inherit"
               >
                 ← Prev
               </button>
@@ -416,16 +386,7 @@ export default function Vim() {
             {tutorialSteps[tutorialStep].completedBy === "manual" && (
               <button
                 onClick={nextStep}
-                style={{
-                  padding: "0.4rem 0.8rem",
-                  border: `1px solid var(--background)`,
-                  backgroundColor: "var(--background)",
-                  color: "var(--text-primary)",
-                  borderRadius: "4px",
-                  fontSize: "0.85rem",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                }}
+                className="px-3 py-1.5 border border-background bg-background text-text-primary rounded text-[0.85rem] cursor-pointer font-inherit"
               >
                 {tutorialStep === tutorialSteps.length - 1
                   ? "Finish"
@@ -434,22 +395,14 @@ export default function Vim() {
             )}
 
             {tutorialSteps[tutorialStep].completedBy !== "manual" && (
-              <span style={{ fontSize: "0.85rem", opacity: 0.7 }}>
+              <span className="text-[0.85rem] opacity-70">
                 Complete task to continue
               </span>
             )}
 
             <button
               onClick={exitVimMode}
-              style={{
-                background: "none",
-                border: "none",
-                fontSize: "1.2rem",
-                cursor: "pointer",
-                color: "var(--background)",
-                padding: "0 0.5rem",
-                opacity: 0.8,
-              }}
+              className="bg-transparent border-none text-xl cursor-pointer text-background px-2 opacity-80"
             >
               ×
             </button>
@@ -457,48 +410,21 @@ export default function Vim() {
         </div>
 
         {/* Task Instruction Bar */}
-        <div
-          style={{
-            padding: "0.75rem 2rem",
-            backgroundColor: "var(--border-color)",
-            color: "var(--text-primary)",
-            fontSize: "0.9rem",
-            fontWeight: "bold",
-            borderBottom: "1px solid var(--border-color)",
-          }}
-        >
+        <div className="px-8 py-3 bg-border text-text-primary text-[0.9rem] font-bold border-b border-border">
           <strong>Your task:</strong> {tutorialSteps[tutorialStep].task}
         </div>
 
         {/* Main Editor */}
-        <div
-          style={{
-            height: "calc(100% - 120px)",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <div className="h-[calc(100%-120px)] flex flex-col">
           {/* File Header Bar */}
-          <div
-            style={{
-              padding: "0.75rem 2rem",
-              borderBottom: "1px solid var(--border-color)",
-              backgroundColor: "var(--background)",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              fontSize: "0.9rem",
-            }}
-          >
+          <div className="px-8 py-3 border-b border-border bg-background flex justify-between items-center text-[0.9rem]">
             <div>
-              <span style={{ fontWeight: "bold" }}>vim-tutorial</span>
-              <span
-                style={{ marginLeft: "1rem", color: "var(--text-secondary)" }}
-              >
+              <span className="font-bold">vim-tutorial</span>
+              <span className="ml-4 text-text-secondary">
                 {pageContent.split("\n").length} lines
               </span>
             </div>
-            <div style={{ color: "var(--text-secondary)" }}>
+            <div className="text-text-secondary">
               Tutorial:{" "}
               {Math.round((tutorialStep / (tutorialSteps.length - 1)) * 100)}%
               complete
@@ -511,38 +437,19 @@ export default function Vim() {
             value={pageContent}
             onChange={(e) => setPageContent(e.target.value)}
             onKeyDown={handleKeyDown}
-            style={{
-              flex: 1,
-              padding: "2rem",
-              border: "none",
-              backgroundColor: "var(--background)",
-              color: "var(--text-primary)",
-              fontSize: "1rem",
-              fontFamily: "Crimson Text, serif",
-              lineHeight: "1.618",
-              resize: "none",
-              outline: "none",
-            }}
+            className="flex-1 p-8 border-none bg-background text-text-primary text-base font-[Crimson_Text,serif] leading-[1.618] resize-none outline-none"
             autoFocus
           />
 
           {/* Vim Status Bar */}
           <div
-            style={{
-              padding: "0.75rem 2rem",
-              backgroundColor:
-                currentMode === "insert"
-                  ? "#2a4d3a"
-                  : currentMode === "command"
-                    ? "#4a3d2a"
-                    : "#2a2a2a",
-              color: "white",
-              fontSize: "0.9rem",
-              fontFamily: "monospace",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+            className={`px-8 py-3 text-white text-[0.9rem] font-mono flex justify-between items-center ${
+              currentMode === "insert"
+                ? "bg-[#2a4d3a]"
+                : currentMode === "command"
+                  ? "bg-[#4a3d2a]"
+                  : "bg-[#2a2a2a]"
+            }`}
           >
             <div>
               <span>
@@ -551,12 +458,10 @@ export default function Vim() {
                   : statusMessage}
               </span>
               {commandBuffer && currentMode !== "command" && (
-                <span style={{ marginLeft: "1rem", opacity: 0.7 }}>
-                  ({commandBuffer})
-                </span>
+                <span className="ml-4 opacity-70">({commandBuffer})</span>
               )}
             </div>
-            <div style={{ display: "flex", gap: "2rem" }}>
+            <div className="flex gap-8">
               <span>{currentMode.toUpperCase()}</span>
               <span>jj→NORMAL | Space+w→Save | :q→Quit</span>
             </div>
@@ -568,8 +473,8 @@ export default function Vim() {
 
   return (
     <div className="container">
-      <header style={{ marginBottom: "2rem" }}>
-        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
+      <header className="mb-8">
+        <p className="small-caps mb-3">
           <Link href="/" className="nav-link">
             Blake Yoder
           </Link>
@@ -580,7 +485,7 @@ export default function Vim() {
       <hr className="rule-thick" />
 
       <main>
-        <section style={{ marginBottom: "3rem" }}>
+        <section className="mb-12">
           <p>
             I first picked up Vim in 2016 while working at{" "}
             <a
@@ -634,19 +539,10 @@ export default function Vim() {
           </p>
         </section>
 
-        <div
-          style={{
-            padding: "2rem",
-            border: "2px solid var(--ink)",
-            marginBottom: "2rem",
-            textAlign: "center",
-          }}
-        >
-          <h2 style={{ fontSize: "1.25rem", marginBottom: "1rem" }}>
-            Ready to try vim?
-          </h2>
+        <div className="p-8 border-2 border-border-strong mb-8 text-center">
+          <h2 className="text-xl mb-4">Ready to try vim?</h2>
 
-          <p style={{ marginBottom: "2rem", color: "var(--text-secondary)" }}>
+          <p className="mb-8 text-text-secondary">
             This entire page will become your vim editor. You&apos;ll get
             step-by-step guidance through persistent status bars at the top as
             you learn my custom keybindings.
@@ -656,14 +552,7 @@ export default function Vim() {
             Enter Vim Mode
           </button>
 
-          <p
-            style={{
-              marginTop: "1rem",
-              fontSize: "0.875rem",
-              color: "var(--text-tertiary)",
-              fontStyle: "italic",
-            }}
-          >
+          <p className="mt-4 text-sm text-text-tertiary italic">
             Don&apos;t worry—you can exit anytime with{" "}
             <code className="mono">:q</code> or the × button
           </p>

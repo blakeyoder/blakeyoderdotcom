@@ -1,6 +1,5 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { ArticleHeaderImage } from "@/components/ArticleHeaderImage";
+import { ArticleShell } from "@/components/ArticleShell";
 
 export const metadata: Metadata = {
   title: "What AI Won't Fix | Blake Yoder",
@@ -36,145 +35,122 @@ export const metadata: Metadata = {
 
 export default function WhatAIWontFix() {
   return (
-    <div className="container">
-      <ArticleHeaderImage src="/what-ai-wont-fix.png" alt="What AI Won't Fix" />
-      <header style={{ marginBottom: "2rem" }}>
-        <p className="small-caps" style={{ marginBottom: "0.75rem" }}>
-          <Link href="/writing" className="nav-link">
-            Writing
-          </Link>
-        </p>
-        <p className="article-date" style={{ marginBottom: "1rem" }}>
-          November 28, 2025
-        </p>
-        <h1 style={{ marginBottom: "0.5rem" }}>What AI Won&apos;t Fix</h1>
-        <p
-          style={{
-            fontSize: "1.25rem",
-            fontStyle: "italic",
-            color: "var(--text-secondary)",
-            margin: 0,
-          }}
-        >
-          Everyone&apos;s obsessing over what AI changes. The more interesting
-          question: what doesn&apos;t it change at all?
-        </p>
-      </header>
+    <ArticleShell
+      title="What AI Won't Fix"
+      date="November 28, 2025"
+      tagline="Everyone's obsessing over what AI changes. The more interesting question: what doesn't it change at all?"
+      headerImage={{
+        src: "/what-ai-wont-fix.png",
+        alt: "What AI Won't Fix",
+      }}
+    >
+      <h2>Slop isn&apos;t new. The scapegoat is.</h2>
 
-      <hr className="rule-thick" />
+      <p>
+        Before Cursor, Claude Code, etc, developers shipped sloppy code. After
+        these tools, developers ship sloppy code. The only difference is who
+        gets blamed.
+      </p>
 
-      <main>
-        <article>
-          <h2>Slop isn&apos;t new. The scapegoat is.</h2>
+      <p>
+        &quot;AI writes bad code, so don&apos;t use AI&quot; sounds reasonable
+        until you think about it for three seconds. It&apos;s a false dichotomy.
+        The argument assumes code quality is binary and inherent to the
+        tool—ignoring the human wielding it.
+      </p>
 
-          <p>
-            Before Cursor, Claude Code, etc, developers shipped sloppy code.
-            After these tools, developers ship sloppy code. The only difference
-            is who gets blamed.
-          </p>
+      <p>
+        I&apos;ve worked in growth-stage startups where time-to-ship is hours,
+        not weeks. No code is perfect in that environment. You make trade-offs.
+        You accumulate debt. You ship. This was true in 2019. It&apos;s true in
+        2025.
+      </p>
 
-          <p>
-            &quot;AI writes bad code, so don&apos;t use AI&quot; sounds
-            reasonable until you think about it for three seconds. It&apos;s a
-            false dichotomy. The argument assumes code quality is binary and
-            inherent to the tool—ignoring the human wielding it.
-          </p>
+      <p>
+        Slop is slop whether it&apos;s hand-stitched or AI-generated. The origin
+        doesn&apos;t determine quality. The intention does.
+      </p>
 
-          <p>
-            I&apos;ve worked in growth-stage startups where time-to-ship is
-            hours, not weeks. No code is perfect in that environment. You make
-            trade-offs. You accumulate debt. You ship. This was true in 2019.
-            It&apos;s true in 2025.
-          </p>
+      <p>
+        Learn to use the tools well, and you write better code faster. Refuse to
+        learn, blame the tool, and you write the same mediocre code you always
+        did—just slower.
+      </p>
 
-          <p>
-            Slop is slop whether it&apos;s hand-stitched or AI-generated. The
-            origin doesn&apos;t determine quality. The intention does.
-          </p>
+      <h2>Guardrails still matter. Maybe more.</h2>
 
-          <p>
-            Learn to use the tools well, and you write better code faster.
-            Refuse to learn, blame the tool, and you write the same mediocre
-            code you always did—just slower.
-          </p>
+      <p>
+        Agentic tools can send you down rabbit holes. So can a blank terminal
+        and a curious mind.
+      </p>
 
-          <h2>Guardrails still matter. Maybe more.</h2>
+      <p>
+        We&apos;ve all burned an afternoon chasing an elegant solution to a
+        problem that didn&apos;t need solving. Side-quests aren&apos;t new—fuzzy
+        definitions of done have always been the real enemy.
+      </p>
 
-          <p>
-            Agentic tools can send you down rabbit holes. So can a blank
-            terminal and a curious mind.
-          </p>
+      <p>
+        AI doesn&apos;t fix this. If anything, it amplifies it. More capability
+        means more surface area for distraction.
+      </p>
 
-          <p>
-            We&apos;ve all burned an afternoon chasing an elegant solution to a
-            problem that didn&apos;t need solving. Side-quests aren&apos;t
-            new—fuzzy definitions of done have always been the real enemy.
-          </p>
+      <p>
+        The fix is the same as it&apos;s always been: clear expectations, hard
+        deadlines, and the discipline to stop when something is good enough.
+      </p>
 
-          <p>
-            AI doesn&apos;t fix this. If anything, it amplifies it. More
-            capability means more surface area for distraction.
-          </p>
+      <p>
+        Constraints create better results. They always have. AI doesn&apos;t
+        change that equation—it just raises the stakes.
+      </p>
 
-          <p>
-            The fix is the same as it&apos;s always been: clear expectations,
-            hard deadlines, and the discipline to stop when something is good
-            enough.
-          </p>
+      <h2>Learning didn&apos;t become optional.</h2>
 
-          <p>
-            Constraints create better results. They always have. AI doesn&apos;t
-            change that equation—it just raises the stakes.
-          </p>
+      <p>
+        AI is an intelligence multiplier. Used well, it&apos;s the best tutor
+        you&apos;ve ever had. &quot;Explain how DNS works.&quot; &quot;My
+        company deploys on ECS with Fargate—help me build a mental model of how
+        requests flow.&quot; These prompts make you smarter.
+      </p>
 
-          <h2>Learning didn&apos;t become optional.</h2>
+      <p>
+        But slapping a stack trace into a window and accepting the fix?
+        That&apos;s not learning. The problem is &quot;solved,&quot; but you
+        never internalized what went wrong.
+      </p>
 
-          <p>
-            AI is an intelligence multiplier. Used well, it&apos;s the best
-            tutor you&apos;ve ever had. &quot;Explain how DNS works.&quot;
-            &quot;My company deploys on ECS with Fargate—help me build a mental
-            model of how requests flow.&quot; These prompts make you smarter.
-          </p>
+      <p>
+        This isn&apos;t new either. Pre-AI, you could pair with a senior
+        engineer who found the bug in thirty seconds. If you didn&apos;t ask
+        why, you walked away with working code and zero insight. The senior
+        engineer moved on. You stayed stuck at the same level.
+      </p>
 
-          <p>
-            But slapping a stack trace into a window and accepting the fix?
-            That&apos;s not learning. The problem is &quot;solved,&quot; but you
-            never internalized what went wrong.
-          </p>
+      <p>
+        AI makes it easier to skip the learning. It also makes it easier to do
+        the learning. The choice was always yours. It still is.
+      </p>
 
-          <p>
-            This isn&apos;t new either. Pre-AI, you could pair with a senior
-            engineer who found the bug in thirty seconds. If you didn&apos;t ask
-            why, you walked away with working code and zero insight. The senior
-            engineer moved on. You stayed stuck at the same level.
-          </p>
+      <h2>The constant is us</h2>
 
-          <p>
-            AI makes it easier to skip the learning. It also makes it easier to
-            do the learning. The choice was always yours. It still is.
-          </p>
+      <p>Tools change. Human nature doesn&apos;t.</p>
 
-          <h2>The constant is us</h2>
+      <p>
+        We still need intention to write good code. We still need boundaries to
+        finish projects. We still reach for something to blame when the work is
+        hard.
+      </p>
 
-          <p>Tools change. Human nature doesn&apos;t.</p>
+      <p>
+        AI isn&apos;t magic. It&apos;s a lever. And levers don&apos;t care about
+        direction—they amplify whatever force you apply.
+      </p>
 
-          <p>
-            We still need intention to write good code. We still need boundaries
-            to finish projects. We still reach for something to blame when the
-            work is hard.
-          </p>
-
-          <p>
-            AI isn&apos;t magic. It&apos;s a lever. And levers don&apos;t care
-            about direction—they amplify whatever force you apply.
-          </p>
-
-          <p>
-            The question was never &quot;Will AI write good code?&quot;
-            It&apos;s always been &quot;Will you?&quot;
-          </p>
-        </article>
-      </main>
-    </div>
+      <p>
+        The question was never &quot;Will AI write good code?&quot; It&apos;s
+        always been &quot;Will you?&quot;
+      </p>
+    </ArticleShell>
   );
 }
