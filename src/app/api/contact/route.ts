@@ -7,7 +7,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { validateContactForm } from "@/lib/validation";
 import { sendContactEmail } from "@/lib/email";
 import { checkRateLimit, getClientIP } from "@/lib/rate-limit";
-import { checkForSpam } from "@/lib/spam-detection";
 
 export async function POST(request: NextRequest) {
   try {
@@ -56,20 +55,6 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "Please fix the errors below",
           errors: validation.errors,
-        },
-        { status: 400 },
-      );
-    }
-
-    // Spam detection check
-    const spamCheck = checkForSpam(body.message);
-    if (spamCheck.isSpam) {
-      console.log("Spam detected:", spamCheck.reason);
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            "Your message was flagged as potential spam. Please remove any excessive links or promotional content and try again.",
         },
         { status: 400 },
       );

@@ -9,7 +9,6 @@ interface Config {
   contactEmailFrom: string;
   rateLimitWindowMs: number;
   rateLimitMaxRequests: number;
-  spamMaxUrls: number;
 }
 
 function getEnvVar(key: string, defaultValue?: string): string {
@@ -79,7 +78,6 @@ function getConfig(): Config {
       ),
       rateLimitWindowMs: getEnvNumber("RATE_LIMIT_WINDOW_MS", 5 * 60 * 1000), // 5 minutes
       rateLimitMaxRequests: getEnvNumber("RATE_LIMIT_MAX_REQUESTS", 1),
-      spamMaxUrls: getEnvNumber("SPAM_MAX_URLS", 2),
     };
   }
   return _config;

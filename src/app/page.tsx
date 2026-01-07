@@ -63,6 +63,10 @@ export default function Home() {
               Contact
             </Link>
             <span className="nav-divider">|</span>
+            <Link href="/vim" className="nav-link">
+              Vim
+            </Link>
+            <span className="nav-divider">|</span>
             <a
               href="https://www.linkedin.com/in/blakeyoder/"
               target="_blank"
