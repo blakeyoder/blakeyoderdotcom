@@ -4,8 +4,18 @@ import Image from "next/image";
 export default function NotFound() {
   return (
     <div className="page-container">
-      <div className="article-header-image">
-        <Image src="/404-image.png" alt="" width={1200} height={630} priority />
+      <div
+        className="article-header-image"
+        style={{ background: "var(--background)" }}
+      >
+        <Image
+          src="/404-image.png"
+          alt="Lady with an Ermine by Leonardo da Vinci"
+          width={1100}
+          height={1490}
+          priority
+          title="This is my favorite painting of all time."
+        />
       </div>
 
       <main style={{ textAlign: "center" }}>
