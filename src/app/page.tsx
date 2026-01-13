@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="container">
+    <div className="page-container">
       <header>
         <h1>Blake Yoder</h1>
         <p className="small-caps -mt-2 mb-12">Engineering Leader</p>

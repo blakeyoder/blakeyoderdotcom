@@ -43,6 +43,7 @@ export default function WhatAIWontFix() {
         src: "/what-ai-wont-fix.png",
         alt: "What AI Won't Fix",
       }}
+      hideHeaderImage
     >
       <h2>Slop isn&apos;t new. The scapegoat is.</h2>
 

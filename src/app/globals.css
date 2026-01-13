@@ -156,13 +156,13 @@ a:hover {
   }
 
   /* Container */
-  .container {
+  .page-container {
     max-width: 680px;
     margin: 0 auto;
     padding: 3rem 1.5rem;
   }
 
-  .container-wide {
+  .page-container-wide {
     max-width: 900px;
     margin: 0 auto;
     padding: 3rem 1.5rem;
@@ -408,11 +408,11 @@ a:hover {
 
 /* Responsive */
 @media (min-width: 768px) {
-  .container {
+  .page-container {
     padding: 4rem 2rem;
   }
 
-  .container-wide {
+  .page-container-wide {
     padding: 4rem 2rem;
   }
 

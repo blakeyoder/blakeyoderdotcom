@@ -45,6 +45,7 @@ export default function TypeScriptDefinitionsMCP() {
         src: "/when-ai-gets-your-types-wrong.png",
         alt: "When AI Gets Your Types Wrong",
       }}
+      hideHeaderImage
     >
       <p>
         Today I was writing some unit and integration tests using Claude Code,

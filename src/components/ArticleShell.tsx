@@ -8,8 +8,8 @@ interface ArticleShellProps {
   headerImage?: {
     src: string;
     alt: string;
-    hideHeaderImage?: boolean;
   };
+  hideHeaderImage?: boolean;
   children: React.ReactNode;
 }
 
@@ -18,16 +18,15 @@ export function ArticleShell({
   date,
   tagline,
   headerImage,
+  hideHeaderImage = false,
   children,
-}: ArticleShellProps) {
+}: ArticleShellProps): React.ReactElement {
+  const showHeaderImage = headerImage && !hideHeaderImage;
+
   return (
-    <div className="container">
-      {headerImage && (
-        <ArticleHeaderImage
-          src={headerImage.src}
-          alt={headerImage.alt}
-          hideHeaderImage={headerImage.hideHeaderImage}
-        />
+    <div className="page-container">
+      {showHeaderImage && (
+        <ArticleHeaderImage src={headerImage.src} alt={headerImage.alt} />
       )}
       <header className="mb-8">
         <p className="small-caps mb-3">

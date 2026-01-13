@@ -45,6 +45,7 @@ export default function GeneralistLeaders() {
         src: "/the-rise-of-generalist-leaders.png",
         alt: "The Rise of Generalist Leaders",
       }}
+      hideHeaderImage
     >
       <p>
         I believe the way we think about engineering leadership, team building,

@@ -472,7 +472,7 @@ export default function Vim() {
   }
 
   return (
-    <div className="container">
+    <div className="page-container">
       <header className="mb-8">
         <p className="small-caps mb-3">
           <Link href="/" className="nav-link">

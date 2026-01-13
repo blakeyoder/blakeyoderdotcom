@@ -10,6 +10,17 @@ interface PageShellProps {
   children: React.ReactNode;
 }
 
+function getSubtitleClasses(style: PageShellProps["subtitleStyle"]): string {
+  switch (style) {
+    case "date":
+      return "article-date mb-4";
+    case "small-caps":
+      return "small-caps mt-2";
+    default:
+      return "text-text-secondary mt-2";
+  }
+}
+
 export function PageShell({
   title,
   backLink = "/",
@@ -18,20 +29,10 @@ export function PageShell({
   subtitleStyle = "default",
   wide = false,
   children,
-}: PageShellProps) {
-  const getSubtitleClasses = () => {
-    const baseClasses = "text-text-secondary";
-    if (subtitleStyle === "date") {
-      return `article-date mb-4`;
-    }
-    if (subtitleStyle === "small-caps") {
-      return `small-caps mt-2`;
-    }
-    return `${baseClasses} mt-2`;
-  };
+}: PageShellProps): React.ReactElement {
 
   return (
-    <div className={wide ? "container-wide" : "container"}>
+    <div className={wide ? "page-container-wide" : "page-container"}>
       <header className="mb-8">
         <p className="small-caps mb-3">
           <Link href={backLink} className="nav-link">
@@ -39,7 +40,7 @@ export function PageShell({
           </Link>
         </p>
         <h1 className={subtitle ? "mb-2" : ""}>{title}</h1>
-        {subtitle && <p className={getSubtitleClasses()}>{subtitle}</p>}
+        {subtitle && <p className={getSubtitleClasses(subtitleStyle)}>{subtitle}</p>}
       </header>
 
       <hr className="rule-thick" />

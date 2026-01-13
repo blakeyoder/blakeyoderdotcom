@@ -43,6 +43,7 @@ export default function SlopMightSaveYourStartup() {
         src: "/slop-might-save-your-startup.png",
         alt: "Slop Might Save Your Startup",
       }}
+      hideHeaderImage
     >
       <p>
         In early-stage startups, shipping fast isn&apos;t just important.

@@ -5,7 +5,6 @@ interface ArticleHeaderImageProps {
   alt: string;
   width?: number;
   height?: number;
-  hideHeaderImage?: boolean;
 }
 
 export function ArticleHeaderImage({
@@ -13,12 +12,7 @@ export function ArticleHeaderImage({
   alt,
   width = 1200,
   height = 630,
-  hideHeaderImage = false,
-}: ArticleHeaderImageProps) {
-  if (hideHeaderImage) {
-    return null;
-  }
-
+}: ArticleHeaderImageProps): React.ReactElement {
   return (
     <div className="article-header-image">
       <Image src={src} alt={alt} width={width} height={height} priority />
