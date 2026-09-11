@@ -33,10 +33,9 @@ export default function Home() {
           </p>
 
           <p>
-            These days I help teams rebuild their websites, automate the manual
-            operations quietly eating their week, and adopt AI in ways that
-            actually move the business.{" "}
-            <Link href="/howdy">Here&apos;s what that looks like</Link>.
+            These days I&apos;m working in a fractional capacity to help small
+            businesses rethink their digital presence by leveraging AI (and not
+            AI—not every problem is a nail...)
           </p>
         </section>
 
