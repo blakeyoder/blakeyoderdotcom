@@ -18,24 +18,17 @@ export default function Home() {
           </p>
 
           <p>
-            I&apos;ve applied that belief in scaling teams and businesses
-            through rapid growth—most notably helping scale{" "}
-            <a
-              href="https://thirtymadison.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Thirty Madison
-            </a>{" "}
-            from Series A to over $250M in ARR. My work sits at the crossroads
-            of technology and business strategy, aligning people, process, and
-            product to turn uncertainty into momentum.
+            Currently building something new in the healthcare space. Before
+            this, I helped scale digital healthcare companies from Series A to
+            over $250M in ARR.
           </p>
 
           <p>
             These days I&apos;m working in a fractional capacity to help small
             businesses rethink their digital presence by leveraging AI (and not
-            AI—not every problem is a nail...)
+            AI—not every problem is a nail...) alongside industry-wide best
+            practices, hard earned across a decade-plus of building and scaling
+            applications.
           </p>
         </section>
 

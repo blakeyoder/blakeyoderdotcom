@@ -4,7 +4,7 @@ import { StyledList, StyledListItem } from "@/components/StyledList";
 import { SITE_NAME, SITE_URL, ogImage } from "@/lib/site";
 
 const description =
-  "Blake Yoder helps teams rebuild their websites, automate manual operations with AI-native workflows, and adopt AI in ways that move the business.";
+  "Blake Yoder works with small businesses on website rebuilds, automating manual operations, and putting AI to sensible use.";
 
 export const metadata: Metadata = {
   title: "Howdy",
@@ -38,18 +38,10 @@ const EMAIL = "yoderblake@gmail.com";
 
 export default function Howdy() {
   return (
-    <PageShell title="Howdy" subtitle="Here's what I do, and how to reach me.">
+    <PageShell title="Howdy">
       <section className="mb-12">
         <p className="text-xl leading-relaxed">
-          I spend my time where human systems and technical systems meet. That
-          has meant scaling engineering teams through rapid growth, and it
-          increasingly means helping companies put AI to work on the unglamorous
-          parts of their business that actually cost them money.
-        </p>
-
-        <p>
-          Most of the work falls into three buckets. Sometimes it&apos;s one of
-          them. Often it starts as one and turns into another.
+          Here&apos;s where I&apos;m interested in spending my time.
         </p>
       </section>
 
@@ -60,29 +52,27 @@ export default function Howdy() {
 
         <StyledList>
           <StyledListItem>
-            <strong>Website redesigns and rebuilds.</strong> Sites that have
-            drifted away from the business they represent, or that were built
-            fast and now need to be built properly. I handle the design
-            direction and the engineering, so there is no handoff gap between
-            the two.
+            <strong>Website redesigns and rebuilds.</strong> Most of the sites I
+            work on were put together quickly a few years ago and no longer
+            match the business behind them. I do the design and the engineering,
+            so nothing gets lost in a handoff.
           </StyledListItem>
 
           <StyledListItem>
             <strong>
               Automating manual operations with AI-native workflows.
             </strong>{" "}
-            The spreadsheet someone maintains by hand every Friday. The inbox
-            that gets triaged three times a day. The report that takes a person
-            two hours and a lot of copy and paste. These are the places where AI
-            pays for itself quickly, and where most teams have not looked yet.
+            Most teams have a handful of recurring tasks that eat hours every
+            week. A spreadsheet someone updates by hand, a report that gets
+            rebuilt from scratch every month. Those are usually straightforward
+            to automate, and the time comes back immediately.
           </StyledListItem>
 
           <StyledListItem>
-            <strong>Helping teams adopt AI for real business value.</strong> Not
-            a tool rollout and not a pilot that quietly dies. Figuring out which
-            problems are worth pointing AI at, getting the team fluent enough to
-            keep going without me, and being honest about the places it will not
-            help.
+            <strong>Helping teams adopt AI.</strong> I work out which problems
+            are worth using AI for, get your team comfortable enough to keep
+            going without me, and tell you when AI is the wrong tool for the
+            job.
           </StyledListItem>
         </StyledList>
       </section>
@@ -93,26 +83,17 @@ export default function Howdy() {
         <h2 className="small-caps text-base mb-6">How I work</h2>
 
         <p>
-          I like starting small and concrete. A short conversation about what is
-          actually slowing you down usually tells us both whether there is a
-          good fit, and I will say so if there is not. From there the work tends
-          to move fast, because I would rather ship something you can react to
-          than write a deck about it.
+          I like to start with a short conversation about what is actually
+          slowing you down. That usually tells us both whether I can help, and I
+          will say so if I can&apos;t. After that I would rather build something
+          you can look at than write a proposal about it.
         </p>
 
         <p>
-          Nearly a decade of this has been in healthcare, most recently helping
-          scale{" "}
-          <a
-            href="https://thirtymadison.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Thirty Madison
-          </a>{" "}
-          from Series A to over $250M in ARR. Regulated, high-stakes
-          environments taught me to be careful about where automation belongs
-          and where it does not.
+          Most of my last decade was spent in healthcare, helping scale digital
+          health companies from Series A to over $250M in ARR. Working under
+          that much regulation made me careful about where automation is a good
+          idea and where it isn&apos;t.
         </p>
       </section>
 
@@ -121,20 +102,12 @@ export default function Howdy() {
       <section className="pt-4">
         <h2 className="text-xl mb-4">Want to chat?</h2>
         <p className="mb-8">
-          Send me an email and tell me what you&apos;re working on. I read
-          everything and reply to anything that isn&apos;t a pitch.
+          Send me an email and tell me what you&apos;re working on.
         </p>
 
         <a href={`mailto:${EMAIL}`} className="btn btn-accent">
           Email me
         </a>
-
-        <p className="mt-6 text-text-secondary text-sm mb-0">
-          Or copy it down:{" "}
-          <a href={`mailto:${EMAIL}`} className="mono">
-            {EMAIL}
-          </a>
-        </p>
       </section>
     </PageShell>
   );
