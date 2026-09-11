@@ -47,10 +47,6 @@ export default function Home() {
               About
             </Link>
             <span className="nav-divider">|</span>
-            <Link href="/writing" className="nav-link">
-              Writing
-            </Link>
-            <span className="nav-divider">|</span>
             <Link href="/bookmarks" className="nav-link">
               Bookmarks
             </Link>

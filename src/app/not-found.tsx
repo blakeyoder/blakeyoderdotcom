@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className="page-container">
       <div
-        className="article-header-image"
+        className="page-header-image"
         style={{ background: "var(--background)" }}
       >
         <Image

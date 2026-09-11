@@ -15,8 +15,6 @@ export default function VimStatusBar() {
           return "~/index.tsx";
         case "/about":
           return "~/about/page.tsx";
-        case "/writing":
-          return "~/writing/page.tsx";
         case "/bookmarks":
           return "~/bookmarks/page.tsx";
         case "/vim":

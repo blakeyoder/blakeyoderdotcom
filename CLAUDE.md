@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is Blake Yoder's personal website built with Next.js 15 and TypeScript. It's a minimal, content-focused site with three main sections: home, about, and writing pages.
+This is Blake Yoder's personal website built with Next.js 15 and TypeScript. It's a minimal, content-focused site with home, about, bookmarks, now, contact, and vim pages.
 
 ## Development Commands
 
@@ -30,11 +30,19 @@ This is Blake Yoder's personal website built with Next.js 15 and TypeScript. It'
 
 ```
 src/app/
-├── layout.tsx          # Root layout with font and metadata
-├── page.tsx            # Home page
-├── globals.css         # Global styles with CSS custom properties
-├── about/page.tsx      # About page
-└── writing/page.tsx    # Writing/blog page
+├── layout.tsx                 # Root layout with font and metadata
+├── page.tsx                   # Home page
+├── globals.css                # Global styles with CSS custom properties
+├── not-found.tsx              # 404 page
+├── about/page.tsx             # About page
+├── bookmarks/                 # Curated links (client component + metadata layout)
+├── now/page.tsx               # Now page
+├── contact/page.tsx           # Contact form (client component)
+├── vim/                       # Interactive vim tutorial (client component + layout)
+├── og/route.tsx               # Dynamic Open Graph image generation
+└── api/
+    ├── contact/route.ts       # Contact form submission
+    └── linkedin-preview/route.ts
 ```
 
 ### Design System
@@ -46,7 +54,7 @@ src/app/
 
 ### Code Patterns
 
-- **Components**: All pages are server components (no "use client" directives)
+- **Components**: Pages are server components by default; contact, bookmarks, and vim are client components
 - **Styling**: Mix of Tailwind utilities and inline styles for specific cases
 - **Navigation**: Uses Next.js `Link` component for internal navigation
 - **Metadata**: Centralized in root layout.tsx
@@ -55,7 +63,6 @@ src/app/
 
 - Personal/professional site for an engineering leader
 - Focus on technology, leadership, and healthcare technology
-- Writing section is placeholder (coming soon)
 - Professional tone with personal insights
 
 ## TypeScript Configuration
