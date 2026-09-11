@@ -8,16 +8,51 @@ export interface ValidationResult {
   error?: string;
 }
 
+/** Zero-width and BOM characters that survive trim() but render as nothing. */
+const ZERO_WIDTH = /[\u200B-\u200D\u2060\uFEFF]/g;
+/** C0/C1 control characters. */
+const CONTROL_CHARS = /[\u0000-\u001F\u007F-\u009F]/g;
+/** Control characters other than tab and newline. */
+const CONTROL_CHARS_EXCEPT_BREAKS =
+  /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/g;
+
 /**
- * Validates that a value is not empty after trimming whitespace
+ * Normalizes a single-line field: drops anything that is not a string,
+ * strips zero-width and control characters, then trims.
+ *
+ * Control characters matter beyond tidiness here: `name` is interpolated into
+ * the email subject, so CRLF must never survive.
+ */
+export function normalizeSingleLine(value: unknown): string {
+  if (typeof value !== "string") return "";
+  return value.replace(ZERO_WIDTH, "").replace(CONTROL_CHARS, "").trim();
+}
+
+/**
+ * Normalizes a multi-line field, preserving newlines and tabs.
+ */
+export function normalizeMultiline(value: unknown): string {
+  if (typeof value !== "string") return "";
+  return value
+    .replace(/\r\n?/g, "\n")
+    .replace(ZERO_WIDTH, "")
+    .replace(CONTROL_CHARS_EXCEPT_BREAKS, "")
+    .trim();
+}
+
+/** Counts characters rather than UTF-16 code units, so emoji count as one. */
+function characterLength(value: string): number {
+  return Array.from(value).length;
+}
+
+/**
+ * Validates that a value is not empty once normalized
  */
 export function validateRequired(
-  value: string,
+  value: unknown,
   fieldName: string,
 ): ValidationResult {
-  const trimmed = value.trim();
-
-  if (trimmed.length === 0) {
+  if (normalizeSingleLine(value).length === 0) {
     return {
       isValid: false,
       error: `${fieldName} is required`,
@@ -31,8 +66,8 @@ export function validateRequired(
  * Validates email format
  * Uses simple regex that catches most invalid emails
  */
-export function validateEmail(email: string): ValidationResult {
-  const trimmed = email.trim();
+export function validateEmail(email: unknown): ValidationResult {
+  const trimmed = normalizeSingleLine(email);
 
   if (trimmed.length === 0) {
     return {
@@ -66,13 +101,12 @@ export function validateEmail(email: string): ValidationResult {
  * Validates string length is within min/max bounds
  */
 export function validateLength(
-  value: string,
+  value: unknown,
   fieldName: string,
   min: number,
   max: number,
 ): ValidationResult {
-  const trimmed = value.trim();
-  const length = trimmed.length;
+  const length = characterLength(normalizeMultiline(value));
 
   if (length < min) {
     return {
@@ -91,10 +125,6 @@ export function validateLength(
   return { isValid: true };
 }
 
-/**
- * Validates all contact form fields
- * Returns object with field-specific errors
- */
 export interface ContactFormData {
   name: string;
   email: string;
@@ -110,24 +140,36 @@ export interface ContactFormErrors {
   message?: string;
 }
 
+/** The normalized values that should be used downstream once validation passes. */
+export interface NormalizedContact {
+  name: string;
+  email: string;
+  linkedin: string;
+  message: string;
+}
+
+export const FIELD_LIMITS = {
+  name: 100,
+  email: 254,
+  linkedin: 200,
+  message: 2000,
+} as const;
+
 /**
  * Validates LinkedIn URL format
  */
 function validateLinkedIn(url: string): ValidationResult {
-  const trimmed = url.trim();
-
-  if (trimmed.length === 0) {
+  if (url.length === 0) {
     return {
       isValid: false,
       error: "LinkedIn URL is required",
     };
   }
 
-  // Check if it's a valid LinkedIn URL
   const linkedInPattern =
-    /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/;
+    /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/i;
 
-  if (!linkedInPattern.test(trimmed)) {
+  if (!linkedInPattern.test(url)) {
     return {
       isValid: false,
       error:
@@ -138,41 +180,62 @@ function validateLinkedIn(url: string): ValidationResult {
   return { isValid: true };
 }
 
-export function validateContactForm(data: ContactFormData): {
+/**
+ * Validates all contact form fields.
+ *
+ * Accepts unknown input so a malformed request body produces field errors
+ * rather than a thrown TypeError, and returns the normalized values so callers
+ * never send the raw input onward.
+ */
+export function validateContactForm(data: Partial<ContactFormData> | unknown): {
   isValid: boolean;
   errors: ContactFormErrors;
+  normalized: NormalizedContact;
 } {
+  const source = (data ?? {}) as Record<string, unknown>;
+
+  const normalized: NormalizedContact = {
+    name: normalizeSingleLine(source.name),
+    email: normalizeSingleLine(source.email),
+    linkedin: normalizeSingleLine(source.linkedin),
+    message: normalizeMultiline(source.message),
+  };
+
   const errors: ContactFormErrors = {};
 
-  // Validate name
-  const nameRequired = validateRequired(data.name, "Name");
-  if (!nameRequired.isValid) {
-    errors.name = nameRequired.error;
+  if (normalized.name.length === 0) {
+    errors.name = "Name is required";
   } else {
-    const nameLength = validateLength(data.name, "Name", 1, 100);
+    const nameLength = validateLength(
+      normalized.name,
+      "Name",
+      1,
+      FIELD_LIMITS.name,
+    );
     if (!nameLength.isValid) {
       errors.name = nameLength.error;
     }
   }
 
-  // Validate email
-  const emailResult = validateEmail(data.email);
+  const emailResult = validateEmail(normalized.email);
   if (!emailResult.isValid) {
     errors.email = emailResult.error;
   }
 
-  // Validate LinkedIn URL
-  const linkedInResult = validateLinkedIn(data.linkedin);
+  const linkedInResult = validateLinkedIn(normalized.linkedin);
   if (!linkedInResult.isValid) {
     errors.linkedin = linkedInResult.error;
   }
 
-  // Validate message
-  const messageRequired = validateRequired(data.message, "Message");
-  if (!messageRequired.isValid) {
-    errors.message = messageRequired.error;
+  if (normalized.message.length === 0) {
+    errors.message = "Message is required";
   } else {
-    const messageLength = validateLength(data.message, "Message", 1, 2000);
+    const messageLength = validateLength(
+      normalized.message,
+      "Message",
+      1,
+      FIELD_LIMITS.message,
+    );
     if (!messageLength.isValid) {
       errors.message = messageLength.error;
     }
@@ -181,5 +244,6 @@ export function validateContactForm(data: ContactFormData): {
   return {
     isValid: Object.keys(errors).length === 0,
     errors,
+    normalized,
   };
 }

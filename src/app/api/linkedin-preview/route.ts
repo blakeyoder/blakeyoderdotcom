@@ -4,6 +4,18 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import {
+  checkRateLimit,
+  consumeRateLimit,
+  getClientIP,
+} from "@/lib/rate-limit";
+
+/** LinkedIn interstitial HTML is large; stop reading well before it hurts. */
+const MAX_HTML_BYTES = 512 * 1024;
+const FETCH_TIMEOUT_MS = 5000;
+/** The form fetches a preview as the user types, so this is far looser than
+ *  the submission quota, but still bounded. */
+const PREVIEW_LIMIT = { max: 30, windowMs: 60_000 };
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -26,9 +38,21 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // This route makes an outbound request on the caller's behalf, so it needs
+  // its own throttle. Keyed separately from the contact form quota.
+  const clientId = `preview:${getClientIP(request.headers)}`;
+  if (!checkRateLimit(clientId, PREVIEW_LIMIT).allowed) {
+    return NextResponse.json(
+      { error: "Too many preview requests" },
+      { status: 429 },
+    );
+  }
+  consumeRateLimit(clientId, PREVIEW_LIMIT);
+
   try {
     // Fetch the LinkedIn page with proper headers to avoid being blocked
     const response = await fetch(url, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -42,6 +66,11 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    // Redirects are followed, so confirm we did not end up off-host.
+    if (!isLinkedInUrl(response.url)) {
+      throw new Error("LinkedIn redirected off-host");
+    }
+
     if (!response.ok) {
       console.error(
         "LinkedIn fetch failed:",
@@ -51,10 +80,7 @@ export async function GET(request: NextRequest) {
       throw new Error("Failed to fetch LinkedIn profile");
     }
 
-    const html = await response.text();
-
-    // Log first 1000 chars for debugging
-    console.log("LinkedIn HTML preview:", html.substring(0, 1000));
+    const html = await readCapped(response, MAX_HTML_BYTES);
 
     // Extract Open Graph and Twitter meta tags
     const name =
@@ -67,8 +93,6 @@ export async function GET(request: NextRequest) {
       extractMetaTag(html, "twitter:image") ||
       extractMetaTag(html, "twitter:image:src");
 
-    console.log("Extracted data:", { name, headline, imageUrl });
-
     return NextResponse.json({
       name: cleanText(name),
       headline: cleanText(headline),
@@ -80,6 +104,19 @@ export async function GET(request: NextRequest) {
       { error: "Failed to fetch profile preview" },
       { status: 500 },
     );
+  }
+}
+
+/**
+ * True when the URL is on linkedin.com. Empty/relative values are rejected.
+ */
+function isLinkedInUrl(value: string): boolean {
+  if (!value) return true; // some runtimes leave response.url empty
+  try {
+    const host = new URL(value).hostname.toLowerCase();
+    return host === "linkedin.com" || host.endsWith(".linkedin.com");
+  } catch {
+    return false;
   }
 }
 
@@ -135,13 +172,40 @@ function cleanText(text: string | null): string | undefined {
   if (!text) return undefined;
 
   // Decode common HTML entities
+  // &amp; is decoded last so "&amp;lt;" does not turn into "<".
   const decoded = text
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
-    .replace(/&nbsp;/g, " ");
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&");
 
   return decoded.trim();
+}
+
+/**
+ * Reads a response body up to a byte ceiling, so an unexpectedly huge page
+ * cannot balloon function memory.
+ */
+async function readCapped(
+  response: Response,
+  maxBytes: number,
+): Promise<string> {
+  const reader = response.body?.getReader();
+  if (!reader) return "";
+
+  const decoder = new TextDecoder();
+  let received = 0;
+  let out = "";
+
+  while (received < maxBytes) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    received += value.byteLength;
+    out += decoder.decode(value, { stream: true });
+  }
+
+  await reader.cancel().catch(() => {});
+  return out;
 }

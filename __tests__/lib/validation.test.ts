@@ -3,7 +3,10 @@
  * These tests are written FIRST (before implementation) per Test-First Development principle
  */
 
+import { describe, it, expect } from "bun:test";
 import {
+  normalizeSingleLine,
+  normalizeMultiline,
   validateRequired,
   validateEmail,
   validateLength,
@@ -192,6 +195,86 @@ describe("validateContactForm", () => {
       message: "Hello",
       honeypot: "",
     });
+
+    expect(result.isValid).toBe(true);
+  });
+});
+
+describe("normalizeSingleLine", () => {
+  it("returns an empty string for values that are not strings", () => {
+    expect(normalizeSingleLine(12345)).toBe("");
+    expect(normalizeSingleLine(null)).toBe("");
+    expect(normalizeSingleLine(undefined)).toBe("");
+    expect(normalizeSingleLine({})).toBe("");
+    expect(normalizeSingleLine(["a"])).toBe("");
+  });
+
+  it("trims surrounding whitespace", () => {
+    expect(normalizeSingleLine("  Blake  ")).toBe("Blake");
+  });
+
+  it("strips zero-width characters that survive trim()", () => {
+    expect(normalizeSingleLine("​​")).toBe("");
+    expect(normalizeSingleLine("Bl​ake")).toBe("Blake");
+  });
+
+  it("strips control characters including CRLF", () => {
+    expect(normalizeSingleLine("Evil\r\nBcc: x@y.com")).toBe(
+      "EvilBcc: x@y.com",
+    );
+  });
+});
+
+describe("normalizeMultiline", () => {
+  it("keeps newlines", () => {
+    expect(normalizeMultiline("line one\nline two")).toBe("line one\nline two");
+  });
+
+  it("normalises CRLF to LF", () => {
+    expect(normalizeMultiline("a\r\nb")).toBe("a\nb");
+  });
+
+  it("still strips zero-width padding", () => {
+    expect(normalizeMultiline("​ ​")).toBe("");
+  });
+});
+
+describe("validateContactForm normalization", () => {
+  it("rejects a message made only of zero-width characters", () => {
+    const result = validateContactForm({
+      name: "Blake",
+      email: "a@b.co",
+      linkedin: "https://linkedin.com/in/x",
+      message: "​​​",
+    });
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors.message).toBeDefined();
+  });
+
+  it("returns trimmed values for downstream use", () => {
+    const result = validateContactForm({
+      name: "  Blake  ",
+      email: "  a@b.co  ",
+      linkedin: "  https://linkedin.com/in/x  ",
+      message: "  hello  ",
+    });
+
+    expect(result.isValid).toBe(true);
+    expect(result.normalized.name).toBe("Blake");
+    expect(result.normalized.email).toBe("a@b.co");
+    expect(result.normalized.message).toBe("hello");
+  });
+
+  it("does not throw when fields are the wrong type", () => {
+    const result = validateContactForm({ name: 1, email: [], message: {} });
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors.name).toBeDefined();
+  });
+
+  it("counts emoji as single characters", () => {
+    const result = validateLength("\u{1F600}".repeat(1500), "Message", 1, 2000);
 
     expect(result.isValid).toBe(true);
   });

@@ -1,7 +1,11 @@
 /**
  * In-memory rate limiting for contact form submissions
  * Uses Map-based storage (suitable for low-traffic personal site)
- * For production scale, consider Redis or Vercel KV
+ *
+ * Note: this is per-instance state. On serverless it resets on cold start and
+ * is not shared between concurrent instances, so the effective limit is looser
+ * than configured. Good enough as a courtesy throttle for a personal site; move
+ * to Redis or Upstash if it ever needs to be a real guarantee.
  */
 
 import { config } from "./config";
@@ -12,21 +16,32 @@ interface RateLimitEntry {
 }
 
 // In-memory storage for rate limiting
-// Key: IP address, Value: { count, resetTime }
+// Key: client identifier, Value: { count, resetTime }
 const rateLimitMap = new Map<string, RateLimitEntry>();
 
-// Cleanup old entries every 10 minutes
-setInterval(
-  () => {
-    const now = Date.now();
-    for (const [ip, entry] of rateLimitMap.entries()) {
-      if (now > entry.resetTime) {
-        rateLimitMap.delete(ip);
-      }
+/**
+ * Hard cap on tracked keys. A module-level setInterval is unreliable on
+ * serverless (instances are frozen between invocations), so expired entries are
+ * evicted lazily on access and the map is pruned when it grows past this.
+ */
+const MAX_TRACKED_KEYS = 10_000;
+
+function pruneExpired(now: number): void {
+  for (const [key, entry] of rateLimitMap.entries()) {
+    if (now > entry.resetTime) {
+      rateLimitMap.delete(key);
     }
-  },
-  10 * 60 * 1000,
-);
+  }
+  // If everything is still live and we are over the cap, drop oldest-first.
+  if (rateLimitMap.size > MAX_TRACKED_KEYS) {
+    const excess = rateLimitMap.size - MAX_TRACKED_KEYS;
+    let dropped = 0;
+    for (const key of rateLimitMap.keys()) {
+      rateLimitMap.delete(key);
+      if (++dropped >= excess) break;
+    }
+  }
+}
 
 export interface RateLimitResult {
   allowed: boolean;
@@ -34,76 +49,112 @@ export interface RateLimitResult {
   resetTime: number;
 }
 
+export interface RateLimitOptions {
+  /** Defaults to RATE_LIMIT_MAX_REQUESTS. */
+  max?: number;
+  /** Defaults to RATE_LIMIT_WINDOW_MS. */
+  windowMs?: number;
+}
+
+function limits(options?: RateLimitOptions) {
+  return {
+    max: options?.max ?? config.rateLimitMaxRequests,
+    windowMs: options?.windowMs ?? config.rateLimitWindowMs,
+  };
+}
+
 /**
- * Check if a request from the given IP is allowed
- * @param ip - IP address to check
- * @returns RateLimitResult indicating if request is allowed
+ * Reports whether a request from this client would be allowed, WITHOUT
+ * consuming any quota.
+ *
+ * Checking and consuming are deliberately separate: the caller should only
+ * consume once a submission actually succeeds, so a visitor who mistypes their
+ * email is not locked out while correcting it.
  */
-export function checkRateLimit(ip: string): RateLimitResult {
+export function checkRateLimit(
+  clientId: string,
+  options?: RateLimitOptions,
+): RateLimitResult {
   const now = Date.now();
-  const entry = rateLimitMap.get(ip);
+  const entry = rateLimitMap.get(clientId);
+  const { max, windowMs } = limits(options);
 
-  // No previous requests from this IP
-  if (!entry) {
-    const resetTime = now + config.rateLimitWindowMs;
-    rateLimitMap.set(ip, { count: 1, resetTime });
+  if (!entry || now > entry.resetTime) {
     return {
-      allowed: true,
-      remainingAttempts: config.rateLimitMaxRequests - 1,
-      resetTime,
+      allowed: max > 0,
+      remainingAttempts: Math.max(0, max),
+      resetTime: now + windowMs,
     };
   }
-
-  // Time window has expired, reset the counter
-  if (now > entry.resetTime) {
-    const resetTime = now + config.rateLimitWindowMs;
-    rateLimitMap.set(ip, { count: 1, resetTime });
-    return {
-      allowed: true,
-      remainingAttempts: config.rateLimitMaxRequests - 1,
-      resetTime,
-    };
-  }
-
-  // Within time window - check if limit exceeded
-  if (entry.count >= config.rateLimitMaxRequests) {
-    return {
-      allowed: false,
-      remainingAttempts: 0,
-      resetTime: entry.resetTime,
-    };
-  }
-
-  // Increment counter and allow request
-  entry.count++;
-  rateLimitMap.set(ip, entry);
 
   return {
-    allowed: true,
-    remainingAttempts: config.rateLimitMaxRequests - entry.count,
+    allowed: entry.count < max,
+    remainingAttempts: Math.max(0, max - entry.count),
     resetTime: entry.resetTime,
   };
 }
 
 /**
- * Get client IP from Next.js request headers
- * @param headers - Request headers
- * @returns IP address string
+ * Records one successful request against this client's quota.
+ */
+export function consumeRateLimit(
+  clientId: string,
+  options?: RateLimitOptions,
+): RateLimitResult {
+  const now = Date.now();
+  pruneExpired(now);
+
+  const entry = rateLimitMap.get(clientId);
+  const { max, windowMs } = limits(options);
+
+  if (!entry || now > entry.resetTime) {
+    const resetTime = now + windowMs;
+    rateLimitMap.set(clientId, { count: 1, resetTime });
+    return {
+      allowed: max > 0,
+      remainingAttempts: Math.max(0, max - 1),
+      resetTime,
+    };
+  }
+
+  entry.count += 1;
+  rateLimitMap.set(clientId, entry);
+
+  return {
+    allowed: entry.count <= max,
+    remainingAttempts: Math.max(0, max - entry.count),
+    resetTime: entry.resetTime,
+  };
+}
+
+/** Test seam: drops all tracked state. */
+export function resetRateLimits(): void {
+  rateLimitMap.clear();
+}
+
+/**
+ * Derives a client identifier from request headers.
+ *
+ * Order matters. `x-forwarded-for` is the header a client can most easily
+ * forge, so platform-set headers are preferred and it is only used as a
+ * fallback. Vercel overwrites `x-forwarded-for` with the true client address,
+ * which is why the fallback is still useful there.
  */
 export function getClientIP(headers: Headers): string {
-  // Try various headers that might contain the real IP
-  const forwardedFor = headers.get("x-forwarded-for");
-  if (forwardedFor) {
-    // x-forwarded-for can contain multiple IPs, take the first one
-    return forwardedFor.split(",")[0].trim();
+  const vercelForwarded = headers.get("x-vercel-forwarded-for");
+  if (vercelForwarded) {
+    return vercelForwarded.split(",")[0].trim();
   }
 
   const realIP = headers.get("x-real-ip");
   if (realIP) {
-    return realIP;
+    return realIP.trim();
   }
 
-  // Fallback to a generic identifier if no IP found
-  // This shouldn't happen in production but prevents errors
+  const forwardedFor = headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0].trim();
+  }
+
   return "unknown";
 }

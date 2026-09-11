@@ -1,29 +1,61 @@
 /**
- * Tests for email service (Resend SDK wrapper)
- * Written FIRST per Test-First Development principle
- * These tests will FAIL until src/lib/email.ts is implemented
+ * Tests for the email content builders.
+ *
+ * sendContactEmail itself talks to Resend, so these cover the pure pieces that
+ * decide what actually lands in the message: HTML escaping and the subject.
  */
 
-describe("sendContactEmail", () => {
-  it("should call Resend API with correct email data", async () => {
-    // TODO: Implement when email.ts exists
-    // Mock Resend SDK and verify it's called with correct parameters
-    expect(true).toBe(true); // Placeholder - replace with actual tests
+import { describe, it, expect } from "bun:test";
+import { buildSubject, escapeHtml } from "@/lib/email";
+
+describe("escapeHtml", () => {
+  it("escapes the characters that could break out of the markup", () => {
+    expect(escapeHtml(`<script>alert("x")</script>`)).toBe(
+      "&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;",
+    );
   });
 
-  it("should format email content correctly", async () => {
-    // TODO: Implement email formatting tests
-    // Verify email contains visitor name, email, and message
-    expect(true).toBe(true); // Placeholder
+  it("escapes single quotes and ampersands", () => {
+    expect(escapeHtml("Tom & Jerry's")).toBe("Tom &amp; Jerry&#39;s");
   });
 
-  it("should throw error when Resend API fails", async () => {
-    // TODO: Implement error handling tests
-    expect(true).toBe(true); // Placeholder
+  it("escapes the ampersand of an entity so it cannot be double-decoded", () => {
+    expect(escapeHtml("&lt;img&gt;")).toBe("&amp;lt;img&amp;gt;");
   });
 
-  it("should validate environment configuration", () => {
-    // TODO: Test that missing API keys throw appropriate errors
-    expect(true).toBe(true); // Placeholder
+  it("leaves ordinary text untouched", () => {
+    expect(escapeHtml("Hello there")).toBe("Hello there");
+  });
+
+  it("neutralises an image onerror payload", () => {
+    const escaped = escapeHtml(`<img src=x onerror=alert(1)>`);
+    expect(escaped).not.toContain("<img");
+    expect(escaped).toContain("&lt;img");
+  });
+});
+
+describe("buildSubject", () => {
+  it("includes the sender name", () => {
+    expect(buildSubject("Blake")).toBe("Contact Form: Blake");
+  });
+
+  it("strips CRLF so the subject cannot span lines", () => {
+    const subject = buildSubject("Evil\r\nBcc: victim@example.com");
+    expect(subject).not.toContain("\r");
+    expect(subject).not.toContain("\n");
+  });
+
+  it("strips other control characters", () => {
+    expect(buildSubject("A\u0007B\u0000C")).toBe("Contact Form: A B C");
+  });
+
+  it("truncates an unreasonably long name", () => {
+    const subject = buildSubject("a".repeat(500));
+    expect(subject.length).toBeLessThanOrEqual("Contact Form: ".length + 78);
+  });
+
+  it("leaves a normal-length name intact", () => {
+    const name = "Alexandra Featherstonehaugh-Wellington";
+    expect(buildSubject(name)).toBe(`Contact Form: ${name}`);
   });
 });
