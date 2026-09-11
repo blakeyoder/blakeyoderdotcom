@@ -28,14 +28,14 @@ Fixes for the issues found in the post-writing-removal review.
 **Goal**: Delete the global vim mode that can never be enabled; fix the tutorial's wrong instructions.
 **Success Criteria**: `useVimMode`/`VimStatusBar` gone and unmounted from the root layout; `k` moves one line; `jj` leaves no stray character; command buffer ignores non-printable keys.
 **Tests**: Motion helpers unit-tested against a multi-line buffer.
-**Status**: Not Started
+**Status**: Complete
 
 ## Stage 5: Components and a11y
 
 **Goal**: Accessible modal, correct list rendering, safer preview fetching.
 **Success Criteria**: Modal has dialog semantics, Escape, focus trap and restore; `StyledList` last-item detection survives conditional children; LinkedIn preview has a timeout, abort handling, and honest failure states; bookmarks modal shows once per session.
 **Tests**: Unit tests for the list index logic and the bookmark export escaping.
-**Status**: Not Started
+**Status**: Complete
 
 ## Stage 6: SEO, headers, config, docs
 

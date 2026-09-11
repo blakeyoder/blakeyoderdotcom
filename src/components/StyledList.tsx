@@ -21,12 +21,16 @@ export function StyledList({
   children,
   variant = "bordered",
 }: StyledListProps) {
-  const childArray = Children.toArray(children);
-  const lastIndex = childArray.length - 1;
+  // Children.toArray drops null/undefined/boolean children while Children.map
+  // keeps their index slots, so comparing a map index against a toArray length
+  // marked the wrong item as last as soon as a child was conditional. Map over
+  // the filtered array instead, so both sides use one index space.
+  const items = Children.toArray(children);
+  const lastIndex = items.length - 1;
 
   return (
     <ul className="list-none p-0 m-0">
-      {Children.map(children, (child, index) => {
+      {items.map((child, index) => {
         if (isValidElement(child) && child.type === StyledListItem) {
           return cloneElement(child as ReactElement<StyledListItemProps>, {
             isLast: index === lastIndex,

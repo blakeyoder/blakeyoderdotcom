@@ -494,6 +494,15 @@ const bookmarkCategories = {
   ],
 };
 
+/** Netscape bookmark files are HTML; titles and URLs must be escaped. */
+const escapeAttr = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
 const generateBookmarksHTML = () => {
   let html = `<!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
@@ -508,12 +517,12 @@ const generateBookmarksHTML = () => {
 
   Object.entries(bookmarkCategories).forEach(([category, links]) => {
     html += `
-        <DT><H3 ADD_DATE="${Math.floor(Date.now() / 1000)}" LAST_MODIFIED="${Math.floor(Date.now() / 1000)}">${category}</H3>
+        <DT><H3 ADD_DATE="${Math.floor(Date.now() / 1000)}" LAST_MODIFIED="${Math.floor(Date.now() / 1000)}">${escapeAttr(category)}</H3>
         <DL><p>`;
 
     links.forEach((bookmark) => {
       html += `
-            <DT><A HREF="${bookmark.url}" ADD_DATE="${Math.floor(Date.now() / 1000)}">${bookmark.title}</A>`;
+            <DT><A HREF="${escapeAttr(bookmark.url)}" ADD_DATE="${Math.floor(Date.now() / 1000)}">${escapeAttr(bookmark.title)}</A>`;
     });
 
     html += `
@@ -537,8 +546,12 @@ const downloadBookmarks = () => {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+  // Revoke on the next tick; Firefox and Safari can abort the download if the
+  // blob URL disappears before the download thread reads it.
+  setTimeout(() => URL.revokeObjectURL(url), 0);
 };
+
+const SEEN_DOWNLOAD_PROMPT = "bookmarks:download-prompt-seen";
 
 export default function Bookmarks() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -555,8 +568,24 @@ export default function Bookmarks() {
     : bookmarkCategories;
 
   useEffect(() => {
+    // Show the download prompt once per browsing session rather than on every
+    // page view. sessionStorage can throw when site data is blocked, so a
+    // failure here must not take the page down.
+    let alreadySeen = false;
+    try {
+      alreadySeen = sessionStorage.getItem(SEEN_DOWNLOAD_PROMPT) === "true";
+    } catch {
+      alreadySeen = false;
+    }
+    if (alreadySeen) return;
+
     const timer = setTimeout(() => {
       setShowDownloadModal(true);
+      try {
+        sessionStorage.setItem(SEEN_DOWNLOAD_PROMPT, "true");
+      } catch {
+        // Nothing to do; the prompt simply shows again next time.
+      }
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -608,6 +637,12 @@ export default function Bookmarks() {
         </div>
       </div>
 
+      <p className="sr-only" role="status" aria-live="polite">
+        {selectedCategory
+          ? `Showing ${selectedCategory}`
+          : `Showing all ${categories.length} categories`}
+      </p>
+
       <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,400px),1fr))] gap-y-12 gap-x-8">
         {Object.entries(filteredCategories).map(([category, links]) => (
           <div key={category}>
@@ -615,9 +650,9 @@ export default function Bookmarks() {
               {category}
             </h2>
             <ul className="list-none p-0 m-0">
-              {links.map((bookmark, index) => (
+              {links.map((bookmark) => (
                 <li
-                  key={index}
+                  key={bookmark.url}
                   className="pb-2.5 mb-2.5 border-b border-border-subtle"
                 >
                   <a

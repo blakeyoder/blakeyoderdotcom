@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { deleteLine, moveDown, moveToLineEnd, moveUp } from "@/lib/vim-motions";
 
 type VimMode = "normal" | "insert" | "visual" | "command";
 
@@ -25,12 +26,40 @@ export default function Vim() {
   const [commandBuffer, setCommandBuffer] = useState("");
   const [statusMessage, setStatusMessage] = useState("-- NORMAL --");
   const editorRef = useRef<HTMLTextAreaElement>(null);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  // Every deferred action goes through this, so none can fire after the
+  // overlay closes or the component unmounts.
+  const defer = useCallback((fn: () => void, ms: number) => {
+    timers.current.push(setTimeout(fn, ms));
+  }, []);
+
+  const clearTimers = useCallback(() => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  }, []);
+
+  useEffect(() => clearTimers, [clearTimers]);
+
+  // Escape is the expected way out of a modal overlay. In insert or command
+  // mode it still means "back to normal mode", so only leave from normal mode.
+  useEffect(() => {
+    if (!vimModeActive) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && currentMode === "normal") {
+        exitVimMode();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vimModeActive, currentMode]);
 
   const enterVimMode = () => {
     setVimModeActive(true);
     setTutorialStep(0);
     // Focus the editor
-    setTimeout(() => {
+    defer(() => {
       if (editorRef.current) {
         editorRef.current.focus();
       }
@@ -38,6 +67,7 @@ export default function Vim() {
   };
 
   const exitVimMode = () => {
+    clearTimers();
     setVimModeActive(false);
     setCurrentMode("normal");
     setTutorialStep(0);
@@ -114,6 +144,13 @@ export default function Vim() {
     // Handle jj to escape (my custom binding)
     if (currentMode === "insert" && e.key === "j" && commandBuffer === "j") {
       e.preventDefault();
+      // The first j of the sequence was typed into the buffer. Remove it, the
+      // way vim does, rather than leaving a character the user did not intend.
+      const caret = textarea.selectionStart ?? 0;
+      if (content[caret - 1] === "j") {
+        setPageContent(content.slice(0, caret - 1) + content.slice(caret));
+        defer(() => textarea.setSelectionRange(caret - 1, caret - 1), 0);
+      }
       setCurrentMode("normal");
       setStatusMessage("-- NORMAL --");
       setCommandBuffer("");
@@ -123,7 +160,7 @@ export default function Vim() {
         tutorialStep === 1 &&
         tutorialSteps[1].completedBy === "mode_change"
       ) {
-        setTimeout(nextStep, 1000);
+        defer(nextStep, 1000);
       }
       return;
     }
@@ -144,7 +181,7 @@ export default function Vim() {
           tutorialStep === 1 &&
           tutorialSteps[1].completedBy === "mode_change"
         ) {
-          setTimeout(nextStep, 1000);
+          defer(nextStep, 1000);
         }
         return;
       }
@@ -175,8 +212,12 @@ export default function Vim() {
       } else if (e.key === "Backspace") {
         setCommandBuffer((prev) => prev.slice(0, -1));
         return;
-      } else {
+      } else if (e.key.length === 1) {
         setCommandBuffer((prev) => prev + e.key);
+        return;
+      } else {
+        // Ignore Shift, Control, arrows and friends so they cannot corrupt
+        // the pending command.
         return;
       }
     }
@@ -203,22 +244,21 @@ export default function Vim() {
           const newContent =
             content.slice(0, position) + content.slice(position + 1);
           setPageContent(newContent);
-          setTimeout(() => textarea.setSelectionRange(position, position), 0);
+          defer(() => textarea.setSelectionRange(position, position), 0);
         }
         break;
 
       case "d":
         if (commandBuffer === "d") {
-          // Delete line
-          const lines = content.split("\n");
-          const beforeCursor = content.slice(0, position);
-          const currentLineIndex = beforeCursor.split("\n").length - 1;
-
-          if (lines.length > 1) {
-            lines.splice(currentLineIndex, 1);
-            const newContent = lines.join("\n");
-            setPageContent(newContent);
+          const result = deleteLine(content, position);
+          if (result.content !== content) {
+            setPageContent(result.content);
             setStatusMessage("Line deleted");
+            defer(
+              () =>
+                textarea.setSelectionRange(result.position, result.position),
+              0,
+            );
           }
           setCommandBuffer("");
         } else {
@@ -228,11 +268,7 @@ export default function Vim() {
 
       case " ":
         // My leader key
-        if (commandBuffer === " ") {
-          setCommandBuffer(" ");
-        } else {
-          setCommandBuffer(" ");
-        }
+        setCommandBuffer(" ");
         break;
 
       case "w":
@@ -246,7 +282,7 @@ export default function Vim() {
             tutorialStep === 3 &&
             tutorialSteps[3].completedBy === "save_command"
           ) {
-            setTimeout(nextStep, 1500);
+            defer(nextStep, 1500);
           }
         }
         break;
@@ -254,18 +290,8 @@ export default function Vim() {
       case "4":
         if (commandBuffer === " ") {
           // My Space + 4 end of line
-          const lines = content.split("\n");
-          const beforeCursor = content.slice(0, position);
-          const currentLineIndex = beforeCursor.split("\n").length - 1;
-          const currentLineStart = content.indexOf(
-            lines[currentLineIndex],
-            position - beforeCursor.split("\n")[currentLineIndex].length,
-          );
-          const newPosition = currentLineStart + lines[currentLineIndex].length;
-          setTimeout(
-            () => textarea.setSelectionRange(newPosition, newPosition),
-            0,
-          );
+          const newPosition = moveToLineEnd(content, position);
+          defer(() => textarea.setSelectionRange(newPosition, newPosition), 0);
           setCommandBuffer("");
 
           // Check if this completes the end of line tutorial step
@@ -273,7 +299,7 @@ export default function Vim() {
             tutorialStep === 5 &&
             tutorialSteps[5].completedBy === "end_of_line"
           ) {
-            setTimeout(nextStep, 1000);
+            defer(nextStep, 1000);
           }
         }
         break;
@@ -281,72 +307,28 @@ export default function Vim() {
       case "h":
         if (commandBuffer !== " ") {
           const newPos = Math.max(0, position - 1);
-          setTimeout(() => textarea.setSelectionRange(newPos, newPos), 0);
+          defer(() => textarea.setSelectionRange(newPos, newPos), 0);
         }
         break;
 
       case "l":
         if (commandBuffer !== " ") {
           const newPos = Math.min(content.length, position + 1);
-          setTimeout(() => textarea.setSelectionRange(newPos, newPos), 0);
+          defer(() => textarea.setSelectionRange(newPos, newPos), 0);
         }
         break;
 
       case "j":
         if (commandBuffer !== " ") {
-          // Move down a line
-          const lines = content.split("\n");
-          const beforeCursor = content.slice(0, position);
-          const currentLineIndex = beforeCursor.split("\n").length - 1;
-          const currentLineStart = beforeCursor.lastIndexOf("\n") + 1;
-          const columnPosition = position - currentLineStart;
-
-          if (currentLineIndex < lines.length - 1) {
-            const nextLineStart = content.indexOf("\n", position) + 1;
-            const nextLineEnd = content.indexOf("\n", nextLineStart);
-            const nextLineLength =
-              nextLineEnd === -1
-                ? content.length - nextLineStart
-                : nextLineEnd - nextLineStart;
-            const newPosition =
-              nextLineStart + Math.min(columnPosition, nextLineLength);
-            setTimeout(
-              () => textarea.setSelectionRange(newPosition, newPosition),
-              0,
-            );
-          }
+          const newPosition = moveDown(content, position);
+          defer(() => textarea.setSelectionRange(newPosition, newPosition), 0);
         }
         break;
 
       case "k":
         if (commandBuffer !== " ") {
-          // Move up a line
-          const beforeCursor = content.slice(0, position);
-          const currentLineStart = beforeCursor.lastIndexOf("\n") + 1;
-          const columnPosition = position - currentLineStart;
-          const previousLineEnd = beforeCursor.lastIndexOf(
-            "\n",
-            currentLineStart - 2,
-          );
-
-          if (previousLineEnd >= 0) {
-            const previousLineStart =
-              content.lastIndexOf("\n", previousLineEnd - 1) + 1;
-            const previousLineLength = previousLineEnd - previousLineStart;
-            const newPosition =
-              previousLineStart + Math.min(columnPosition, previousLineLength);
-            setTimeout(
-              () => textarea.setSelectionRange(newPosition, newPosition),
-              0,
-            );
-          } else if (currentLineStart > 0) {
-            // First line case
-            const newPosition = Math.min(columnPosition, currentLineStart - 1);
-            setTimeout(
-              () => textarea.setSelectionRange(newPosition, newPosition),
-              0,
-            );
-          }
+          const newPosition = moveUp(content, position);
+          defer(() => textarea.setSelectionRange(newPosition, newPosition), 0);
         }
         break;
 
@@ -358,7 +340,12 @@ export default function Vim() {
 
   if (vimModeActive) {
     return (
-      <div className="fixed inset-0 bg-background z-[1000]">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Vim mode tutorial"
+        className="fixed inset-0 bg-background z-[1000] flex flex-col"
+      >
         {/* Tutorial Status Bar */}
         <div className="px-8 py-4 bg-text-primary text-background border-b border-border flex justify-between items-center text-[0.95rem]">
           <div className="flex items-center gap-8">
@@ -402,9 +389,11 @@ export default function Vim() {
 
             <button
               onClick={exitVimMode}
+              aria-label="Exit vim mode"
+              title="Exit vim mode"
               className="bg-transparent border-none text-xl cursor-pointer text-background px-2 opacity-80"
             >
-              ×
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
         </div>
@@ -415,7 +404,7 @@ export default function Vim() {
         </div>
 
         {/* Main Editor */}
-        <div className="h-[calc(100%-120px)] flex flex-col">
+        <div className="flex-1 min-h-0 flex flex-col">
           {/* File Header Bar */}
           <div className="px-8 py-3 border-b border-border bg-background flex justify-between items-center text-[0.9rem]">
             <div>
@@ -437,7 +426,7 @@ export default function Vim() {
             value={pageContent}
             onChange={(e) => setPageContent(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 p-8 border-none bg-background text-text-primary text-base font-[Crimson_Text,serif] leading-[1.618] resize-none outline-none"
+            className="flex-1 p-8 border-none bg-background text-text-primary text-base font-[family-name:var(--font-body)] leading-[1.618] resize-none outline-none"
             autoFocus
           />
 

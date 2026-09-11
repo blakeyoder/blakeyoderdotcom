@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import VimStatusBar from "../components/VimStatusBar";
 
 const ebGaramond = EB_Garamond({
   subsets: ["latin"],
@@ -65,7 +64,6 @@ export default function RootLayout({
         className={`${ebGaramond.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}
       >
         {children}
-        <VimStatusBar />
       </body>
     </html>
   );
