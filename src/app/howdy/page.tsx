@@ -39,14 +39,6 @@ const EMAIL = "yoderblake@gmail.com";
 export default function Howdy() {
   return (
     <PageShell title="Howdy">
-      <section className="mb-12">
-        <p className="text-xl leading-relaxed">
-          Here&apos;s where I&apos;m interested in spending my time.
-        </p>
-      </section>
-
-      <hr className="rule" />
-
       <section className="mb-12 pt-4">
         <h2 className="small-caps text-base mb-6">What I help with</h2>
 
