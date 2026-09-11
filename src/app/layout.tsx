@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, ogImage } from "@/lib/site";
 import { EB_Garamond, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -23,22 +24,24 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://blakeyoder.com"),
-  title: "Blake Yoder",
-  description:
-    "Engineering leader. Writing about technology, leadership, and building teams that scale.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Blake Yoder",
-    description:
-      "Engineering leader. Writing about technology, leadership, and building teams that scale.",
-    url: "https://blakeyoder.com",
-    siteName: "Blake Yoder",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     images: [
       {
-        url: "/og?title=Blake%20Yoder",
+        url: ogImage(SITE_NAME),
         width: 1200,
         height: 630,
-        alt: "Blake Yoder",
+        alt: SITE_NAME,
       },
     ],
     locale: "en_US",
@@ -46,10 +49,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blake Yoder",
-    description:
-      "Engineering leader. Writing about technology, leadership, and building teams that scale.",
-    images: ["/og?title=Blake%20Yoder"],
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [ogImage(SITE_NAME)],
   },
 };
 

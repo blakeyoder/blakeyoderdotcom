@@ -3,18 +3,19 @@ import { PageShell } from "@/components/PageShell";
 import { StyledList, StyledListItem } from "@/components/StyledList";
 
 export const metadata: Metadata = {
-  title: "About | Blake Yoder",
+  title: "About",
   description:
     "Engineering leader focused on the intersection of human systems and technical systems in healthcare technology.",
+  alternates: { canonical: "/about" },
   openGraph: {
     title: "About Blake Yoder",
     description:
       "Engineering leader focused on the intersection of human systems and technical systems in healthcare technology.",
-    url: "https://blakeyoder.com/about",
+    url: "https://www.blakeyoder.com/about",
     siteName: "Blake Yoder",
     images: [
       {
-        url: "/og?title=About&subtitle=Engineering%20leader%20focused%20on%20healthcare%20technology",
+        url: "https://www.blakeyoder.com/og?title=About&subtitle=Engineering%20leader%20focused%20on%20healthcare%20technology",
         width: 1200,
         height: 630,
         alt: "About Blake Yoder",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     description:
       "Engineering leader focused on the intersection of human systems and technical systems in healthcare technology.",
     images: [
-      "/og?title=About&subtitle=Engineering%20leader%20focused%20on%20healthcare%20technology",
+      "https://www.blakeyoder.com/og?title=About&subtitle=Engineering%20leader%20focused%20on%20healthcare%20technology",
     ],
   },
 };

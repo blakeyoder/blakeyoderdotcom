@@ -13,6 +13,7 @@ This is Blake Yoder's personal website built with Next.js 15 and TypeScript. It'
 - **Production server**: `bun run start`
 - **Linting**: `bun run lint` (uses ESLint with Next.js config)
 - **Type checking**: `bun run typecheck`
+- **Tests**: `bun test` (Bun test runner; DOM tests use happy-dom)
 - **Dead code detection**: `bun run knip`
 - **Package manager**: Bun
 
@@ -24,7 +25,7 @@ This is Blake Yoder's personal website built with Next.js 15 and TypeScript. It'
 - **React 19**
 - **TypeScript 5** with strict mode enabled
 - **Tailwind CSS 4** for styling
-- **Crimson Text** Google Font (serif, loaded via next/font)
+- **EB Garamond** (display), **Source Serif 4** (body), **IBM Plex Mono** (mono), loaded via next/font
 
 ### File Structure
 
@@ -35,6 +36,9 @@ src/app/
 ├── globals.css                # Global styles with CSS custom properties
 ├── not-found.tsx              # 404 page
 ├── about/page.tsx             # About page
+├── howdy/page.tsx             # What I do, for prospective clients
+├── sitemap.ts                 # Generated sitemap
+├── robots.ts                  # Generated robots.txt
 ├── bookmarks/                 # Curated links (client component + metadata layout)
 ├── now/page.tsx               # Now page
 ├── contact/page.tsx           # Contact form (client component)
@@ -47,15 +51,16 @@ src/app/
 
 ### Design System
 
-- **Typography**: Uses Crimson Text serif font with 1.618 line height
-- **Layout**: Content constrained to 65ch width, centered
+- **Typography**: EB Garamond for headings, Source Serif 4 for body, 1.7 line height
+- **Layout**: Content constrained to 680px (900px for wide pages), centered
 - **Color scheme**: CSS custom properties with automatic dark mode via `prefers-color-scheme`
-- **Responsive**: Mobile-first with breakpoint at 768px
+- **Responsive**: Mobile-first, with breakpoints at 480px and 768px
 
 ### Code Patterns
 
 - **Components**: Pages are server components by default; contact, bookmarks, and vim are client components
-- **Styling**: Mix of Tailwind utilities and inline styles for specific cases
+- **Styling**: Mix of Tailwind utilities and design-system classes in `globals.css`
+- **CSS layers**: element styles live in `@layer base`. Do not move them out; unlayered rules outrank every Tailwind utility and component class
 - **Navigation**: Uses Next.js `Link` component for internal navigation
 - **Metadata**: Centralized in root layout.tsx
 

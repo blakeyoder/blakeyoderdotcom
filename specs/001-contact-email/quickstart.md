@@ -25,7 +25,7 @@ Before you begin, ensure you have:
 First, install the Resend SDK:
 
 ```bash
-yarn add resend
+bun add resend
 ```
 
 ### 1.2 Configure Environment Variables
@@ -186,13 +186,13 @@ touch __tests__/components/ContactForm.test.tsx
 
 # 2. Write failing test
 # Test should fail (component doesn't exist yet)
-yarn test ContactForm.test.tsx
+bun test ContactForm.test.tsx
 
 # 3. Implement minimum code to pass
 # Create component with basic structure
 
 # 4. Verify test passes
-yarn test ContactForm.test.tsx
+bun test ContactForm.test.tsx
 
 # 5. Refactor if needed (with tests passing)
 ```
@@ -225,16 +225,16 @@ Create files in this order:
 
 ```bash
 # Run all tests
-yarn test
+bun test
 
 # Run specific test file
-yarn test ContactForm.test.tsx
+bun test ContactForm.test.tsx
 
 # Run tests in watch mode
-yarn test --watch
+bun test --watch
 
 # Run tests with coverage
-yarn test --coverage
+bun test --coverage
 ```
 
 ### 4.2 Manual Testing Checklist
@@ -267,9 +267,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 ### 5.1 Pre-Deployment Checklist
 
-- [ ] All tests passing (`yarn test`)
-- [ ] No linting errors (`yarn lint`)
-- [ ] TypeScript compiles (`yarn build`)
+- [ ] All tests passing (`bun test`)
+- [ ] No linting errors (`bun lint`)
+- [ ] TypeScript compiles (`bun build`)
 - [ ] Environment variables documented in `.env.example`
 - [ ] Sensitive data NOT committed (check `.env.local` in `.gitignore`)
 - [ ] Manual testing completed
@@ -346,7 +346,7 @@ Create alerts for:
 
 - Verify `.env.local` exists in project root
 - Check key is spelled correctly: `RESEND_API_KEY=re_...`
-- Restart dev server: `yarn dev`
+- Restart dev server: `bun dev`
 
 #### Issue: Emails not being received
 
@@ -369,7 +369,7 @@ Create alerts for:
 
 **Solution**:
 
-- Ensure `@types/jest` installed: `yarn add -D @types/jest`
+- Ensure `@types/jest` installed: `bun add -D @types/jest`
 - Check `tsconfig.json` includes test files
 - Restart TypeScript server in editor
 
@@ -430,18 +430,18 @@ git push origin main
 
 ```bash
 # Development
-yarn dev                    # Start dev server
-yarn build                  # Build for production
-yarn start                  # Start production server
+bun dev                    # Start dev server
+bun build                  # Build for production
+bun start                  # Start production server
 
 # Testing
-yarn test                   # Run all tests
-yarn test --watch          # Run tests in watch mode
-yarn test --coverage       # Run with coverage report
+bun test                   # Run all tests
+bun test --watch          # Run tests in watch mode
+bun test --coverage       # Run with coverage report
 
 # Quality
-yarn lint                   # Run ESLint
-yarn lint --fix            # Fix linting errors
+bun lint                   # Run ESLint
+bun lint --fix            # Fix linting errors
 
 # Deployment
 git push origin 001-contact-email  # Deploy via Git

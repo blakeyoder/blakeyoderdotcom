@@ -1,4 +1,6 @@
 ---
+
+> Status: shipped. The contact form is live; this file is kept as a record.
 description: "Task list for contact form implementation"
 ---
 
@@ -27,11 +29,11 @@ description: "Task list for contact form implementation"
 
 **Purpose**: Project initialization and dependency installation
 
-- [ ] T001 Install Resend SDK dependency via `yarn add resend`
-- [ ] T002 Create `.env.local` file with environment variables: RESEND_API_KEY, CONTACT_EMAIL_TO
-- [ ] T003 Create `.env.example` file documenting required environment variables
-- [ ] T004 [P] Create `src/lib/` directory for shared utilities
-- [ ] T005 [P] Create `__tests__/` directory structure (components/, api/, integration/)
+- [x] T001 Install Resend SDK dependency via `bun add resend`
+- [x] T002 Create `.env.local` file with environment variables: RESEND_API_KEY, CONTACT_EMAIL_TO
+- [x] T003 Create `.env.example` file documenting required environment variables
+- [x] T004 [P] Create `src/lib/` directory for shared utilities
+- [x] T005 [P] Create `__tests__/` directory structure (components/, api/, integration/)
 
 ---
 
@@ -41,11 +43,11 @@ description: "Task list for contact form implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Study existing page components in src/app/page.tsx and src/app/about/page.tsx for styling patterns
-- [ ] T007 [P] Create src/lib/config.ts to validate and export environment variables with TypeScript types
-- [ ] T008 [P] Create src/lib/validation.ts with shared validation functions (validateEmail, validateRequired, validateLength)
-- [ ] T009 Test for src/lib/validation.ts in **tests**/lib/validation.test.ts (write FIRST, verify fails)
-- [ ] T010 Implement validation functions in src/lib/validation.ts to pass tests
+- [x] T006 Study existing page components in src/app/page.tsx and src/app/about/page.tsx for styling patterns
+- [x] T007 [P] Create src/lib/config.ts to validate and export environment variables with TypeScript types
+- [x] T008 [P] Create src/lib/validation.ts with shared validation functions (validateEmail, validateRequired, validateLength)
+- [x] T009 Test for src/lib/validation.ts in **tests**/lib/validation.test.ts (write FIRST, verify fails)
+- [x] T010 Implement validation functions in src/lib/validation.ts to pass tests
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -61,24 +63,24 @@ description: "Task list for contact form implementation"
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T011 [P] [US1] Write component test for ContactForm in **tests**/components/ContactForm.test.tsx (render, fields present, no implementation yet)
-- [ ] T012 [P] [US1] Write API route test for /api/contact in **tests**/api/contact.test.ts (POST request handling, no implementation yet)
-- [ ] T013 [P] [US1] Write email service test for src/lib/email.ts in **tests**/lib/email.test.ts (Resend SDK mocking, no implementation yet)
+- [x] T011 [P] [US1] Write component test for ContactForm in **tests**/components/ContactForm.test.tsx (render, fields present, no implementation yet)
+- [x] T012 [P] [US1] Write API route test for /api/contact in **tests**/api/contact.test.ts (POST request handling, no implementation yet)
+- [x] T013 [P] [US1] Write email service test for src/lib/email.ts in **tests**/lib/email.test.ts (Resend SDK mocking, no implementation yet)
 
 ### Implementation for User Story 1
 
-- [ ] T014 [P] [US1] Create src/lib/email.ts with sendContactEmail function wrapping Resend SDK
-- [ ] T015 [US1] Implement sendContactEmail function in src/lib/email.ts to pass email service tests
-- [ ] T016 [US1] Create src/app/contact/page.tsx with basic contact form UI (name, email, message fields)
-- [ ] T017 [US1] Style contact form in src/app/contact/page.tsx using Tailwind CSS (65ch max-width, Crimson Text font, mobile-first)
-- [ ] T018 [US1] Add "use client" directive and form state management to src/app/contact/page.tsx
-- [ ] T019 [US1] Create src/app/api/contact/route.ts with POST handler skeleton
-- [ ] T020 [US1] Implement server-side validation in src/app/api/contact/route.ts using src/lib/validation.ts
-- [ ] T021 [US1] Implement email sending in src/app/api/contact/route.ts using src/lib/email.ts
-- [ ] T022 [US1] Wire up form submission in src/app/contact/page.tsx to call /api/contact endpoint
-- [ ] T023 [US1] Add success message state and display in src/app/contact/page.tsx
-- [ ] T024 [US1] Add loading state during submission in src/app/contact/page.tsx
-- [ ] T025 [US1] Verify all User Story 1 tests pass
+- [x] T014 [P] [US1] Create src/lib/email.ts with sendContactEmail function wrapping Resend SDK
+- [x] T015 [US1] Implement sendContactEmail function in src/lib/email.ts to pass email service tests
+- [x] T016 [US1] Create src/app/contact/page.tsx with basic contact form UI (name, email, message fields)
+- [x] T017 [US1] Style contact form in src/app/contact/page.tsx using Tailwind CSS (65ch max-width, Crimson Text font, mobile-first)
+- [x] T018 [US1] Add "use client" directive and form state management to src/app/contact/page.tsx
+- [x] T019 [US1] Create src/app/api/contact/route.ts with POST handler skeleton
+- [x] T020 [US1] Implement server-side validation in src/app/api/contact/route.ts using src/lib/validation.ts
+- [x] T021 [US1] Implement email sending in src/app/api/contact/route.ts using src/lib/email.ts
+- [x] T022 [US1] Wire up form submission in src/app/contact/page.tsx to call /api/contact endpoint
+- [x] T023 [US1] Add success message state and display in src/app/contact/page.tsx
+- [x] T024 [US1] Add loading state during submission in src/app/contact/page.tsx
+- [x] T025 [US1] Verify all User Story 1 tests pass
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently - visitors can submit contact form and Blake receives emails
 
@@ -92,18 +94,18 @@ description: "Task list for contact form implementation"
 
 ### Tests for User Story 2 (REQUIRED - write FIRST, verify fails)
 
-- [ ] T026 [P] [US2] Write client-side validation tests in **tests**/components/ContactForm.test.tsx (empty fields, invalid email, error display)
-- [ ] T027 [P] [US2] Write server-side validation error tests in **tests**/api/contact.test.ts (400 responses with field errors)
+- [x] T026 [P] [US2] Write client-side validation tests in **tests**/components/ContactForm.test.tsx (empty fields, invalid email, error display)
+- [x] T027 [P] [US2] Write server-side validation error tests in **tests**/api/contact.test.ts (400 responses with field errors)
 
 ### Implementation for User Story 2
 
-- [ ] T028 [P] [US2] Add client-side validation logic to src/app/contact/page.tsx (validate on blur and submit)
-- [ ] T029 [P] [US2] Add error state management to src/app/contact/page.tsx (field-level errors)
-- [ ] T030 [US2] Display inline error messages in src/app/contact/page.tsx (accessible, ARIA labels)
-- [ ] T031 [US2] Implement server-side field validation errors in src/app/api/contact/route.ts (return 400 with field errors)
-- [ ] T032 [US2] Handle validation error responses in src/app/contact/page.tsx (display server errors)
-- [ ] T033 [US2] Add focus management in src/app/contact/page.tsx (move focus to first error field)
-- [ ] T034 [US2] Verify all User Story 2 tests pass
+- [x] T028 [P] [US2] Add client-side validation logic to src/app/contact/page.tsx (validate on blur and submit)
+- [x] T029 [P] [US2] Add error state management to src/app/contact/page.tsx (field-level errors)
+- [x] T030 [US2] Display inline error messages in src/app/contact/page.tsx (accessible, ARIA labels)
+- [x] T031 [US2] Implement server-side field validation errors in src/app/api/contact/route.ts (return 400 with field errors)
+- [x] T032 [US2] Handle validation error responses in src/app/contact/page.tsx (display server errors)
+- [x] T033 [US2] Add focus management in src/app/contact/page.tsx (move focus to first error field)
+- [x] T034 [US2] Verify all User Story 2 tests pass
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - form has complete validation with user-friendly error feedback
 
@@ -117,25 +119,25 @@ description: "Task list for contact form implementation"
 
 ### Tests for User Story 3 (REQUIRED - write FIRST, verify fails)
 
-- [ ] T035 [P] [US3] Write rate limiting tests in **tests**/lib/rate-limit.test.ts (track IP, enforce limits, no implementation yet)
-- [ ] T036 [P] [US3] Write spam detection tests in **tests**/lib/spam-detection.test.ts (detect URLs, keywords, no implementation yet)
-- [ ] T037 [P] [US3] Write honeypot tests in **tests**/api/contact.test.ts (reject when honeypot filled)
-- [ ] T038 [P] [US3] Write rate limit API tests in **tests**/api/contact.test.ts (429 response when rate limited)
-- [ ] T039 [P] [US3] Write spam detection API tests in **tests**/api/contact.test.ts (400 response for spam content)
+- [x] T035 [P] [US3] Write rate limiting tests in **tests**/lib/rate-limit.test.ts (track IP, enforce limits, no implementation yet)
+- [x] T036 [P] [US3] Write spam detection tests in **tests**/lib/spam-detection.test.ts (detect URLs, keywords, no implementation yet)
+- [x] T037 [P] [US3] Write honeypot tests in **tests**/api/contact.test.ts (reject when honeypot filled)
+- [x] T038 [P] [US3] Write rate limit API tests in **tests**/api/contact.test.ts (429 response when rate limited)
+- [x] T039 [P] [US3] Write spam detection API tests in **tests**/api/contact.test.ts (400 response for spam content)
 
 ### Implementation for User Story 3
 
-- [ ] T040 [P] [US3] Create src/lib/rate-limit.ts with in-memory rate limiting logic (Map-based storage)
-- [ ] T041 [US3] Implement rate limiting functions in src/lib/rate-limit.ts to pass tests
-- [ ] T042 [P] [US3] Create src/lib/spam-detection.ts with content filtering rules (max URLs, spam keywords)
-- [ ] T043 [US3] Implement spam detection functions in src/lib/spam-detection.ts to pass tests
-- [ ] T044 [US3] Add honeypot field to src/app/contact/page.tsx (hidden via CSS, not display:none)
-- [ ] T045 [US3] Add honeypot check to src/app/api/contact/route.ts (silent rejection, fake success response)
-- [ ] T046 [US3] Add rate limiting to src/app/api/contact/route.ts using src/lib/rate-limit.ts (extract IP from headers)
-- [ ] T047 [US3] Add spam content detection to src/app/api/contact/route.ts using src/lib/spam-detection.ts
-- [ ] T048 [US3] Add rate limit error handling to src/app/contact/page.tsx (display retry message with countdown)
-- [ ] T049 [US3] Add spam detection error handling to src/app/contact/page.tsx (user-friendly message)
-- [ ] T050 [US3] Verify all User Story 3 tests pass
+- [x] T040 [P] [US3] Create src/lib/rate-limit.ts with in-memory rate limiting logic (Map-based storage)
+- [x] T041 [US3] Implement rate limiting functions in src/lib/rate-limit.ts to pass tests
+- [x] T042 [P] [US3] Create src/lib/spam-detection.ts with content filtering rules (max URLs, spam keywords)
+- [x] T043 [US3] Implement spam detection functions in src/lib/spam-detection.ts to pass tests
+- [x] T044 [US3] Add honeypot field to src/app/contact/page.tsx (hidden via CSS, not display:none)
+- [x] T045 [US3] Add honeypot check to src/app/api/contact/route.ts (silent rejection, fake success response)
+- [x] T046 [US3] Add rate limiting to src/app/api/contact/route.ts using src/lib/rate-limit.ts (extract IP from headers)
+- [x] T047 [US3] Add spam content detection to src/app/api/contact/route.ts using src/lib/spam-detection.ts
+- [x] T048 [US3] Add rate limit error handling to src/app/contact/page.tsx (display retry message with countdown)
+- [x] T049 [US3] Add spam detection error handling to src/app/contact/page.tsx (user-friendly message)
+- [x] T050 [US3] Verify all User Story 3 tests pass
 
 **Checkpoint**: All user stories should now be independently functional - complete contact form with validation and spam prevention
 
@@ -145,16 +147,16 @@ description: "Task list for contact form implementation"
 
 **Purpose**: Improvements that affect multiple user stories and final production readiness
 
-- [ ] T051 [P] Write integration test in **tests**/integration/contact-flow.test.ts (end-to-end happy path)
-- [ ] T052 [P] Add form reset after successful submission in src/app/contact/page.tsx
-- [ ] T053 [P] Add loading state to submit button in src/app/contact/page.tsx (disabled during submission)
-- [ ] T054 Verify all edge cases handled in src/app/api/contact/route.ts (email service failure, malformed input)
-- [ ] T055 [P] Add error logging to src/app/api/contact/route.ts (console.error for failures, no PII)
-- [ ] T056 [P] Verify accessibility in src/app/contact/page.tsx (ARIA labels, keyboard navigation, screen reader support)
-- [ ] T057 Run `yarn lint` and fix any linting errors
-- [ ] T058 Run `yarn build` and verify TypeScript compiles with no errors
-- [ ] T059 [P] Update .env.example with all documented environment variables
-- [ ] T060 Manual testing checklist (see quickstart.md Step 4.2)
+- [x] T051 [P] Write integration test in **tests**/integration/contact-flow.test.ts (end-to-end happy path)
+- [x] T052 [P] Add form reset after successful submission in src/app/contact/page.tsx
+- [x] T053 [P] Add loading state to submit button in src/app/contact/page.tsx (disabled during submission)
+- [x] T054 Verify all edge cases handled in src/app/api/contact/route.ts (email service failure, malformed input)
+- [x] T055 [P] Add error logging to src/app/api/contact/route.ts (console.error for failures, no PII)
+- [x] T056 [P] Verify accessibility in src/app/contact/page.tsx (ARIA labels, keyboard navigation, screen reader support)
+- [x] T057 Run `bun lint` and fix any linting errors
+- [x] T058 Run `bun build` and verify TypeScript compiles with no errors
+- [x] T059 [P] Update .env.example with all documented environment variables
+- [x] T060 Manual testing checklist (see quickstart.md Step 4.2)
 
 ---
 

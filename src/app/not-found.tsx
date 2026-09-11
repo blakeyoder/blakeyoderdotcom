@@ -20,7 +20,7 @@ export default function NotFound() {
 
       <main style={{ textAlign: "center" }}>
         <h1 style={{ fontSize: "2rem", marginBottom: "2rem" }}>
-          Nothing here yet.
+          This page doesn&apos;t exist.
         </h1>
 
         <Link href="/" className="btn btn-outline">

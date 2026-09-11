@@ -33,7 +33,7 @@ This document captures research findings and technical decisions for implementin
 
 **Implementation Notes**:
 
-- Install via `yarn add resend`
+- Install via `bun add resend`
 - Store API key in environment variable: `RESEND_API_KEY`
 - Verify domain or use test mode during development
 - Rate limiting handled application-side (not relying on Resend limits)

@@ -18,7 +18,7 @@ function getEnvVar(key: string, defaultValue?: string): string {
     throw new Error(
       `Missing required environment variable: ${key}. ` +
         `Please add it to your .env.local file. ` +
-        `See .env.example for required variables.`,
+        `See env.example for required variables.`,
     );
   }
 

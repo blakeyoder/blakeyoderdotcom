@@ -33,9 +33,10 @@ export default function Home() {
           </p>
 
           <p>
-            I write about the overlap between technical execution and business
-            impact—covering macro trends, team dynamics, and the personal
-            reflections that come from leading through change.
+            These days I help teams rebuild their websites, automate the manual
+            operations quietly eating their week, and adopt AI in ways that
+            actually move the business.{" "}
+            <Link href="/howdy">Here&apos;s what that looks like</Link>.
           </p>
         </section>
 
@@ -45,6 +46,10 @@ export default function Home() {
           <p className="nav-links flex flex-wrap items-center gap-0 m-0 text-base">
             <Link href="/about" className="nav-link">
               About
+            </Link>
+            <span className="nav-divider">|</span>
+            <Link href="/howdy" className="nav-link">
+              Work With Me
             </Link>
             <span className="nav-divider">|</span>
             <Link href="/bookmarks" className="nav-link">

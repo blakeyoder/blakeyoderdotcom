@@ -3,16 +3,17 @@ import { PageShell } from "@/components/PageShell";
 import { StyledList, StyledListItem } from "@/components/StyledList";
 
 export const metadata: Metadata = {
-  title: "Now | Blake Yoder",
+  title: "Now",
   description: "What I'm focused on right now.",
+  alternates: { canonical: "/now" },
   openGraph: {
-    title: "Now | Blake Yoder",
+    title: "Now",
     description: "What I'm focused on right now.",
-    url: "https://blakeyoder.com/now",
+    url: "https://www.blakeyoder.com/now",
     siteName: "Blake Yoder",
     images: [
       {
-        url: "/og?title=Now&subtitle=What%20I%27m%20focused%20on%20right%20now",
+        url: "https://www.blakeyoder.com/og?title=Now&subtitle=What%20I%27m%20focused%20on%20right%20now",
         width: 1200,
         height: 630,
         alt: "Now - Blake Yoder",
@@ -23,10 +24,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Now | Blake Yoder",
+    title: "Now",
     description: "What I'm focused on right now.",
     images: [
-      "/og?title=Now&subtitle=What%20I%27m%20focused%20on%20right%20now",
+      "https://www.blakeyoder.com/og?title=Now&subtitle=What%20I%27m%20focused%20on%20right%20now",
     ],
   },
 };

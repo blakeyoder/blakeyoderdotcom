@@ -126,7 +126,7 @@
   a {
     color: var(--text-primary);
     text-decoration: underline;
-    text-decoration-color: var(--border-color);
+    text-decoration-color: var(--text-tertiary);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.15em;
     background-image: linear-gradient(var(--accent), var(--accent));

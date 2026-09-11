@@ -94,7 +94,7 @@ Design serves content, not vice versa. Minimal, distinctive aesthetics.
 
 ### Visual Design
 
-- **Typography**: Serif font (Crimson Text) with 1.618 line height for readability
+- **Typography**: EB Garamond and Source Serif 4 with 1.7 line height for readability
 - **Layout**: Max-width 65ch, centered, adequate whitespace
 - **Color Scheme**: CSS custom properties with automatic dark mode via `prefers-color-scheme`
 - **Responsive**: Mobile-first breakpoint at 768px
@@ -106,7 +106,6 @@ Design serves content, not vice versa. Minimal, distinctive aesthetics.
 - Topics: technology, leadership, healthcare technology
 - Professional tone with authentic personal insights
 - No hyperbole or marketing language
-- Writing section for long-form thought pieces
 
 ### Technical Standards
 
@@ -114,7 +113,7 @@ Design serves content, not vice versa. Minimal, distinctive aesthetics.
 - **Styling**: Tailwind CSS 4 with inline styles for specific cases
 - **Type Safety**: TypeScript strict mode enabled
 - **Code Quality**: ESLint with Next.js config, no warnings tolerated
-- **Package Manager**: Yarn (v1.18.0)—prefer yarn over npm
+- **Package Manager**: Bun—prefer bun over npm or bun
 
 ## Development Workflow
 
@@ -147,7 +146,7 @@ After 3 failed attempts:
 
 **Before committing**:
 
-- Run `yarn lint`
+- Run `bun lint`
 - Self-review changes
 - Ensure commit message explains context and rationale
 

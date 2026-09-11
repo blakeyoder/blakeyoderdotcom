@@ -1,38 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# blakeyoder.com
 
-## Getting Started
+Blake Yoder's personal site. Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4, deployed on Vercel.
 
-First, run the development server:
+## Getting started
+
+This project uses [Bun](https://bun.sh).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server runs at http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `env.example` to `.env.local` and fill it in. Only the contact form needs
+these; the rest of the site builds and runs without them.
 
-## Learn More
+| Variable                  | Required          | Purpose                                          |
+| ------------------------- | ----------------- | ------------------------------------------------ |
+| `RESEND_API_KEY`          | yes, to send mail | Resend API key                                   |
+| `CONTACT_EMAIL_TO`        | yes, to send mail | Where contact submissions are delivered          |
+| `CONTACT_EMAIL_FROM`      | no                | Sender address, defaults to `noreply@resend.dev` |
+| `RATE_LIMIT_WINDOW_MS`    | no                | Submission window, defaults to 5 minutes         |
+| `RATE_LIMIT_MAX_REQUESTS` | no                | Submissions per window, defaults to 1            |
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command             | What it does                        |
+| ------------------- | ----------------------------------- |
+| `bun run dev`       | Dev server with Turbopack           |
+| `bun run build`     | Production build                    |
+| `bun run start`     | Serve the production build          |
+| `bun test`          | Run the test suite                  |
+| `bun run typecheck` | `tsc --noEmit` across src and tests |
+| `bun run lint`      | ESLint                              |
+| `bun run format`    | Prettier, writing in place          |
+| `bun run knip`      | Dead code and dependency detection  |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+CI runs typecheck, lint, format check, tests, knip, and a build on every push
+and pull request.
 
-## Deploy on Vercel
+## Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/              # Routes (App Router)
+│   ├── api/          # Contact submission and LinkedIn preview endpoints
+│   ├── og/           # Dynamic Open Graph image generation
+│   ├── sitemap.ts    # Generated sitemap
+│   └── robots.ts     # Generated robots.txt
+├── components/       # Shared UI
+└── lib/              # Config, validation, email, rate limiting, motions
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
 
-# blakeyoderdotcom
+- Fonts are EB Garamond (display), Source Serif 4 (body), and IBM Plex Mono,
+  loaded through `next/font`.
+- `src/app/globals.css` puts its element styles in `@layer base` on purpose.
+  Unlayered rules would outrank every Tailwind utility and component class.
+- Retired `/writing` URLs are redirected in `next.config.ts`.
