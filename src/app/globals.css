@@ -5,7 +5,7 @@
   --paper: #fefdfb;
   --ink: #1a1a1a;
   --iron: #4a4a4a;
-  --silver: #8a8a8a;
+  --silver: #6e6e6e;
   --rule: #d4d4d4;
   --rule-light: #ebebeb;
   --accent: #c41e3a;
@@ -50,7 +50,7 @@
     --paper: #121212;
     --ink: #f5f5f0;
     --iron: #b8b8b8;
-    --silver: #707070;
+    --silver: #8f8f8f;
     --rule: #2a2a2a;
     --rule-light: #1e1e1e;
     --accent: #e85a6e;
@@ -58,83 +58,92 @@
   }
 }
 
-/* Base styles */
-* {
-  box-sizing: border-box;
-}
+@layer base {
+  /* Base styles */
+  * {
+    box-sizing: border-box;
+  }
 
-html,
-body {
-  overflow-x: hidden;
-}
+  html,
+  body {
+    overflow-x: hidden;
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body), Georgia, serif;
-  font-size: 1.125rem;
-  line-height: 1.7;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body), Georgia, serif;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  line-height: 1.2;
-  margin: 0 0 1rem 0;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
-}
+  /* Typography */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 1rem 0;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
 
-h1 {
-  font-size: 2.75rem;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-}
+  h1 {
+    font-size: 2.75rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
 
-h2 {
-  font-size: 1.75rem;
-  font-weight: 500;
-}
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+  }
 
-h3 {
-  font-size: 1.375rem;
-  font-weight: 500;
-}
+  h3 {
+    font-size: 1.375rem;
+    font-weight: 500;
+  }
 
-h4 {
-  font-size: 1.125rem;
-  font-weight: 600;
-}
+  h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
 
-p {
-  margin: 0 0 1.5rem 0;
-  color: var(--text-primary);
-}
+  p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-primary);
+  }
 
-/* Links - underline draws in from left */
-a {
-  color: var(--text-primary);
-  text-decoration: none;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 0% 1px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition:
-    background-size 0.3s ease,
-    color 0.2s ease;
-}
+  /* Links - underline draws in from left */
+  /* Links carry a resting underline so they are identifiable without hover
+     (WCAG 1.4.1); the accent underline still draws in over the top. */
+  a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--border-color);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition:
+      background-size 0.3s ease,
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+  }
 
-a:hover {
-  background-size: 100% 1px;
-  color: var(--accent);
+  a:hover {
+    background-size: 100% 1px;
+    color: var(--accent);
+    text-decoration-color: transparent;
+  }
 }
 
 @layer components {
@@ -181,12 +190,6 @@ a:hover {
     margin: 2rem 0;
   }
 
-  /* Editorial sections */
-  .section {
-    padding: 2.5rem 0;
-    border-top: 1px solid var(--border-color);
-  }
-
   .section:first-of-type {
     border-top: none;
     padding-top: 0;
@@ -195,12 +198,14 @@ a:hover {
   /* Navigation styles */
   .nav-link {
     color: var(--text-secondary);
+    text-decoration: none;
     background-image: none;
     transition: color 0.2s ease;
   }
 
   .nav-link:hover {
     color: var(--text-primary);
+    text-decoration: none;
     background-image: none;
   }
 
@@ -224,6 +229,7 @@ a:hover {
   /* Button styles */
   .btn {
     display: inline-block;
+    text-decoration: none;
     padding: 0.75rem 1.5rem;
     font-family: var(--font-mono), monospace;
     font-size: 0.875rem;
@@ -308,16 +314,6 @@ a:hover {
     text-transform: uppercase;
     color: var(--text-tertiary);
     margin-bottom: 0.5rem;
-  }
-
-  /* Pull quote */
-  .pull-quote {
-    border-left: 3px solid var(--accent);
-    padding-left: 1.5rem;
-    margin: 2rem 0;
-    font-size: 1.25rem;
-    font-style: italic;
-    color: var(--text-secondary);
   }
 
   /* Category pills/tags */
